@@ -1,0 +1,428 @@
+<script src="jquery.min.js"></script>
+<script src="flexible.js"></script>
+<script src="swiperImage.min.js"></script>
+<script src="vconsole.min.js"></script>
+<script src="sdkjs.js"></script>
+<style>
+    /*span {*/
+    /*    display: inline-block;*/
+    /*    line-height: 26px;*/
+    /*    padding: 5px 0;*/
+    /*    margin-right: 10px;*/
+    /*    word-wrap: break-word;*/
+    /*    word-break: break-all;*/
+    /*    overflow: hidden;*/
+    /*}*/
+</style>
+<meta http-equiv="content-Type" content="text/html; charset=UTF-8" />
+
+<div class="equity-content task-bg">
+    <div class="header-box">
+        <div class="header-title black">测试</div>
+    </div>
+    <div class="mycenter-con">
+        <div class="mycenter-content-box">
+            <div class="mycenter-txt">
+                <ul>
+                    <li id="systeminfo">
+                        <span class="left">获取系统版本</span>
+                        <span id="nickNameId" class="right"></span>
+                    </li>
+                    <li id="showSysteminfo" style="display: none">
+                        <span class="left">获取系统版本</span>
+                    </li>
+<!--                    <li id="location">-->
+<!--                        <span class="left">获取定位</span>-->
+<!--                        <span id="headimg" class="right "></span>-->
+<!--                    </li>-->
+                    
+                    <li id="showLocation" class="left" style="display: none">
+                        <span class="left"></span>
+                    </li>
+                    <br>
+                    <br>
+<!--                    <li id="scanqrcode">-->
+<!--                        <span class="left">扫一扫二维码</span>-->
+<!--                        <span id="starLevelId" class="right "></span>-->
+<!--                    </li>-->
+<!--                    <li id="takephoto">-->
+<!--                        <span class="left">拍照</span>-->
+<!--                        <span id="acct_qry" class="right yellow"></span>-->
+<!--                    </li>-->
+<!--                    <li id="soundrecord">-->
+<!--                        <span class="left">录音开始</span>-->
+<!--                        <span class="right"></span>-->
+<!--                    </li>-->
+<li>
+    <button id="location" type="button">获取定位</button>
+</li>
+<br>
+<br>
+<li>
+    <button id="scanqrcode" type="button">扫一扫二维码</button>
+</li>
+<br>
+<br>
+<li>
+    <button id="takephoto" type="button">拍照</button>
+</li>
+<br>
+<br>
+                    <li>
+                        <button id="soundrecord" type="button">录音开始</button>
+                    </li>
+                    <br>
+                    <br>
+                                        <li>
+                                            <button id="soundstop" type="button">录音结束</button>
+                                        </li>
+                    <!--                    <li id="soundstop">-->
+                    <!--                        <span class="left">录音停止</span>-->
+                    <!--                        <span class="right"></span>-->
+                    <!--                        <A href=""></A>-->
+                    <!--                    </li>-->
+                </ul>
+            </div>
+            <div>
+               <p id="callBackLog">这是app回调信息</p>
+            </div>
+            <span id="layui-layer-content"></span>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+<script>  var vConsole = new VConsole(); </script>
+<script src="${contextPath}/js/login/vconsole.min.js?d=${.now?string('yyyyMMddhhmmssSSS')}"></script>
+
+<script type="text/javascript">
+    document.getElementById("systeminfo").onclick = function () {
+        invokePlugin('systeminfo', '', '', '').then(datas => {
+            var code = datas.code;
+            console.log("code=" + code);
+            if (code == '0000') {
+                var data = datas.data;
+                console.log("systeminfo=" + JSON.stringify(data));
+                systeminfo(data);
+
+            }
+        }, (err) => {
+        });
+    }
+
+    function systeminfo(data) {
+        $.ajax({
+            type: 'post',
+            url: contextPath + "/service/systeminfo?t=" + commonTools.getTimestamp(),
+            cache: false,
+            async: true,
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function (response) {
+                var resultCode = response.code;
+                var resultData = response.data;
+                if (response.successed) {
+                    if (resultCode == "0") {
+                        layer.alert(JSON.stringify(resultData));
+                    } else {
+                    }
+                } else {
+
+                }
+
+            }, error: function () {
+            },
+            complete: function (data) {
+                layer.close(loginIndex);
+            }
+        });
+    }
+
+    document.getElementById("location").onclick = function () {
+        invokePlugin('location', '', '', '').then(datas => {
+            var code = datas.code;
+            console.log("code=" + code);
+            if (code == '0000') {
+                var data = datas.data;
+                console.log("location=" + JSON.stringify(data));
+            document.getElementById("callBackLog").value=JSON.stringify(data);
+                //         var data = {
+                //             locType:"13938",
+                //             longitude:"13938",
+                //             latitude:"13938"
+                //         };
+                getLocation(data);
+            }
+
+        }, (err) => {
+        });
+    }
+
+    function getLocation(data) {
+        $.ajax({
+            type: 'post',
+            url: contextPath + "/service/getLocation?t=" + commonTools.getTimestamp(),
+            cache: false,
+            async: true,
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function (response) {
+                var resultCode = response.code;
+                var resultData = response.data;
+                if (response.successed) {
+                    if (resultCode == "0") {
+                        layer.alert(JSON.stringify(resultData));
+                        // $("#showLocation span").text(JSON.stringify(resultData));
+                        // $("#showLocation").show();
+                    } else {
+                        layer.alert("获取坐标失败");
+                    }
+                } else {
+                    layer.alert("获取坐标失败");
+                }
+            }, error: function () {
+                layer.alert("获取坐标失败");
+            },
+            complete: function (data) {
+
+            }
+        });
+    }
+
+    document.getElementById("scanqrcode").onclick = function () {
+        invokePlugin('scanqrcode', {"is_auto_jump": "0"}, '', '').then(datas => {
+            var code = datas.code;
+            if (code == '0000') {
+                var data = datas.data;
+                console.log("scanqrcode=" + JSON.stringify(data));
+                //         var data={scan_result:"测试"};
+                scanqrcode(data);
+            }
+        }, (err) => {
+        });
+    }
+
+    function scanqrcode(data) {
+        $.ajax({
+            type: 'post',
+            url: contextPath + "/service/scanqrcode?t=" + commonTools.getTimestamp(),
+            cache: false,
+            async: true,
+            contentType: "application/json",
+            data: JSON.stringify(data),
+            dataType: 'json',
+            success: function (response) {
+                var resultCode = response.code;
+                var resultData = response.data;
+                if (response.successed) {
+                    if (resultCode == "0") {
+
+                        layer.alert("二维码内容:" + JSON.stringify(resultData));
+                    } else {
+                        layer.alert("二维码解码失败");
+                    }
+                } else {
+                    layer.alert("二维码解码失败");
+                }
+
+            }, error: function () {
+                layer.alert("二维码解码失败");
+            },
+            complete: function (data) {
+
+            }
+        });
+    }
+
+    document.getElementById("takephoto").onclick = function () {
+        invokePlugin('takephoto', '', '', '').then(datas => {
+            var code = datas.code;
+            if (code == '0000') {
+                var data = datas.data;
+                console.log("takephoto=" + JSON.stringify(data));
+                // $("#takephotoImg1").attr('src', "data:image/jpg;base64," + data);
+
+                takephoto(data);
+            }
+        }, (err) => {
+        });
+    }
+
+    function takephoto(data) {
+        var param = {
+            fileBase64: data
+        }
+        $.ajax({
+            type: 'post',
+            url: contextPath + "/service/takephoto?t=" + commonTools.getTimestamp(),
+            cache: false,
+            async: true,
+            contentType: "application/json",
+            data: JSON.stringify(param),
+            dataType: 'json',
+            success: function (response) {
+                var resultCode = response.code;
+                var resultData = response.data;
+                console.log("response.successed=" + response.successed);
+                if (response.successed) {
+                    if (resultCode == "0") {
+                        layer.alert("图片内容:" + JSON.stringify(resultData));
+                    } else {
+                        layer.alert("保存失败");
+                    }
+                } else {
+                    layer.alert("保存失败");
+                }
+            }, error: function () {
+                layer.alert("保存失败");
+            },
+            complete: function (data) {
+            }
+        });
+    }
+
+    //layer.msg弹窗倒计时
+    //second : 倒计时时间，单位，秒
+    //content: 弹窗内容，类型；String
+    var timer = null;
+    function countDown(second, content) {
+        layer.msg(content, {
+            btn: ['确认'],
+            time: 10000,
+            shade: 0.6,
+            success: function (layero, index) {
+                var msg = layero.text();
+                var i = second;
+                timer = null;
+                var fn = function () {
+                    layero.find(".layui-layer-content").text(msg + ' ' + i + ' ');
+                    if (i === 0) {
+                        layer.close(index);
+                        invokePlugin('soundstop', '', '', '').then(datas => {
+                            var code = datas.code;
+                            if (code == '0000') {
+                                var data = datas.data;
+                                console.log("soundstop=" + JSON.stringify(data));
+                                soundstop(data);
+                            }
+                        }, (err) => {
+                        });
+                        clearInterval(timer);
+                    }
+                    i--;
+                };
+                timer = setInterval(fn, 1000);
+                fn();
+            },
+            btn1: function (index, layero) {
+                //按钮【按钮二】的回调
+
+                layer.close(index);
+                clearInterval(timer);
+
+                invokePlugin('soundstop', '', '', '').then(datas => {
+                    var code = datas.code;
+                    if (code == '0000') {
+                        var data = datas.data;
+                        console.log("soundstop=" + JSON.stringify(data));
+                        soundstop(data);
+                    }
+                }, (err) => {
+                });
+            }
+
+        }, function () {
+            $("#btnSave").removeAttr("disabled");
+        });
+    }
+
+    document.getElementById("soundrecord").onclick = function () {
+        invokePlugin('soundrecord', {"timeOut": 60}, '', '').then(datas => {
+            var code = datas.code;
+            if (code == '0000') {
+                var data = datas.data;
+                countDown(10, "录音倒计时");
+            }
+        }, (err) => {
+        });
+    }
+
+document.getElementById("soundstop").onclick = function () {
+    invokePlugin('soundstop', '', '', '').then(datas => {
+        var code = datas.code;
+        if (code == '0000') {
+            var data = datas.data;
+            
+        }
+    }, (err) => {
+    });
+}
+
+    // document.getElementById("soundstop").onclick = function () {
+    //
+    //     layer.open({
+    //         content: $("#type-content")
+    //         , btn: ['确定', '取消']
+    //         , yes: function (index, layero) {
+    //             //按钮【按钮一】的回调
+    //             alert(1);
+    //         }
+    //         , btn2: function (index, layero) {
+    //             //按钮【按钮二】的回调
+    //             alert(2);
+    //             //return false 开启该代码可禁止点击该按钮关闭
+    //         }
+    //         , cancel: function () {
+    //             //右上角关闭回调
+    //
+    //             //return false 开启该代码可禁止点击该按钮关闭
+    //         }
+    //     });
+    // invokePlugin('soundstop', '', '', '').then(datas => {
+    //     var code = datas.code;
+    //     if(code == '0000') {
+    //         var data = datas.data;
+    //         console.log("soundstop=" + JSON.stringify(data));
+    //         soundstop(data);
+    //     }
+    // }, (err) => {
+    // });
+    // }
+
+
+    function soundstop(data) {
+        var param = {
+            sound: data
+        }
+        $.ajax({
+            type: 'post',
+            url: contextPath + "/service/soundstop?t=" + commonTools.getTimestamp(),
+            cache: false,
+            async: true,
+            contentType: "application/json",
+            data: JSON.stringify(param),
+            dataType: 'json',
+            success: function (response) {
+                var resultCode = response.code;
+                var resultData = response.data;
+                if (response.successed) {
+                    console.log("soundstopbakc=" + JSON.stringify(resultData.result));
+                    var map = resultData.map
+                    layer.alert(map.text);
+                } else {
+                }
+            }, error: function () {
+
+            },
+            complete: function (data) {
+            }
+        });
+    }
+
+
+</script>
