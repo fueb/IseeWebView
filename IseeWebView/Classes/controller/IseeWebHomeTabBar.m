@@ -13,14 +13,31 @@
 
 #import "IseeWebHomeTabBar.h"
 #import "IseeWebViewController.h"
-#import "UIColor+ColorChange.h"
+#import "IseeConfig.h"
 #import "IseeHomeViewController.h"
 
+
 @interface IseeWebHomeTabBar ()<UINavigationControllerDelegate>
+{
+    
+}
 
 @end
 
 @implementation IseeWebHomeTabBar
+
+- (instancetype)initWithLoginName:(NSString *)loginName withCompanyId:(NSString *)comanyId
+{
+    self.mCompanyId = comanyId;
+    self.mLoginName = loginName;
+    self = [super init];
+    if (self != nil)
+    {
+        self.mCompanyId = comanyId;
+        self.mLoginName = loginName;
+    }
+    return self;
+}
 
 - (void)viewDidLoad{
     [super viewDidLoad];
@@ -56,14 +73,20 @@
         UIViewController *vc        = [[NSClassFromString(dict[classKey]) alloc]init];
         if ([vc isKindOfClass:[IseeWebViewController class]]) {
             IseeWebViewController *iseeVc = (IseeWebViewController *)vc;
-            iseeVc.titleHave = YES;
+            iseeVc.titleHave = NO;
             iseeVc.titleName = @"test";
             iseeVc.titleBgColor = @"#AAAAAA";  //白色
-            iseeVc.statusBarColor = @"FFFFFF";//@"#50D4F9";  //自定义颜色
+            iseeVc.statusBarColor = @"#FFFFFF";//@"#50D4F9";  //自定义颜色
             NSString *filePath = [[NSBundle mainBundle]pathForResource:@"test" ofType:@"html" inDirectory:@"www"];
                   
             NSURL *url = [NSURL fileURLWithPath:filePath];
             iseeVc.mWebViewUrl = url;
+        }
+        else if([vc isKindOfClass:[IseeHomeViewController class]])
+        {
+            IseeHomeViewController *iseeHome = (IseeHomeViewController *)vc;
+            iseeHome.mCompanyId = self.mCompanyId;
+            iseeHome.mLoginName = self.mLoginName;
         }
         
         
@@ -76,9 +99,9 @@
         nav.navigationBarHidden = YES;
         [nav.navigationBar setTitleTextAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:20],NSForegroundColorAttributeName:[UIColor whiteColor]}];
         /*常态*/
-        [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithHexString:@"#707175"], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0f],NSFontAttributeName,nil] forState:UIControlStateNormal];
+        [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[IseeConfig stringTOColor:@"#707175"], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0f],NSFontAttributeName,nil] forState:UIControlStateNormal];
         /*点击后状态*/
-        [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor colorWithHexString:@"#2e63bc"], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0f],NSFontAttributeName,nil] forState:UIControlStateSelected];
+        [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[IseeConfig stringTOColor:@"#2e63bc"], NSForegroundColorAttributeName, [UIFont fontWithName:@"HelveticaNeue-Bold" size:12.0f],NSFontAttributeName,nil] forState:UIControlStateSelected];
         
         
         UITabBarItem *item   = vc.tabBarItem;
@@ -91,7 +114,6 @@
         
         [self addChildViewController:nav];
     }
-    
 }
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -121,6 +143,8 @@
         
     }
 }
+
+
 
 /*
 #pragma mark - Navigation

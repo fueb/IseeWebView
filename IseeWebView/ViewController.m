@@ -5,19 +5,18 @@
 #import <AddressBook/AddressBook.h>
 #import <Speech/Speech.h>
 #import <AVFoundation/AVFoundation.h>
-#import "ScanView.h"
-#import "Config.h"
+#import "IseeScanView.h"
+#import "IseeConfig.h"
 
-#import "CLLocation+Sino.h"
+#import "CLLocation+IseeSino.h"
 #import "SiriViewController.h"
-#import "BSJSON.h"
-#import "GetDeviceInfo.h"
+#import "IseeBSJSON.h"
 #import "IseeWebViewController.h"
 #import "IseeWebHomeTabBar.h"
 
 @interface ViewController () <WKNavigationDelegate, WKUIDelegate,UIImagePickerControllerDelegate,ScanViewDelegate,CLLocationManagerDelegate,SFSpeechRecognizerDelegate>
 {
-    ScanView    *scanView;                //二维码扫描对象
+    IseeScanView    *scanView;                //二维码扫描对象
     NSString    *method;
     __block NSString    *soundStr;
 }
@@ -83,8 +82,9 @@
     [self gotoHome];
 }
 -(void)gotoHome{
-    IseeWebHomeTabBar *homeTabBar = [[IseeWebHomeTabBar alloc]init];
-    
+    IseeWebHomeTabBar *homeTabBar = [[IseeWebHomeTabBar alloc]initWithLoginName:@"13305834567" withCompanyId:@"221166"];
+//    homeTabBar.mLoginName = @"13305834567";
+//    homeTabBar.mCompanyId = @"221166";
     
 //    UINavigationController *navigate=[[UINavigationController alloc] initWithRootViewController:homeTabBar];
     homeTabBar.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -205,11 +205,11 @@
          
         
          
-         BSJSON *jsonCode = [[BSJSON alloc] init];
+         IseeBSJSON *jsonCode = [[IseeBSJSON alloc] init];
          [jsonCode setObject:@"0000" forKey:@"code"];
          [jsonCode setObject:@"ok" forKey:@"msg"];
          [jsonCode setObject:_seq forKey:@"seq"];
-         BSJSON * nextJson = [[BSJSON alloc] init];
+         IseeBSJSON * nextJson = [[IseeBSJSON alloc] init];
          //经度
          [nextJson setObject:soundStr forKey:@"soundStr"];
          
@@ -344,11 +344,11 @@
     lon = [NSString stringWithFormat:@"%f",location.coordinate.longitude];
     
 //    [self backGeoCooder:lat wtihLon:lon];
-    BSJSON *jsonCode = [[BSJSON alloc] init];
+    IseeBSJSON *jsonCode = [[IseeBSJSON alloc] init];
     [jsonCode setObject:@"0000" forKey:@"code"];
     [jsonCode setObject:@"ok" forKey:@"msg"];
     [jsonCode setObject:_seq forKey:@"seq"];
-    BSJSON * nextJson = [[BSJSON alloc] init];
+    IseeBSJSON * nextJson = [[IseeBSJSON alloc] init];
     //经度
     [nextJson setObject:lon forKey:@"longitude"];
     //纬度
@@ -413,7 +413,7 @@
         scanView = nil;
     }
     
-    scanView = [[ScanView alloc]initWithFrame:CGRectMake(0, 0, UIScreenWidth,
+    scanView = [[IseeScanView alloc]initWithFrame:CGRectMake(0, 0, UIScreenWidth,
                                                          self.view.bounds.size.height)];
     scanView.is_AnmotionFinished = YES;
     scanView.backgroundColor = [UIColor clearColor];
@@ -455,11 +455,11 @@
  
     NSLog(@"%@", result);
     
-    BSJSON *jsonCode = [[BSJSON alloc] init];
+    IseeBSJSON *jsonCode = [[IseeBSJSON alloc] init];
     [jsonCode setObject:@"0000" forKey:@"code"];
     [jsonCode setObject:@"ok" forKey:@"msg"];
     [jsonCode setObject:_seq forKey:@"seq"];
-    BSJSON * nextJson = [[BSJSON alloc] init];
+    IseeBSJSON * nextJson = [[IseeBSJSON alloc] init];
     
     [nextJson setObject:result forKey:@"scan_result"];
 
@@ -483,7 +483,7 @@
     NSString * urlStr = [[URL absoluteString] stringByRemovingPercentEncoding];
     
     
-    BSJSON *jsonObj = [self genJSONResponseHeader:urlStr];
+    IseeBSJSON *jsonObj = [self genJSONResponseHeader:urlStr];
     
     if (jsonObj != NULL)
     {
@@ -504,11 +504,11 @@
         }
         else if ([method isEqualToString:@"systeminfo"])
         {
-            BSJSON *jsonCode = [[BSJSON alloc] init];
+            IseeBSJSON *jsonCode = [[IseeBSJSON alloc] init];
             [jsonCode setObject:@"0000" forKey:@"code"];
             [jsonCode setObject:@"ok" forKey:@"msg"];
             [jsonCode setObject:_seq forKey:@"seq"];
-            BSJSON * nextJson = [[BSJSON alloc] init];
+            IseeBSJSON * nextJson = [[IseeBSJSON alloc] init];
             //设备id
             [nextJson setObject:@"" forKey:@"deviceid"];
             //wifi mac
@@ -536,7 +536,7 @@
         }
         else if([method isEqualToString:@"soundrecord"])
         {
-            BSJSON  *jsTmp = [jsonObj objectForKey:@"data"];
+            IseeBSJSON  *jsTmp = [jsonObj objectForKey:@"data"];
             NSString *str = [jsTmp objectForKey:@"timeOut"];
             int time = [str intValue];
             [self gotoRecor:time==0?10:time];
@@ -644,11 +644,11 @@
 //    NSString *_encodedImageStr = [_data base64Encoding];
     NSString *image64 = [_data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
     
-    BSJSON *jsonCode = [[BSJSON alloc] init];
+    IseeBSJSON *jsonCode = [[IseeBSJSON alloc] init];
     [jsonCode setObject:@"0000" forKey:@"code"];
     [jsonCode setObject:@"ok" forKey:@"msg"];
     [jsonCode setObject:_seq forKey:@"seq"];
-    BSJSON * nextJson = [[BSJSON alloc] init];
+    IseeBSJSON * nextJson = [[IseeBSJSON alloc] init];
     //base64
     [nextJson setObject:image64 forKey:@"img_data"];
     
@@ -659,18 +659,18 @@
 
 }
 
--(BSJSON *)genJSONResponseHeader:(NSString *)data
+-(IseeBSJSON *)genJSONResponseHeader:(NSString *)data
 {
 //    urlStr    __NSCFString *    @"plugin://{\"method\" : \"takephoto\",\"data\" : \"\",\"callback\" : \"nativeWindow\",\"seq\" : \"0\"}"    0x00006000034710a0
     
     if (data.length <= 0) {
         return nil;
     }
-    BSJSON *resultJson = [[BSJSON alloc] init];
+    IseeBSJSON *resultJson = [[IseeBSJSON alloc] init];
     if([data rangeOfString:@"plugin://"].location !=NSNotFound){
 
         data = [data stringByReplacingOccurrencesOfString:@"plugin://" withString:@""];
-        resultJson = [[BSJSON alloc] initWithData:[data dataUsingEncoding:NSUTF8StringEncoding] encoding:NSUTF8StringEncoding];
+        resultJson = [[IseeBSJSON alloc] initWithData:[data dataUsingEncoding:NSUTF8StringEncoding] encoding:NSUTF8StringEncoding];
    }
     else{
         return nil;

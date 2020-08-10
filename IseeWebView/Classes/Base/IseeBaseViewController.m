@@ -49,11 +49,11 @@
     hud = [[MBProgressHUD alloc] initWithView:pView];
     [pView addSubview:hud];
     if (text == nil) {
-        hud.labelText = @"请求中,请等待.";
+        hud.label.text = @"请求中,请等待.";
     }else{
-        hud.labelText = text;
+        hud.label.text = text;
     }
-    [hud show:YES];
+    [hud showAnimated:YES];
 }
 
 -(void)closeProgress
@@ -68,10 +68,10 @@
 {
     hud = [MBProgressHUD showHUDAddedTo:pView animated:YES];
     hud.mode = UIPushBehaviorModeContinuous;
-    hud.labelText = text;
+    hud.label.text = text;
     hud.margin = 10.f;
     hud.removeFromSuperViewOnHide = YES;
-    [hud hide:YES afterDelay:1];
+    [hud hideAnimated:YES afterDelay:1];
 }
 
 - (NSString*)dictionaryToJson:(NSDictionary *)dic
@@ -94,7 +94,7 @@
 }
 
 
-- (NaviBarView *)topNavBar {
+- (IseeNaviBarView *)topNavBar {
     return _topNavBar;
 }
 
@@ -110,7 +110,7 @@
         [_topNavBar removeFromSuperview];
     }
     // 添加自定义的导航条
-    NaviBarView *naviBar = [[NaviBarView alloc] initWithController:self];
+    IseeNaviBarView *naviBar = [[IseeNaviBarView alloc] initWithController:self];
     [self.view addSubview:naviBar];
     self.topNavBar = naviBar;
     [_topNavBar addBackBtn];

@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IseeHomeViewController : UIViewController
-
+@property (nonatomic,strong)NSString *mLoginName;
+@property (nonatomic,strong)NSString *mCompanyId;
 @end
 
 NS_ASSUME_NONNULL_END

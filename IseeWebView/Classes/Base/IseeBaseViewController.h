@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIView+Extension.h"
-#import "NaviBarView.h"
+#import "UIView+IseeExtension.h"
+#import "IseeNaviBarView.h"
 
 
 @interface IseeBaseViewController : UIViewController
@@ -16,7 +16,7 @@
 #pragma mark - 导航条相关
 @property(nonatomic, copy)NSString *naviTitle;  // 标题
 /** 导航条 */
-@property(nonatomic, strong)NaviBarView *topNavBar;
+@property(nonatomic, strong)IseeNaviBarView *topNavBar;
 /** 内容视图 */
 @property (strong, nonatomic) UIView *containerView;
 
