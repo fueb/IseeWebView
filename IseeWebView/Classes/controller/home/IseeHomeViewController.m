@@ -65,11 +65,40 @@
         [wkSelf presentViewController:frameVC animated:YES completion:nil];
     }];
     [self.view addSubview:home];
-    
-    [self getMenu];
+    [home setModel:modelAry];
+    [self getData];
     // Do any additional setup after loading the view.
 }
 #pragma -mark network
+- (void)getData{
+    [self getMenu];//菜单
+//    [self getTask];//走访任务
+//    [self getQuerySendOrder:@"1"];//宽带
+//    [self getQuerySendOrder:@"4"];//欠费催缴
+//    [self getQuerySendOrder:@"5"];//电路到期
+//    [self getImporant];//重点关注
+//    [self getManagerCustomLost];//波动
+//    [self getMyBule];//我的蓝海
+    [home setTaskNum:@"28"];
+    [home setQuerySendOrder:@"33" withType:@"1"];
+    [home setQuerySendOrder:@"45" withType:@"4"];
+    [home setQuerySendOrder:@"127" withType:@"5"];
+    
+    NSMutableDictionary *keyPointDict = [NSMutableDictionary dictionary];
+    [keyPointDict setObject:@"35291" forKey:@"boardBandNum"];
+    [keyPointDict setObject:@"23" forKey:@"boardBandChange"];
+    [keyPointDict setObject:@"88546" forKey:@"moveNum"];
+    [keyPointDict setObject:@"-23" forKey:@"moveChange"];
+    [keyPointDict setObject:@"15345" forKey:@"iptvNum"];
+    [keyPointDict setObject:@"23" forKey:@"iptvChange"];
+    [keyPointDict setObject:@"21291" forKey:@"shareNum"];
+    [keyPointDict setObject:@"-23" forKey:@"shareChange"];
+    [home setKeyPointDict:keyPointDict];
+    
+    [home setFluWith:@"6" withVolume:@"6" withAssets:@"6"];
+    
+    [home setMyBuleWith:@"7856" withVisitedNum:@"2865" withYearNum:@"3354" withMonthNum:@"765"];
+}
 
 //验证码点击切换
 - (void)getMenu
@@ -93,7 +122,7 @@
             NSLog(@"%@",result[@"errmsg"], nil);
         }
     } failure:^{
-        [home setModel:modelAry];
+//        [home setModel:modelAry];
     }];
     
     

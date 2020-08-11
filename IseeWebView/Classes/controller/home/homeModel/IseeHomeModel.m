@@ -33,7 +33,7 @@
 {
     
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",DOMAINNAME,HOMEMENU];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",DOMAINNAME,MYTASK];
     [IseeAFNetRequest requestWithURLString:urlString parameters:param type:RequestTypePost success:success failure:^(id error) {
         //请求失败
         
@@ -49,7 +49,7 @@
 {
     
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",DOMAINNAME,HOMEMENU];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",DOMAINNAME,QUERYSENDORDER];
     [IseeAFNetRequest requestWithURLString:urlString parameters:param type:RequestTypePost success:success failure:^(id error) {
         //请求失败
         
@@ -65,7 +65,7 @@
 {
     
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",DOMAINNAME,HOMEMENU];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",DOMAINNAME,KEYPOINT];
     [IseeAFNetRequest requestWithURLString:urlString parameters:param type:RequestTypePost success:success failure:^(id error) {
         //请求失败
         
@@ -80,7 +80,7 @@
 {
     
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",DOMAINNAME,HOMEMENU];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",DOMAINNAME,CUSTOMLOST];
     [IseeAFNetRequest requestWithURLString:urlString parameters:param type:RequestTypePost success:success failure:^(id error) {
         //请求失败
         
@@ -96,7 +96,7 @@
 {
     
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@",DOMAINNAME,HOMEMENU];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",DOMAINNAME,MYBULE];
     [IseeAFNetRequest requestWithURLString:urlString parameters:param type:RequestTypePost success:success failure:^(id error) {
         //请求失败
         

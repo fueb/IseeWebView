@@ -33,6 +33,10 @@
 @property (nonatomic, strong) UIView *incomeFluBgView;
 @property (nonatomic, strong) UIView *volumeFluBgView;
 @property (nonatomic, strong) UIView *assetsFluBgView;
+@property (nonatomic, strong) UIView *myBuleNumBg;
+@property (nonatomic, strong) UIView *visitedBg;
+@property (nonatomic, strong) UIView *yearBg;
+@property (nonatomic, strong) UIView *monthBg;
 @end
 
 @implementation IseeHomeView
@@ -57,6 +61,11 @@
     UIView *volumeFluBgView;
     UIView *assetsFluBgView;
     
+    UIView *myBuleNumBg;
+    UIView *visitedBg;
+    UIView *yearBg;
+    UIView *monthBg;
+    
     UIView *visitBgView;
     UIView *callBgView;
     UIView *bordbandBgView;
@@ -78,6 +87,8 @@
     return self;
 }
 
+#pragma mark - data
+
 - (void)setModel:(NSMutableArray *)model
 {
      _model = model;
@@ -88,6 +99,133 @@
     [self down];
     [self developeView];
 }
+
+
+
+- (void)setTaskNum:(NSString *)taskNum
+{
+    _taskNum = taskNum;
+    NSArray *visitBgViews = visitBgView.subviews;
+    for (UIView *visitItem in visitBgViews) {
+        if (visitItem.tag == 1) {
+            UILabel *visitLab = (UILabel *)visitItem;
+            visitLab.text = taskNum;
+            [visitLab setNeedsDisplay];
+        }
+    }
+}
+
+-(void)setQuerySendOrder:(NSString *)querySendOrder withType:(NSString *)type
+{
+    _querySendOrder = querySendOrder;
+    NSArray *querySendOrderViews;
+    if ([type isEqualToString:@"1"]) {
+        querySendOrderViews = callBgView.subviews;
+        
+    }
+    else if ([type isEqualToString:@"4"]) {
+        querySendOrderViews = expirBgView.subviews;
+        
+    }
+    else if ([type isEqualToString:@"5"]) {
+        querySendOrderViews = bordbandBgView.subviews;
+        
+    }
+    
+    for (UIView *Item in querySendOrderViews) {
+        if (Item.tag == 1) {
+            UILabel *subViewLab = (UILabel *)Item;
+            subViewLab.text = querySendOrder;
+            [subViewLab setNeedsDisplay];
+        }
+    }
+}
+
+- (void)setKeyPointDict:(NSMutableDictionary *)keyPointDict
+{
+    if (keyPointDict == nil) {
+        return;
+    }
+    _keyPointDict = keyPointDict;
+    
+
+    [self keyPointSetText:devBoardbandBgView withSum:keyPointDict[@"boardBandNum"] withAdd:keyPointDict[@"boardBandChange"]];
+    [self keyPointSetText:devMoveBgView withSum:keyPointDict[@"moveNum"] withAdd:keyPointDict[@"moveChange"]];
+    [self keyPointSetText:devIptvBgView withSum:keyPointDict[@"iptvNum"] withAdd:keyPointDict[@"iptvChange"]];
+    [self keyPointSetText:devShareBgView withSum:keyPointDict[@"shareNum"] withAdd:keyPointDict[@"shareChange"]];
+}
+
+- (void)keyPointSetText:(UIView *)bgView withSum:(NSString *)sum withAdd:(NSString *)changeNum{
+    NSArray *subViews = bgView.subviews;
+    for (UIView *Item in subViews) {
+        if (Item.tag == 1) {
+            UILabel *subViewLab = (UILabel *)Item;
+            subViewLab.text = sum;
+            [subViewLab setNeedsDisplay];
+        }
+        if (Item.tag == 2) {
+            UILabel *subViewLab = (UILabel *)Item;
+            subViewLab.text = changeNum;
+            if ([changeNum integerValue] > 0) {
+                subViewLab.textColor = [IseeConfig stringTOColor:@"#CB1C23"];
+            }
+            else
+            {
+                subViewLab.textColor = [IseeConfig stringTOColor:@"#71E133"];
+            }
+            [subViewLab setNeedsDisplay];
+        }
+    }
+}
+
+-(void)setFluWith:(NSString *)incomeNum withVolume:(NSString *)volumeNum withAssets:(NSString *)assetsNum
+{
+    _incomeNum = incomeNum;
+    _volumeNum = volumeNum;
+    _assetsNum = assetsNum;
+    
+    [self setFluText:incomeFluBgView withSum:incomeNum];
+    [self setFluText:volumeFluBgView withSum:volumeNum];
+    [self setFluText:assetsFluBgView withSum:assetsNum];
+    
+}
+
+- (void)setFluText:(UIView *)bgView withSum:(NSString *)sum{
+    NSArray *subViews = bgView.subviews;
+    for (UIView *Item in subViews) {
+        if (Item.tag == 1) {
+            UILabel *subViewLab = (UILabel *)Item;
+            subViewLab.text = sum;
+            [subViewLab setNeedsDisplay];
+        }
+        
+    }
+}
+
+-(void)setMyBuleWith:(NSString *)myBuleNum withVisitedNum:(NSString *)visitedNum withYearNum:(NSString *)yearNum withMonthNum:(NSString *)monthNum
+{
+    _myBuleNum = myBuleNum;
+    _yearNum = yearNum;
+    _visitedNum = visitedNum;
+    _monthNum = monthNum;
+    
+    [self setMyBuleText:myBuleNumBg withSum:myBuleNum withNum:myBuleNum];
+    [self setMyBuleText:visitedBg withSum:myBuleNum withNum:visitedNum];
+    [self setMyBuleText:yearBg withSum:myBuleNum withNum:yearNum];
+    [self setMyBuleText:monthBg withSum:myBuleNum withNum:monthNum];
+}
+- (void)setMyBuleText:(UIView *)bgView withSum:(NSString *)sum withNum:(NSString *)num{
+    
+    UILabel *numlab = (UILabel *)[bgView viewWithTag:1];
+
+    UILabel *titlelab = (UILabel *)[bgView viewWithTag:4];
+
+    [bgView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [self getMyBuleItem:bgView withTitle:titlelab.text withTitleColor:numlab.textColor withSum:sum withNum:num];
+
+}
+
+#pragma mark - view
 
 - (void)getScroll{
     __weak typeof(self) wkSelf = self;
@@ -412,6 +550,7 @@
     numLab.textColor = [UIColor blackColor];
     numLab.textAlignment = NSTextAlignmentCenter;
     numLab.font = [UIFont fontWithName:@"Helvetica-Oblique" size:20];
+    numLab.tag = 1;
     [bgView addSubview:icon];
     [bgView addSubview:titleLab];
     [bgView addSubview:numLab];
@@ -500,10 +639,10 @@
     [self getFluItem:volumeFluBgView withIcon:@"volume" withStr:@"话务量波动" withNum:@"5"];
     [self getFluItem:assetsFluBgView withIcon:@"assets" withStr:@"资产波动" withNum:@"5"];
     
-    UIView *myBuleNumBg = [[UIView alloc] init];
-    UIView *visitedBg = [[UIView alloc] init];
-    UIView *yearBg = [[UIView alloc] init];
-    UIView *monthBg = [[UIView alloc] init];
+    myBuleNumBg = [[UIView alloc] init];
+    visitedBg = [[UIView alloc] init];
+    yearBg = [[UIView alloc] init];
+    monthBg = [[UIView alloc] init];
 //    myBuleNumBg.backgroundColor = [UIColor redColor];
 //    visitedBg.backgroundColor = [UIColor redColor];
 //    yearBg.backgroundColor = [UIColor redColor];
@@ -531,10 +670,10 @@
         make.left.right.height.mas_equalTo(yearBg);
     }];
     
-    [self getMyBuleItem:myBuleNumBg withTitle:@"蓝海客户数" withTitleColor:[IseeConfig stringTOColor:@"#308AF5"] withSum:@"7856" withNum:@"7856"];
-    [self getMyBuleItem:visitedBg withTitle:@"已走访" withTitleColor:[IseeConfig stringTOColor:@"#4ED1F8"] withSum:@"7856" withNum:@"2865"];
-    [self getMyBuleItem:yearBg withTitle:@"本年新增" withTitleColor:[IseeConfig stringTOColor:@"#F19834"] withSum:@"7856" withNum:@"3354"];
-    [self getMyBuleItem:monthBg withTitle:@"本月新增" withTitleColor:[IseeConfig stringTOColor:@"#613CF4"] withSum:@"7856" withNum:@"765"];
+    [self getMyBuleItem:myBuleNumBg withTitle:@"蓝海客户数" withTitleColor:[IseeConfig stringTOColor:@"#308AF5"] withSum:@"1" withNum:@"0"];
+    [self getMyBuleItem:visitedBg withTitle:@"已走访" withTitleColor:[IseeConfig stringTOColor:@"#4ED1F8"] withSum:@"1" withNum:@"0"];
+    [self getMyBuleItem:yearBg withTitle:@"本年新增" withTitleColor:[IseeConfig stringTOColor:@"#F19834"] withSum:@"1" withNum:@"0"];
+    [self getMyBuleItem:monthBg withTitle:@"本月新增" withTitleColor:[IseeConfig stringTOColor:@"#613CF4"] withSum:@"1" withNum:@"0"];
     
     UIView *percentageBg = [[UIView alloc] init];
 //    percentageBg.backgroundColor = [UIColor redColor];
@@ -663,17 +802,20 @@
     sumLab.textColor = [IseeConfig stringTOColor:@"#021129"];
     sumLab.text = sum;
     sumLab.font = [UIFont fontWithName:@"Helvetica" size:20];
+    sumLab.tag = 1;
     
     changeLab.textAlignment = 2;
     changeLab.textColor = [IseeConfig stringTOColor:@"#021129"];
     changeLab.text = changeNum;
     changeLab.font = [UIFont fontWithName:@"Helvetica" size:15];
+    changeLab.tag = 2;
     
     iconi.backgroundColor = [UIColor whiteColor];
     titleLab.backgroundColor = [UIColor whiteColor];
     sumLab.backgroundColor = [UIColor whiteColor];
     changeLab.backgroundColor = [UIColor whiteColor];
     changeImg.backgroundColor = [UIColor orangeColor];
+    changeImg.hidden = YES;
     
     [iconi mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(bgView.mas_centerX);
@@ -731,6 +873,7 @@
     sumLab.textColor = [IseeConfig stringTOColor:@"#00000"];
     sumLab.text = sum;
     sumLab.font = [UIFont fontWithName:@"Helvetica-Oblique" size:20];
+    sumLab.tag = 1;
     
     iconi.backgroundColor = [UIColor clearColor];
     titleLab.backgroundColor = [UIColor clearColor];
@@ -790,17 +933,23 @@
     titleLab.textColor = [IseeConfig stringTOColor:@"9A9A9A"];
     titleLab.textAlignment = 2;
     titleLab.font = [UIFont fontWithName:@"Helvetica" size:15];
+    titleLab.tag = 4;
     
     numLab.text = num;
     numLab.textColor = tColor;
     numLab.textAlignment = 1;
     numLab.font = [UIFont fontWithName:@"Helvetica" size:15];
+    numLab.tag = 1;
     
     sumLab.backgroundColor = [UIColor clearColor];
+    sumLab.tag = 3;
     
     imgLab.backgroundColor = tColor;
     imgLab.layer.cornerRadius = 5;
     imgLab.layer.masksToBounds = YES;
+    imgLab.tag = 2;
+    
+    
     
     float sumFl = [sum floatValue];
     float numFl = [num floatValue];

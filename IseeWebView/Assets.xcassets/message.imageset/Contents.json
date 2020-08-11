@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "消息.png",
+      "filename" : "tabbar4@1x-1.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "消息@2x.png",
+      "filename" : "tabbar4.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "消息@3x.png",
+      "filename" : "tabbar4@3x.png",
       "scale" : "3x"
     }
   ],

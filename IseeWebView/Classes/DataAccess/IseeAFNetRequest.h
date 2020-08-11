@@ -46,7 +46,13 @@ typedef NS_ENUM(NSUInteger,RequestType) {
 
 #define isText NO
 
-#define HOMEMENU       @"/zwy/callback/authorize"
+#define HOMEMENU            @"/custInfo/toolConfig/getToolList"
+#define MYTASK              @"/custInfo/indexCustomerManager/getMyTask"
+#define QUERYSENDORDER      @"/custInfo/sendOrder/querySendOrderAllInfos"
+#define KEYPOINT            @"/custInfo/indexCustomerManager/getKeyPoint"
+#define CUSTOMLOST            @"/custInfo/customLostControlMain/getManagerCustomLost"
+#define MYBULE              @"/custInfo/blueOcean/getBlueCustMsg"
+
 
 
 

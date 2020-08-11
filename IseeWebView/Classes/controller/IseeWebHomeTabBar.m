@@ -47,26 +47,27 @@
                                      @{classKey  : @"IseeHomeViewController",
                                        titleKey  : @"首页",
                                        imgKey    : @"homePage",
-                                       selImgKey : @"tab_icon_pay_selected"},
+                                       selImgKey : @"homePageSelect"},
                                      
                                      @{classKey  : @"IseeWebViewController",
                                        titleKey  : @"工具",
                                        imgKey    : @"tool",
-                                       selImgKey : @"tab_icon_ls_selected"} ,
+                                       selImgKey : @"toolSelect"} ,
                                      
                                      @{classKey  : @"IseeWebViewController",
                                        titleKey  : @"沙盘",
                                        imgKey    : @"sandTable",
-                                       selImgKey : @"tab_icon_statistics_selected"},
+                                       selImgKey : @"sandTableSelect"},
                                      
                                      @{classKey  : @"IseeWebViewController",
                                        titleKey  : @"消息",
                                        imgKey    : @"message",
-                                       selImgKey : @"tab_icon_more_selected"},
+                                       selImgKey : @"messageSelect"},
+                                     
                                      @{classKey  : @"IseeWebViewController",
-                                     titleKey  : @"我的",
-                                     imgKey    : @"my",
-                                     selImgKey : @"tab_icon_more_selected"},nil];
+                                       titleKey  : @"我的",
+                                       imgKey    : @"my",
+                                       selImgKey : @"mySelect"},nil];
     
     for (NSDictionary *dict in childItemsAry)
     {
