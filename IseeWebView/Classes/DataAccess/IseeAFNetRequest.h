@@ -41,13 +41,14 @@ typedef NS_ENUM(NSUInteger,RequestType) {
  let URL_ALI_QUERY_ORDER_BY_STATUS = "\(URL_STRING)queryOrderByStatus.action";
  let URL_ALI_CANCELORDER = "\(URL_STRING)aliCancelOrder.action";     //撤销支付宝订单
  */
-#define DOMAINNAME @"http://localhost:8080/shop"       //域名
+#define DOMAINNAME @"http://115.233.6.88:9090"       //域名
 
 
 #define isText NO
 
-#define HOMEMENU            @"/custInfo/toolConfig/getToolList"
-#define MYTASK              @"/custInfo/indexCustomerManager/getMyTask"
+#define LOGINURL            @"/loginInfo/devLogin/rollBackToSuperAdministrator"
+#define HOMEMENU            @"/custInfo/api/toolConfig/getToolList"
+#define MYTASK              @"/custInfo/api/indexCustomerManager/getMyTask"
 #define QUERYSENDORDER      @"/custInfo/sendOrder/querySendOrderAllInfos"
 #define KEYPOINT            @"/custInfo/indexCustomerManager/getKeyPoint"
 #define CUSTOMLOST            @"/custInfo/customLostControlMain/getManagerCustomLost"

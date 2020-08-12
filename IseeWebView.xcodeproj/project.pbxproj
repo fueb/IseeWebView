@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2D24A08524CE84E900D68F82 /* IseeBSJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D24A08324CE84E900D68F82 /* IseeBSJSON.m */; };
 		2D388AEB24DCEF7A00360ACC /* Masonry-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2D388AEA24DCEF7A00360ACC /* Masonry-Info.plist */; };
+		2D5D43A624E4305D005A3E2F /* IseeHomeTabBarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5D43A524E4305D005A3E2F /* IseeHomeTabBarModel.m */; };
 		2D71658E24E126A400611439 /* IseeAFNetRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D71658D24E126A400611439 /* IseeAFNetRequest.m */; };
 		2D71659124E12F9000611439 /* AFAppDotNetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D71658F24E12F9000611439 /* AFAppDotNetAPIClient.m */; };
 		2D71659524E13B1500611439 /* IseeHomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D71659424E13B1500611439 /* IseeHomeModel.m */; };
@@ -74,6 +75,8 @@
 		2D24A08324CE84E900D68F82 /* IseeBSJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IseeBSJSON.m; sourceTree = "<group>"; };
 		2D24A08424CE84E900D68F82 /* IseeBSJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IseeBSJSON.h; sourceTree = "<group>"; };
 		2D388AEA24DCEF7A00360ACC /* Masonry-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Masonry-Info.plist"; sourceTree = "<group>"; };
+		2D5D43A424E4305D005A3E2F /* IseeHomeTabBarModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeHomeTabBarModel.h; sourceTree = "<group>"; };
+		2D5D43A524E4305D005A3E2F /* IseeHomeTabBarModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeHomeTabBarModel.m; sourceTree = "<group>"; };
 		2D71658C24E126A400611439 /* IseeAFNetRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IseeAFNetRequest.h; sourceTree = "<group>"; };
 		2D71658D24E126A400611439 /* IseeAFNetRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IseeAFNetRequest.m; sourceTree = "<group>"; };
 		2D71658F24E12F9000611439 /* AFAppDotNetAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFAppDotNetAPIClient.m; sourceTree = "<group>"; };
@@ -316,6 +319,8 @@
 				2D877B8E24CFBDA900AA2983 /* IseeWebViewController.m */,
 				2D8B298D24DBA148004EAC27 /* IseeWebHomeTabBar.h */,
 				2D8B298E24DBA148004EAC27 /* IseeWebHomeTabBar.m */,
+				2D5D43A424E4305D005A3E2F /* IseeHomeTabBarModel.h */,
+				2D5D43A524E4305D005A3E2F /* IseeHomeTabBarModel.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -644,6 +649,7 @@
 				2D877B9324CFC69200AA2983 /* UIViewController+IseeCommon.m in Sources */,
 				2D877B8F24CFBDA900AA2983 /* IseeWebViewController.m in Sources */,
 				2D9FFDE724C9D2E000A41353 /* CLLocation+IseeSino.m in Sources */,
+				2D5D43A624E4305D005A3E2F /* IseeHomeTabBarModel.m in Sources */,
 				2D71659524E13B1500611439 /* IseeHomeModel.m in Sources */,
 				2DDDE55E24C8490600015C76 /* AppDelegate.m in Sources */,
 				2D7B4A1524C89100008DE649 /* MASLayoutConstraint.m in Sources */,

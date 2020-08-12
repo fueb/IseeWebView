@@ -91,6 +91,7 @@
 
 - (void)setModel:(NSMutableArray *)model
 {
+    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
      _model = model;
     [self getScroll];
     [self searchView];
@@ -533,10 +534,10 @@
         make.left.right.centerY.mas_equalTo(taskBgView);
     }];
     
-    [self taskViewItem:visitBgView withImg:@"visitIcon" withTitle:@"走访任务" withNum:@"555"];
-    [self taskViewItem:callBgView withImg:@"callIcon" withTitle:@"欠费催缴" withNum:@"555"];
-    [self taskViewItem:expirBgView withImg:@"expir" withTitle:@"电路到期" withNum:@"555"];
-    [self taskViewItem:bordbandBgView withImg:@"boardband" withTitle:@"宽带(专线)到期" withNum:@"555"];
+    [self taskViewItem:visitBgView withImg:@"visitIcon" withTitle:@"走访任务" withNum:@"0"];
+    [self taskViewItem:callBgView withImg:@"callIcon" withTitle:@"欠费催缴" withNum:@"0"];
+    [self taskViewItem:expirBgView withImg:@"expir" withTitle:@"电路到期" withNum:@"0"];
+    [self taskViewItem:bordbandBgView withImg:@"boardband" withTitle:@"宽带(专线)到期" withNum:@"0"];
 
 }
 - (void)taskViewItem:(UIView *)bgView withImg:(NSString *)imgName withTitle:(NSString *)title withNum:(NSString *)num{

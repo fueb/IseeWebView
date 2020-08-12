@@ -17,7 +17,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface IseeWebHomeTabBar : UITabBarController
 @property (nonatomic,strong)NSString *mLoginName;
 @property (nonatomic,strong)NSString *mCompanyId;
-- (instancetype)initWithLoginName:(NSString *)loginName withCompanyId:(NSString *)comanyId;
+@property (nonatomic,strong)NSString *mManagerId;
+@property (nonatomic,strong)NSString *mStaffCode;
+- (instancetype)initWithLoginName:(NSString *)loginName withCompanyId:(NSString *)comanyId withManageId:(NSString *)managerId withStaffCode:(NSString *)staffCode;
 @end
 
 

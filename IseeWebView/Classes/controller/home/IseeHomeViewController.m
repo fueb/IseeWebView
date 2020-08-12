@@ -13,9 +13,12 @@
 #import "MBProgressHUD.h"
 #import "IseeAFNetRequest.h"
 #import "IseeWebViewController.h"
+#import "IseeHomeTabBarModel.h"
+
 
 @interface IseeHomeViewController (){
     IseeHomeModel   *iseeHomeModel;
+    IseeHomeTabBarModel   *iseeHomeTabBarModel;
     IseeHomeView *home;
     NSMutableArray *modelAry;
 }
@@ -65,24 +68,26 @@
         [wkSelf presentViewController:frameVC animated:YES completion:nil];
     }];
     [self.view addSubview:home];
-    [home setModel:modelAry];
-    [self getData];
+//    [home setModel:modelAry];
+    [self login];
+    
     // Do any additional setup after loading the view.
 }
 #pragma -mark network
 - (void)getData{
     [self getMenu];//菜单
-//    [self getTask];//走访任务
+    
 //    [self getQuerySendOrder:@"1"];//宽带
 //    [self getQuerySendOrder:@"4"];//欠费催缴
 //    [self getQuerySendOrder:@"5"];//电路到期
 //    [self getImporant];//重点关注
 //    [self getManagerCustomLost];//波动
 //    [self getMyBule];//我的蓝海
-    [home setTaskNum:@"28"];
-    [home setQuerySendOrder:@"33" withType:@"1"];
-    [home setQuerySendOrder:@"45" withType:@"4"];
-    [home setQuerySendOrder:@"127" withType:@"5"];
+    
+//    [home setTaskNum:@"28"];
+//    [home setQuerySendOrder:@"33" withType:@"1"];
+//    [home setQuerySendOrder:@"45" withType:@"4"];
+//    [home setQuerySendOrder:@"127" withType:@"5"];
     
     NSMutableDictionary *keyPointDict = [NSMutableDictionary dictionary];
     [keyPointDict setObject:@"35291" forKey:@"boardBandNum"];
@@ -93,18 +98,48 @@
     [keyPointDict setObject:@"23" forKey:@"iptvChange"];
     [keyPointDict setObject:@"21291" forKey:@"shareNum"];
     [keyPointDict setObject:@"-23" forKey:@"shareChange"];
-    [home setKeyPointDict:keyPointDict];
+//    [home setKeyPointDict:keyPointDict];
+//
+//    [home setFluWith:@"6" withVolume:@"6" withAssets:@"6"];
+//
+//    [home setMyBuleWith:@"7856" withVisitedNum:@"2865" withYearNum:@"3354" withMonthNum:@"765"];
+}
+
+
+- (void)login{
     
-    [home setFluWith:@"6" withVolume:@"6" withAssets:@"6"];
+    [IseeAFNetRequest showHUD:self.view];
+    [self.iseeHomeTabBarModel isee_loginWith:_mManagerId withStaffCode:_mStaffCode Success:^(id  _Nonnull result) {
+        NSLog(@"%@", result);
+        if ([result[@"code"] integerValue] == 200)
+        {
+            NSDictionary *data = result[@"data"];
+            NSDictionary *currentManagerTm = data[@"currentManagerTm"];
+            _areaId = (NSString * )currentManagerTm[@"areaId"];
+            _latnId = (NSString * )currentManagerTm[@"latnId"];
+            _statId = (NSString * )currentManagerTm[@"statId"];
+            _statId = @"1";
+            [self getData];
+        }
+        else
+        {
+            NSLog(@"%@",result[@"errmsg"], nil);
+        }
+    } failure:^{
+    //        [home setModel:modelAry];
+    }];
+
     
-    [home setMyBuleWith:@"7856" withVisitedNum:@"2865" withYearNum:@"3354" withMonthNum:@"765"];
+        
+        
+    
 }
 
 //验证码点击切换
 - (void)getMenu
 {
     [IseeAFNetRequest showHUD:self.view];
-    [self.iseeHomeModel isee_homeMenuWithSuccess:^(id  _Nonnull result) {
+    [self.iseeHomeModel isee_homeMenuWith:self.mManagerId Success:^(id  _Nonnull result) {
         NSLog(@"%@", result);
         if ([result[@"code"] integerValue] == 200)
         {
@@ -116,6 +151,7 @@
             [modelAry addObjectsFromArray:all];
             [modelAry addObjectsFromArray:define];
             [home setModel:modelAry];
+            [self getTask];//走访任务
         }
         else
         {
@@ -129,10 +165,10 @@
 }
 - (void)getTask{
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setObject:@123 forKey:@"managerId"];
-    [param setObject:@123 forKey:@"latnId"];
-    [param setObject:@123 forKey:@"areaId"];
-    [param setObject:@123 forKey:@"statId"];
+    [param setObject:_mManagerId forKey:@"managerId"];
+    [param setObject:_latnId forKey:@"latnId"];
+    [param setObject:_areaId forKey:@"areaId"];
+    [param setObject:_statId forKey:@"statId"];
     
      [IseeAFNetRequest showHUD:self.view];
     [self.iseeHomeModel isee_myTaskWithParam:param WithSuccess:^(id  _Nonnull result) {
@@ -141,6 +177,10 @@
         {
             NSDictionary *data = result[@"data"];
             NSString *taskNum = data[@"value6"];
+            if (taskNum != nil&&(![taskNum isKindOfClass:[NSNull class]])) {
+                [home setTaskNum:taskNum];
+            }
+            
         }
         else
         {
@@ -268,6 +308,15 @@
     }
     return iseeHomeModel;
 }
+- (IseeHomeTabBarModel *)iseeHomeTabBarModel
+{
+    if (!iseeHomeTabBarModel)
+    {
+        iseeHomeTabBarModel = [[IseeHomeTabBarModel alloc]init];
+    }
+    return iseeHomeTabBarModel;
+}
+
 /*
 #pragma mark - Navigation
 

@@ -82,7 +82,7 @@
     [self gotoHome];
 }
 -(void)gotoHome{
-    IseeWebHomeTabBar *homeTabBar = [[IseeWebHomeTabBar alloc]initWithLoginName:@"13305834567" withCompanyId:@"221166"];
+    IseeWebHomeTabBar *homeTabBar = [[IseeWebHomeTabBar alloc]initWithLoginName:@"13305834567" withCompanyId:@"221166" withManageId:@"1232" withStaffCode:@"PMS_SYS"];
 //    homeTabBar.mLoginName = @"13305834567";
 //    homeTabBar.mCompanyId = @"221166";
     
