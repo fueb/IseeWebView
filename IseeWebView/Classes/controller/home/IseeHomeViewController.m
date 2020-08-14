@@ -117,8 +117,8 @@
             NSDictionary *currentManagerTm = data[@"currentManagerTm"];
             _areaId = (NSString * )currentManagerTm[@"areaId"];
             _latnId = (NSString * )currentManagerTm[@"latnId"];
-            _statId = (NSString * )currentManagerTm[@"statId"];
-            _statId = @"1";
+            _mLoginName = (NSString *)currentManagerTm[@"relaMobile"];
+           
             [self getData];
         }
         else
@@ -152,6 +152,12 @@
             [modelAry addObjectsFromArray:define];
             [home setModel:modelAry];
             [self getTask];//走访任务
+            [self getQuerySendOrder:@"1"];
+            [self getQuerySendOrder:@"4"];
+            [self getQuerySendOrder:@"5"];
+            [self getImporant];
+            [self getManagerCustomLost];//波动
+            [self getMyBule];
         }
         else
         {
@@ -168,7 +174,7 @@
     [param setObject:_mManagerId forKey:@"managerId"];
     [param setObject:_latnId forKey:@"latnId"];
     [param setObject:_areaId forKey:@"areaId"];
-    [param setObject:_statId forKey:@"statId"];
+    [param setObject:@7 forKey:@"statId"];
     
      [IseeAFNetRequest showHUD:self.view];
     [self.iseeHomeModel isee_myTaskWithParam:param WithSuccess:^(id  _Nonnull result) {
@@ -193,18 +199,28 @@
 
 - (void)getQuerySendOrder:(NSString *)type{
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setObject:@"123" forKey:@"loginName"];
-    [param setObject:@"" forKey:@"latnId"];
-    [param setObject:@"" forKey:@"mothId"];
+    [param setObject:_mLoginName forKey:@"loginName"];
+    [param setObject:_latnId forKey:@"latnId"];
     [param setObject:type forKey:@"queryType"];
+     
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+
+    [formatter setDateFormat:@"YYYYMM"];
+    NSDate *dateNow = [NSDate date];
+    NSString *currentTime = [formatter stringFromDate:dateNow];
+     
+    [param setObject:currentTime forKey:@"monthId"];
     
-     [IseeAFNetRequest showHUD:self.view];
+    [IseeAFNetRequest showHUD:self.view];
     [self.iseeHomeModel isee_querySendOrderWithParam:param WithSuccess:^(id  _Nonnull result) {
         NSLog(@"%@", result);
         if ([result[@"code"] integerValue] == 200)
         {
             NSDictionary *data = result[@"data"];
             NSInteger taskNum = data[@"processingAllCount"];
+            
+            [home setQuerySendOrder:[NSString stringWithFormat:@"%@",taskNum] withType:type];
+            
         }
         else
         {
@@ -217,14 +233,14 @@
 
 - (void)getImporant{
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setObject:@123 forKey:@"managerId"];
-    [param setObject:@123 forKey:@"latnId"];
-    [param setObject:@123 forKey:@"areaId"];
-    [param setObject:@123 forKey:@"statId"];
+    [param setObject:_mManagerId forKey:@"managerId"];
+    [param setObject:_latnId forKey:@"latnId"];
+    [param setObject:_areaId forKey:@"areaId"];
+    [param setObject:@6 forKey:@"statId"];
     
      [IseeAFNetRequest showHUD:self.view];
     [self.iseeHomeModel isee_custInfoWithParam:param WithSuccess:^(id  _Nonnull result) {
-        NSLog(@"%@", result);
+        NSLog(@"getImporant:%@", result);
         if ([result[@"code"] integerValue] == 200)
         {
             NSDictionary *data = result[@"data"];
@@ -249,9 +265,16 @@
 
 - (void)getManagerCustomLost{
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setObject:@123 forKey:@"managerId"];
-    [param setObject:@123 forKey:@"latnId"];
-    [param setObject:@123 forKey:@"statCycleId"];
+    [param setObject:_mManagerId forKey:@"managerId"];
+    [param setObject:_latnId forKey:@"latnId"];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+
+    [formatter setDateFormat:@"YYYYMM"];
+    NSDate *dateNow = [NSDate date];
+    NSString *currentTime = [formatter stringFromDate:dateNow];
+    
+    [param setObject:currentTime forKey:@"statCycleId"];
     
      [IseeAFNetRequest showHUD:self.view];
     [self.iseeHomeModel isee_managerCustomLostWithParam:param WithSuccess:^(id  _Nonnull result) {
@@ -259,9 +282,11 @@
         if ([result[@"code"] integerValue] == 200)
         {
             NSDictionary *data = result[@"data"];
-            NSString *chargeCount = data[@"chargeCount"];
-            NSString *assetsCount = data[@"assetsCount"];
-            NSString *teletrafficCount = data[@"teletrafficCount"];
+            long chargeCount = [data[@"chargeCount"] longValue];
+            long assetsCount = [data[@"assetsCount"] longValue];
+            long teletrafficCount = [data[@"teletrafficCount"] longValue];
+            [home setFluWith:[NSString stringWithFormat:@"%ld",chargeCount] withVolume:[NSString stringWithFormat:@"%ld",teletrafficCount] withAssets:[NSString stringWithFormat:@"%ld",assetsCount]];
+            
         }
         else
         {
@@ -274,10 +299,16 @@
 
 - (void)getMyBule{
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setObject:@123 forKey:@"managerId"];
-    [param setObject:@123 forKey:@"latnId"];
-    [param setObject:@123 forKey:@"statCycleId"];
-    [param setObject:@123 forKey:@"source"];
+    [param setObject:_mManagerId forKey:@"managerId"];
+    [param setObject:_latnId forKey:@"latnId"];
+//    [param setObject:@123 forKey:@"source"];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYYMM"];
+    NSDate *dateNow = [NSDate date];
+    NSString *currentTime = [formatter stringFromDate:dateNow];
+    [param setObject:currentTime forKey:@"statCycleId"];
+    
 
     
      [IseeAFNetRequest showHUD:self.view];
@@ -286,10 +317,12 @@
         if ([result[@"code"] integerValue] == 200)
         {
             NSDictionary *data = result[@"data"];
-            NSString *blueOceanCnt = data[@"blueOceanCnt"];
-            NSString *interviewCnt = data[@"interviewCnt"];
-            NSString *newCntYear = data[@"newCntYear"];
-            NSString *newCntMonth = data[@"newCntMonth"];
+            long blueOceanCnt = [data[@"blueOceanCnt"] longValue];
+            long interviewCnt = [data[@"interviewCnt"] longValue];
+            long newCntYear = [data[@"newCntYear"] longValue];
+            long newCntMonth = [data[@"newCntMonth"] longValue];
+            
+            [home setMyBuleWith:[NSString stringWithFormat:@"%ld",blueOceanCnt] withVisitedNum:[NSString stringWithFormat:@"%ld",interviewCnt] withYearNum:[NSString stringWithFormat:@"%ld",newCntYear] withMonthNum:[NSString stringWithFormat:@"%ld",newCntMonth]];
         }
         else
         {

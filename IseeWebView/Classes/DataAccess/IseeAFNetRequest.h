@@ -49,10 +49,10 @@ typedef NS_ENUM(NSUInteger,RequestType) {
 #define LOGINURL            @"/loginInfo/devLogin/rollBackToSuperAdministrator"
 #define HOMEMENU            @"/custInfo/api/toolConfig/getToolList"
 #define MYTASK              @"/custInfo/api/indexCustomerManager/getMyTask"
-#define QUERYSENDORDER      @"/custInfo/sendOrder/querySendOrderAllInfos"
-#define KEYPOINT            @"/custInfo/indexCustomerManager/getKeyPoint"
-#define CUSTOMLOST            @"/custInfo/customLostControlMain/getManagerCustomLost"
-#define MYBULE              @"/custInfo/blueOcean/getBlueCustMsg"
+#define QUERYSENDORDER      @"/custInfo/api/sendOrder/querySendOrderAllInfos"
+#define KEYPOINT            @"/custInfo/api/indexCustomerManager/getKeyPoint"
+#define CUSTOMLOST            @"/custInfo/api/customLostControlMain/getManagerCustomLost"
+#define MYBULE              @"/custInfo/api/blueOcean/getBlueCustMsg"
 
 
 

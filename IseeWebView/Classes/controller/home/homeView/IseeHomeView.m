@@ -954,6 +954,9 @@
     
     float sumFl = [sum floatValue];
     float numFl = [num floatValue];
+    if (sumFl == 0) {
+        sumFl = 1;
+    }
     
     
     [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {

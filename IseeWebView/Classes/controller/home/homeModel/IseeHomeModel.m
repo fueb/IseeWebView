@@ -65,7 +65,22 @@
     
     
     NSString *urlString = [NSString stringWithFormat:@"%@%@",DOMAINNAME,QUERYSENDORDER];
-    [IseeAFNetRequest requestWithURLString:urlString parameters:param type:RequestTypePost success:success failure:^(id error) {
+    
+    NSArray *keys = param.allKeys;
+    NSArray *values = param.allValues;
+    
+    for (int i = 0; i < keys.count; i++) {
+        if(i == 0)
+        {
+            urlString = [urlString stringByAppendingFormat:@"?%@=%@",keys[i],values[i]];
+        }
+        else
+        {
+            urlString = [urlString stringByAppendingFormat:@"&%@=%@",keys[i],values[i]];
+        }
+    }
+    
+    [IseeAFNetRequest requestWithURLString:urlString parameters:param type:RequestTypeGet success:success failure:^(id error) {
         //请求失败
         
         NSLog(@"%@", error);
@@ -81,6 +96,21 @@
     
     
     NSString *urlString = [NSString stringWithFormat:@"%@%@",DOMAINNAME,KEYPOINT];
+    
+    NSArray *keys = param.allKeys;
+    NSArray *values = param.allValues;
+    
+    for (int i = 0; i < keys.count; i++) {
+        if(i == 0)
+        {
+            urlString = [urlString stringByAppendingFormat:@"?%@=%@",keys[i],values[i]];
+        }
+        else
+        {
+            urlString = [urlString stringByAppendingFormat:@"&%@=%@",keys[i],values[i]];
+        }
+    }
+    
     [IseeAFNetRequest requestWithURLString:urlString parameters:param type:RequestTypePost success:success failure:^(id error) {
         //请求失败
         
@@ -96,6 +126,21 @@
     
     
     NSString *urlString = [NSString stringWithFormat:@"%@%@",DOMAINNAME,CUSTOMLOST];
+    
+    NSArray *keys = param.allKeys;
+    NSArray *values = param.allValues;
+    
+    for (int i = 0; i < keys.count; i++) {
+        if(i == 0)
+        {
+            urlString = [urlString stringByAppendingFormat:@"?%@=%@",keys[i],values[i]];
+        }
+        else
+        {
+            urlString = [urlString stringByAppendingFormat:@"&%@=%@",keys[i],values[i]];
+        }
+    }
+    
     [IseeAFNetRequest requestWithURLString:urlString parameters:param type:RequestTypePost success:success failure:^(id error) {
         //请求失败
         
@@ -112,6 +157,20 @@
     
     
     NSString *urlString = [NSString stringWithFormat:@"%@%@",DOMAINNAME,MYBULE];
+    NSArray *keys = param.allKeys;
+    NSArray *values = param.allValues;
+    
+    for (int i = 0; i < keys.count; i++) {
+        if(i == 0)
+        {
+            urlString = [urlString stringByAppendingFormat:@"?%@=%@",keys[i],values[i]];
+        }
+        else
+        {
+            urlString = [urlString stringByAppendingFormat:@"&%@=%@",keys[i],values[i]];
+        }
+    }
+    
     [IseeAFNetRequest requestWithURLString:urlString parameters:param type:RequestTypePost success:success failure:^(id error) {
         //请求失败
         

@@ -52,7 +52,7 @@ static MBProgressHUD *HUD;
     manager.securityPolicy        = [self customSecurityPolicy];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/plain", @"text/html;charset=utf-8", nil];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/plain", @"text/html;charset=utf-8",@"text/javascript", nil];
     manager.requestSerializer.timeoutInterval = 15;
     URLString=[URLString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     switch (type)
@@ -64,10 +64,17 @@ static MBProgressHUD *HUD;
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;// 关闭网络指示器
                     });
-                    id result = [NSJSONSerialization JSONObjectWithData:responseObject
-                                                                options:0
-                                                                  error:nil];
-                    success(result);
+                    if ([responseObject isKindOfClass:[NSDictionary class]])
+                    {
+                        success(responseObject);
+                    }
+                    else
+                    {
+                        id result = [NSJSONSerialization JSONObjectWithData:responseObject
+                                                                    options:0
+                                                                      error:nil];
+                        success(result);
+                    }
                 }
             } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
                 [IseeAFNetRequest removeHUD];

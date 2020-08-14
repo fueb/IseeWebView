@@ -13,7 +13,6 @@
 		2D71658E24E126A400611439 /* IseeAFNetRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D71658D24E126A400611439 /* IseeAFNetRequest.m */; };
 		2D71659124E12F9000611439 /* AFAppDotNetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D71658F24E12F9000611439 /* AFAppDotNetAPIClient.m */; };
 		2D71659524E13B1500611439 /* IseeHomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D71659424E13B1500611439 /* IseeHomeModel.m */; };
-		2D7B49F124C8900D008DE649 /* IseeBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7B49EF24C8900D008DE649 /* IseeBaseViewController.m */; };
 		2D7B4A1124C89100008DE649 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7B49F824C89100008DE649 /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		2D7B4A1224C89100008DE649 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7B4A0124C89100008DE649 /* ViewController+MASAdditions.m */; };
 		2D7B4A1324C89100008DE649 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7B4A0524C89100008DE649 /* MASCompositeConstraint.m */; };
@@ -83,8 +82,6 @@
 		2D71659024E12F9000611439 /* AFAppDotNetAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFAppDotNetAPIClient.h; sourceTree = "<group>"; };
 		2D71659324E13B1500611439 /* IseeHomeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeHomeModel.h; sourceTree = "<group>"; };
 		2D71659424E13B1500611439 /* IseeHomeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeHomeModel.m; sourceTree = "<group>"; };
-		2D7B49EF24C8900D008DE649 /* IseeBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IseeBaseViewController.m; sourceTree = "<group>"; };
-		2D7B49F024C8900D008DE649 /* IseeBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IseeBaseViewController.h; sourceTree = "<group>"; };
 		2D7B49F724C89100008DE649 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
 		2D7B49F824C89100008DE649 /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = "<group>"; };
 		2D7B49F924C89100008DE649 /* MASConstraint+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MASConstraint+Private.h"; sourceTree = "<group>"; };
@@ -243,8 +240,6 @@
 		2D7B49EE24C8900D008DE649 /* Base */ = {
 			isa = PBXGroup;
 			children = (
-				2D7B49F024C8900D008DE649 /* IseeBaseViewController.h */,
-				2D7B49EF24C8900D008DE649 /* IseeBaseViewController.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -638,7 +633,6 @@
 				2D8B299E24DBDD80004EAC27 /* IseeHomeView.m in Sources */,
 				2D7B4A1224C89100008DE649 /* ViewController+MASAdditions.m in Sources */,
 				2D7B4A1A24C89100008DE649 /* MASViewAttribute.m in Sources */,
-				2D7B49F124C8900D008DE649 /* IseeBaseViewController.m in Sources */,
 				2D877BA024CFD23700AA2983 /* UIView+IseeExtension.m in Sources */,
 				2D9FFDE324C9D01800A41353 /* IseeScanView.m in Sources */,
 				2D71658E24E126A400611439 /* IseeAFNetRequest.m in Sources */,
