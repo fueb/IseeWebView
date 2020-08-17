@@ -15,6 +15,7 @@
 #import "IseeWebViewController.h"
 #import "IseeConfig.h"
 #import "IseeHomeViewController.h"
+#import "IseeAFNetRequest.h"
 
 
 @interface IseeWebHomeTabBar ()<UINavigationControllerDelegate>
@@ -112,12 +113,18 @@
             if ([vc isKindOfClass:[IseeWebViewController class]]) {
                 IseeWebViewController *iseeVc = (IseeWebViewController *)vc;
                 iseeVc.titleHave = NO;
-                iseeVc.titleName = @"test";
-                iseeVc.titleBgColor = @"#AAAAAA";  //白色
-                iseeVc.statusBarColor = @"#FFFFFF";//@"#50D4F9";  //自定义颜色
-                NSString *filePath = [[NSBundle mainBundle]pathForResource:@"test" ofType:@"html" inDirectory:@"www"];
+                
+                NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+
+                   [formatter setDateFormat:@"YYYYMMdd"];
+                   NSDate *dateNow = [NSDate date];
+                   NSString *currentTime = [formatter stringFromDate:dateNow];
                       
-                NSURL *url = [NSURL fileURLWithPath:filePath];
+                NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
+                NSString *md5Key = [IseeConfig md5:md5Str];
+                
+//                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?loginName=%@&companyId=%@md5key=%@&source=isee",WEBHOST,_mLoginName,_mCompanyId,md5Key]];//urlTF.text];
+                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",@"http://8.129.218.5:8081/qyportal/service/test"]];
                 iseeVc.mWebViewUrl = url;
             }
             else if([vc isKindOfClass:[IseeHomeViewController class]])

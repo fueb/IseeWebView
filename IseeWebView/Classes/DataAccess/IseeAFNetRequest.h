@@ -42,7 +42,7 @@ typedef NS_ENUM(NSUInteger,RequestType) {
  let URL_ALI_CANCELORDER = "\(URL_STRING)aliCancelOrder.action";     //撤销支付宝订单
  */
 #define DOMAINNAME @"http://115.233.6.88:9090"       //域名
-
+#define WEBHOST     @"http://115.233.6.88:9090/custInfoApp/"
 
 #define isText NO
 

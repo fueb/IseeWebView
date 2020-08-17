@@ -7,10 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "IseeHomeViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IseeHomeView : UIView
+
+
+@property (nonatomic,assign)IseeHomeViewController *mDelegate;
+
 @property (nonatomic,strong) void (^menuClick)(NSInteger type);
 @property (nonatomic,strong) void (^searchItemClick)(NSInteger type);
 @property (nonatomic,strong)NSMutableArray *model;

@@ -16,7 +16,7 @@
 #import "IseeHomeTabBarModel.h"
 
 
-@interface IseeHomeViewController (){
+@interface IseeHomeViewController ()<UITextFieldDelegate>{
     IseeHomeModel   *iseeHomeModel;
     IseeHomeTabBarModel   *iseeHomeTabBarModel;
     IseeHomeView *home;
@@ -37,6 +37,7 @@
     }
     home = [[IseeHomeView alloc] initWithFrame:CGRectMake(0, 0, UIScreenWidth, UIScreenHeight-(50+safeBottom))];
     __weak typeof(IseeHomeViewController) *wkSelf = self;
+    home.mDelegate = self;
     [home setMenuClick:^(NSInteger tag) {
         NSDictionary *tempMenuDict = [modelAry objectAtIndex:tag];
         NSLog(@"%@",tempMenuDict[@"moduleName"]);
@@ -54,16 +55,17 @@
         
         NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
         NSString *md5Key = [IseeConfig md5:md5Str];
-        NSString *urlStr = [NSString stringWithFormat:@"%@?loginName=%@&companyId=%@&md5key=%@&source=isee",DOMAINNAME,_mLoginName,_mCompanyId,md5Key];
+        NSString *urlStr = [NSString stringWithFormat:@"%@?loginName=%@&companyId=%@&md5key=%@&source=isee",WEBHOST,_mLoginName,_mCompanyId,md5Key];
+        
         IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
         frameVC.titleHave = YES;
         frameVC.titleName = tempMenuDict[@"moduleName"];
         frameVC.titleBgColor = @"#FFFFFF";  //白色
         frameVC.statusBarColor = @"#3086E8";//@"#50D4F9";  //自定义颜色
-        NSString *filePath = [[NSBundle mainBundle]pathForResource:@"test" ofType:@"html" inDirectory:@"www"];
-           //    NSString *htmlString = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-        NSURL *url = [NSURL fileURLWithPath:filePath];
-        frameVC.mWebViewUrl = url;//[NSURL URLWithString:@"http://8.129.218.5:8080/qyportal/rights"];//urlTF.text];
+       
+         
+        NSURL *url = [NSURL URLWithString:urlStr];
+        frameVC.mWebViewUrl = url;
         frameVC.modalPresentationStyle = UIModalPresentationFullScreen;
         [wkSelf presentViewController:frameVC animated:YES completion:nil];
     }];
@@ -333,6 +335,8 @@
     }];
 }
 
+#pragma mark -init
+
 - (IseeHomeModel *)iseeHomeModel
 {
     if (!iseeHomeModel)
@@ -349,7 +353,12 @@
     }
     return iseeHomeTabBarModel;
 }
-
+#pragma mark - delegate
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
 /*
 #pragma mark - Navigation
 

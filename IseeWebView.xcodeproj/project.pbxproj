@@ -49,7 +49,7 @@
 		2DDDE58424C8490C00015C76 /* IseeWebViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDDE58324C8490C00015C76 /* IseeWebViewUITests.m */; };
 		2DDDE59424C84AD700015C76 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 2DDDE59324C84AD700015C76 /* www */; };
 		2DE6470724CDB26D006D970E /* SiriViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE6470624CDB26D006D970E /* SiriViewController.m */; };
-		F4F3D68E484C26CD060C40A3 /* Pods_IseeWebView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037E7265BACB0705ED3260A2 /* Pods_IseeWebView.framework */; };
+		73A9E6F49D854085D3A6E7F3 /* libPods-IseeWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C3FFFB8606F300C951FB90 /* libPods-IseeWebView.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,7 +70,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		037E7265BACB0705ED3260A2 /* Pods_IseeWebView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IseeWebView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		22FA634AD1CCEFF856E9D66C /* Pods-IseeWebView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IseeWebView.debug.xcconfig"; path = "Target Support Files/Pods-IseeWebView/Pods-IseeWebView.debug.xcconfig"; sourceTree = "<group>"; };
 		2D24A08324CE84E900D68F82 /* IseeBSJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IseeBSJSON.m; sourceTree = "<group>"; };
 		2D24A08424CE84E900D68F82 /* IseeBSJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IseeBSJSON.h; sourceTree = "<group>"; };
 		2D388AEA24DCEF7A00360ACC /* Masonry-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Masonry-Info.plist"; sourceTree = "<group>"; };
@@ -153,8 +153,8 @@
 		2DDDE59324C84AD700015C76 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		2DE6470524CDB26D006D970E /* SiriViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SiriViewController.h; sourceTree = "<group>"; };
 		2DE6470624CDB26D006D970E /* SiriViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SiriViewController.m; sourceTree = "<group>"; };
-		7F965D0A247FB20BAC5F7D21 /* Pods-IseeWebView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IseeWebView.debug.xcconfig"; path = "Target Support Files/Pods-IseeWebView/Pods-IseeWebView.debug.xcconfig"; sourceTree = "<group>"; };
-		81A5D1673E6604272F3DE849 /* Pods-IseeWebView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IseeWebView.release.xcconfig"; path = "Target Support Files/Pods-IseeWebView/Pods-IseeWebView.release.xcconfig"; sourceTree = "<group>"; };
+		5A7FF4EA19FF42ED579CF236 /* Pods-IseeWebView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IseeWebView.release.xcconfig"; path = "Target Support Files/Pods-IseeWebView/Pods-IseeWebView.release.xcconfig"; sourceTree = "<group>"; };
+		92C3FFFB8606F300C951FB90 /* libPods-IseeWebView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IseeWebView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,7 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4F3D68E484C26CD060C40A3 /* Pods_IseeWebView.framework in Frameworks */,
+				73A9E6F49D854085D3A6E7F3 /* libPods-IseeWebView.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,14 +183,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2214863F97A59DD89A41A654 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				037E7265BACB0705ED3260A2 /* Pods_IseeWebView.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		2D24A08224CE84E900D68F82 /* BEJSON */ = {
 			isa = PBXGroup;
 			children = (
@@ -381,7 +373,7 @@
 				2DDDE58224C8490C00015C76 /* IseeWebViewUITests */,
 				2DDDE55A24C8490600015C76 /* Products */,
 				63989AD9B1626D0205A98EB9 /* Pods */,
-				2214863F97A59DD89A41A654 /* Frameworks */,
+				F1BBFE2F36E34D43385C69ED /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -437,10 +429,18 @@
 		63989AD9B1626D0205A98EB9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				7F965D0A247FB20BAC5F7D21 /* Pods-IseeWebView.debug.xcconfig */,
-				81A5D1673E6604272F3DE849 /* Pods-IseeWebView.release.xcconfig */,
+				22FA634AD1CCEFF856E9D66C /* Pods-IseeWebView.debug.xcconfig */,
+				5A7FF4EA19FF42ED579CF236 /* Pods-IseeWebView.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		F1BBFE2F36E34D43385C69ED /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				92C3FFFB8606F300C951FB90 /* libPods-IseeWebView.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -450,11 +450,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DDDE58824C8490C00015C76 /* Build configuration list for PBXNativeTarget "IseeWebView" */;
 			buildPhases = (
-				38EFFD598BE0587AB8AA4D71 /* [CP] Check Pods Manifest.lock */,
+				C831FE8B62715337E4A0824B /* [CP] Check Pods Manifest.lock */,
 				2DDDE55524C8490600015C76 /* Sources */,
 				2DDDE55624C8490600015C76 /* Frameworks */,
 				2DDDE55724C8490600015C76 /* Resources */,
-				52248673AFFA9704F6F1B73D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -578,7 +577,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		38EFFD598BE0587AB8AA4D71 /* [CP] Check Pods Manifest.lock */ = {
+		C831FE8B62715337E4A0824B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -598,23 +597,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		52248673AFFA9704F6F1B73D /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-IseeWebView/Pods-IseeWebView-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-IseeWebView/Pods-IseeWebView-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-IseeWebView/Pods-IseeWebView-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -820,7 +802,7 @@
 		};
 		2DDDE58924C8490C00015C76 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7F965D0A247FB20BAC5F7D21 /* Pods-IseeWebView.debug.xcconfig */;
+			baseConfigurationReference = 22FA634AD1CCEFF856E9D66C /* Pods-IseeWebView.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -843,7 +825,7 @@
 		};
 		2DDDE58A24C8490C00015C76 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 81A5D1673E6604272F3DE849 /* Pods-IseeWebView.release.xcconfig */;
+			baseConfigurationReference = 5A7FF4EA19FF42ED579CF236 /* Pods-IseeWebView.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

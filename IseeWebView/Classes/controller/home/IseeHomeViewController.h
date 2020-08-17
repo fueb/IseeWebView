@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IseeHomeViewController : UIViewController
@@ -18,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)NSString *areaId;
 @property (nonatomic,strong)NSString *latnId;
 @property (nonatomic,strong)NSString *statId;
+
 @end
 
 NS_ASSUME_NONNULL_END

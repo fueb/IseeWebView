@@ -84,6 +84,12 @@
     [self setOverlayPickerView:self];
     //开始捕获
     [session startRunning];
+    
+    UIButton *backBtn = [[UIButton alloc] initWithFrame:CGRectMake(30, 20, 50, 50)];
+    [backBtn setTitle:@"关闭" forState:UIControlStateNormal];
+    [backBtn addTarget:_delegate action:@selector(scanCancel) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:backBtn];
+   
 }
 
 -(void)loopDrawLine

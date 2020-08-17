@@ -144,36 +144,37 @@
 - (void)configWKWebView{
     WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
     
-    CGRect wkFrame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
+    CGFloat safeBottom = 0;
+       
+    if ([IseeConfig isNotchScreen]) {
+        safeBottom = 34;
+    }
+    
+    CGRect wkFrame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-(50+safeBottom));
     
     CGFloat statusBarH = 64.0;
     if (@available(iOS 13.0, *)) {
          UIWindowScene *windowScene = (UIWindowScene *)[UIApplication sharedApplication].connectedScenes.allObjects.firstObject;
          statusBarH = windowScene.statusBarManager.statusBarFrame.size.height + NavBarHeight;
-     } else {
+    } else {
          statusBarH = NavHeight;
-     }
+    }
+    
+   
     
     if (_titleHave) {
-        wkFrame = CGRectMake(0, statusBarH, ScreenWidth, ScreenHeight - statusBarH);
+        wkFrame = CGRectMake(0, statusBarH, ScreenWidth, ScreenHeight - statusBarH - 50 -(50+safeBottom));
     }
     self.wkWebView = [[WKWebView alloc] initWithFrame:wkFrame configuration:config];
     [self.view addSubview:self.wkWebView];
     
     self.wkWebView.UIDelegate = self;
     self.wkWebView.navigationDelegate = self;
-    
-    
-//    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"test" ofType:@"html" inDirectory:@"www"];
-    //    NSString *htmlString = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:nil];
-//    NSURL *url = [NSURL fileURLWithPath:filePath];
+
     [self.wkWebView loadRequest:[NSURLRequest requestWithURL:_mWebViewUrl]];
     
-//    NSURL *url = [NSURL URLWithString:@"https://m.benlai.com/huanan/zt/1231cherry"];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-//    [self.wkWebView loadRequest:request];
-//
-//
+    NSLog(@"打开web链接：%@",_mWebViewUrl);
+
     WKUserContentController *userCC = config.userContentController;
     //意思是网页中需要传递的参数是通过这个JS中的showMessage方法来传递的
     [userCC addScriptMessageHandler:self name:@"soundrecord"];
@@ -476,6 +477,15 @@
     }completion:^(BOOL finished){
         
     }];
+}
+
+- (void)scanCancel
+{
+    if (scanView)
+       {
+           [scanView removeFromSuperview];
+           scanView = nil;
+       } 
 }
 
 /**

@@ -365,6 +365,8 @@
     [searchBgView addSubview:knowBtn];
     
     searchField = [[UITextField alloc] init];
+    searchField.delegate = _mDelegate;
+    searchField.returnKeyType = UIReturnKeyGo;
 //    searchField.placeholder = @"请输入企业名称";
     
     NSMutableAttributedString *placeholderString = [[NSMutableAttributedString alloc] initWithString:@"请输入企业名称" attributes:@{NSForegroundColorAttributeName : [IseeConfig stringTOColor:@"#87C0F8"]}];
@@ -428,7 +430,8 @@
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, width-50, width-50)];
         
         
-        [imgView setImage:[UIImage imageNamed:@"preAccept"]];
+        [imgView setImage:[UIImage imageWithData:[NSData
+        dataWithContentsOfURL:[NSURL URLWithString:menuDict[@"icon"]]]]];
         
         UILabel *menuTextLab = [[UILabel alloc] init];
         menuTextLab.text = menuDict[@"moduleName"];
@@ -773,10 +776,10 @@
         make.width.equalTo(devIptvBgView);
     }];
     
-    [self getDevItem:devBoardbandBgView withIcon:@"devBoardBand" withStr:@"宽带" withSum:@"35291" withChange:@"23"];
-    [self getDevItem:devMoveBgView withIcon:@"devMove" withStr:@"移动" withSum:@"35291" withChange:@"23"];
-    [self getDevItem:devIptvBgView withIcon:@"devIptv" withStr:@"天翼高清" withSum:@"35291" withChange:@"23"];
-    [self getDevItem:devShareBgView withIcon:@"devShare" withStr:@"商企分享" withSum:@"35291" withChange:@"23"];
+    [self getDevItem:devBoardbandBgView withIcon:@"devBoardBand" withStr:@"宽带" withSum:@"0" withChange:@"0"];
+    [self getDevItem:devMoveBgView withIcon:@"devMove" withStr:@"移动" withSum:@"0" withChange:@"0"];
+    [self getDevItem:devIptvBgView withIcon:@"devIptv" withStr:@"天翼高清" withSum:@"0" withChange:@"0"];
+    [self getDevItem:devShareBgView withIcon:@"devShare" withStr:@"商企分享" withSum:@"0" withChange:@"0"];
 }
 
 - (void)getDevItem:(UIView *)bgView withIcon:(NSString *)imgName withStr:(NSString *)title withSum:(NSString *)sum withChange:(NSString *)changeNum{
