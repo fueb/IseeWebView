@@ -36,39 +36,9 @@
         safeBottom = 34;
     }
     home = [[IseeHomeView alloc] initWithFrame:CGRectMake(0, 0, UIScreenWidth, UIScreenHeight-(50+safeBottom))];
-    __weak typeof(IseeHomeViewController) *wkSelf = self;
+    
     home.mDelegate = self;
-    [home setMenuClick:^(NSInteger tag) {
-        NSDictionary *tempMenuDict = [modelAry objectAtIndex:tag];
-        NSLog(@"%@",tempMenuDict[@"moduleName"]);
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-
-        // 设置想要的格式，hh与HH的区别:分别表示12小时制,24小时制
-
-        [formatter setDateFormat:@"YYYYMMdd"];
-
-        NSDate *dateNow = [NSDate date];
-
-        //把NSDate按formatter格式转成NSString
-
-        NSString *currentTime = [formatter stringFromDate:dateNow];
-        
-        NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
-        NSString *md5Key = [IseeConfig md5:md5Str];
-        NSString *urlStr = [NSString stringWithFormat:@"%@?loginName=%@&companyId=%@&md5key=%@&source=isee",WEBHOST,_mLoginName,_mCompanyId,md5Key];
-        
-        IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
-        frameVC.titleHave = YES;
-        frameVC.titleName = tempMenuDict[@"moduleName"];
-        frameVC.titleBgColor = @"#FFFFFF";  //白色
-        frameVC.statusBarColor = @"#3086E8";//@"#50D4F9";  //自定义颜色
-       
-         
-        NSURL *url = [NSURL URLWithString:urlStr];
-        frameVC.mWebViewUrl = url;
-        frameVC.modalPresentationStyle = UIModalPresentationFullScreen;
-        [wkSelf presentViewController:frameVC animated:YES completion:nil];
-    }];
+    
     [self.view addSubview:home];
 //    [home setModel:modelAry];
     [self login];
@@ -105,6 +75,112 @@
 //    [home setFluWith:@"6" withVolume:@"6" withAssets:@"6"];
 //
 //    [home setMyBuleWith:@"7856" withVisitedNum:@"2865" withYearNum:@"3354" withMonthNum:@"765"];
+    __weak typeof(IseeHomeViewController) *wkSelf = self;
+    [home setMenuClick:^(NSInteger tag) {
+        NSDictionary *tempMenuDict = [modelAry objectAtIndex:tag];
+        NSLog(@"%@",tempMenuDict[@"moduleName"]);
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+
+        // 设置想要的格式，hh与HH的区别:分别表示12小时制,24小时制
+
+        [formatter setDateFormat:@"YYYYMMdd"];
+
+        NSDate *dateNow = [NSDate date];
+
+        //把NSDate按formatter格式转成NSString
+
+        NSString *currentTime = [formatter stringFromDate:dateNow];
+        
+        NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
+        NSString *md5Key = [IseeConfig md5:md5Str];
+        NSString *urlStr = [NSString stringWithFormat:@"%@?loginName=%@&companyId=%@&md5key=%@&source=isee",WEBHOST,_mLoginName,_mCompanyId,md5Key];
+        
+        IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
+        frameVC.titleHave = YES;
+        frameVC.tabbarHave = NO;
+        frameVC.titleName = tempMenuDict[@"moduleName"];
+        frameVC.titleBgColor = @"#FFFFFF";  //白色
+        frameVC.statusBarColor = @"#3086E8";//@"#50D4F9";  //自定义颜色
+       
+         
+        NSURL *url = [NSURL URLWithString:urlStr];
+        frameVC.mWebViewUrl = url;
+        frameVC.modalPresentationStyle = UIModalPresentationFullScreen;
+        [wkSelf presentViewController:frameVC animated:YES completion:nil];
+    }];
+    
+    //任务点击
+    [home setVisitListClick:^(NSInteger type) {
+        NSString *urlStr;// = [NSString stringWithFormat:@"%@?loginName=%@&companyId=%@&md5key=%@&source=isee",WEBHOST,_mLoginName,_mCompanyId,md5Key];
+        NSString *titleName;
+        if (type == 1) {
+            urlStr = VISITLISTWEBURL;
+            titleName = @"走访任务";
+        }
+        else if (type == 2)
+        {
+            urlStr = @"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee";
+            titleName = @"欠费催缴";
+        }
+        else if (type == 3)
+        {
+            urlStr = @"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee";
+            titleName = @"电路到期";
+        }
+        else if (type == 4)
+        {
+            urlStr = @"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee";
+            titleName = @"宽带(专线)到期";
+        }
+        IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
+       frameVC.titleHave = YES;
+        frameVC.tabbarHave = NO;
+       frameVC.titleName = titleName;
+       frameVC.titleBgColor = @"#FFFFFF";  //白色
+       frameVC.statusBarColor = @"#3086E8";//@"#50D4F9";  //自定义颜色
+      
+        
+       NSURL *url = [NSURL URLWithString:urlStr];
+       frameVC.mWebViewUrl = url;
+       frameVC.modalPresentationStyle = UIModalPresentationFullScreen;
+       [wkSelf presentViewController:frameVC animated:YES completion:nil];
+    }];
+    
+    //波动
+    [home setFluClick:^(NSInteger type) {
+        
+        NSString *urlStr;// = [NSString stringWithFormat:@"%@?loginName=%@&companyId=%@&md5key=%@&source=isee",WEBHOST,_mLoginName,_mCompanyId,md5Key];
+        NSString *titleName;
+        if (type == 1) {
+            urlStr = VISITLISTWEBURL;
+            titleName = @"收入波动";
+        }
+        else if (type == 2)
+        {
+            urlStr = @"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee";
+            titleName = @"话务量波动";
+        }
+        else if (type == 3)
+        {
+            urlStr = @"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee";
+            titleName = @"资产波动";
+        }
+        
+        
+        IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
+         frameVC.titleHave = YES;
+          frameVC.tabbarHave = NO;
+         frameVC.titleName = titleName;
+         frameVC.titleBgColor = @"#FFFFFF";  //白色
+         frameVC.statusBarColor = @"#3086E8";//@"#50D4F9";  //自定义颜色
+        
+          
+         NSURL *url = [NSURL URLWithString:urlStr];
+         frameVC.mWebViewUrl = url;
+         frameVC.modalPresentationStyle = UIModalPresentationFullScreen;
+         [wkSelf presentViewController:frameVC animated:YES completion:nil];
+    }];
+    
 }
 
 
@@ -150,7 +226,7 @@
             NSArray *define = data[@"define"];
             
             
-            [modelAry addObjectsFromArray:all];
+//            [modelAry addObjectsFromArray:all];
             [modelAry addObjectsFromArray:define];
             [home setModel:modelAry];
             [self getTask];//走访任务

@@ -113,7 +113,7 @@
             if ([vc isKindOfClass:[IseeWebViewController class]]) {
                 IseeWebViewController *iseeVc = (IseeWebViewController *)vc;
                 iseeVc.titleHave = NO;
-                
+                iseeVc.tabbarHave = YES;
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 
                    [formatter setDateFormat:@"YYYYMMdd"];
@@ -123,8 +123,8 @@
                 NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
                 NSString *md5Key = [IseeConfig md5:md5Str];
                 
-                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?loginName=%@&companyId=%@md5key=%@&source=isee",WEBHOST,_mLoginName,_mCompanyId,md5Key]];//urlTF.text];
-//                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",@"http://8.129.218.5:8081/qyportal/service/test"]];
+//                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?loginName=%@&companyId=%@md5key=%@&source=isee",WEBHOST,_mLoginName,_mCompanyId,md5Key]];//urlTF.text];
+                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",@"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee"]];
                 iseeVc.mWebViewUrl = url;
             }
             else if([vc isKindOfClass:[IseeHomeViewController class]])

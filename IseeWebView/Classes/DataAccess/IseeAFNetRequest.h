@@ -55,6 +55,9 @@ typedef NS_ENUM(NSUInteger,RequestType) {
 #define MYBULE              @"/custInfo/api/blueOcean/getBlueCustMsg"
 
 
+#define VISITLISTWEBURL     @"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee"
+
+
 
 
 

@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic) BOOL titleHave;          //是否显示标题
 @property(nonatomic,copy) NSString *titleBgColor;  //标题颜色
 @property(nonatomic,copy) NSString *statusBarColor;  //状态栏背景颜色
-
+@property(nonatomic) BOOL tabbarHave;          //是否显示标题
 // 返回按钮点击操作
 - (void)doBackPrev;
 // 扫码和心愿单

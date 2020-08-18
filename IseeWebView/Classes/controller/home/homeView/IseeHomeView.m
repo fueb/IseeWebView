@@ -429,9 +429,10 @@
         
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, width-50, width-50)];
         
+        NSString *iconStr = menuDict[@"icon"];
+        UIImage *iconImage = [UIImage imageNamed:iconStr];
         
-        [imgView setImage:[UIImage imageWithData:[NSData
-        dataWithContentsOfURL:[NSURL URLWithString:menuDict[@"icon"]]]]];
+        [imgView setImage:iconImage];
         
         UILabel *menuTextLab = [[UILabel alloc] init];
         menuTextLab.text = menuDict[@"moduleName"];
@@ -541,6 +542,24 @@
     [self taskViewItem:callBgView withImg:@"callIcon" withTitle:@"欠费催缴" withNum:@"0"];
     [self taskViewItem:expirBgView withImg:@"expir" withTitle:@"电路到期" withNum:@"0"];
     [self taskViewItem:bordbandBgView withImg:@"boardband" withTitle:@"宽带(专线)到期" withNum:@"0"];
+    
+    
+    UITapGestureRecognizer * tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(visitListTap:)];
+    UITapGestureRecognizer * tapGesture2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(visitListTap:)];
+    UITapGestureRecognizer * tapGesture3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(visitListTap:)];
+    UITapGestureRecognizer * tapGesture4 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(visitListTap:)];
+    
+    visitBgView.tag = 1;
+    [visitBgView addGestureRecognizer:tapGesture1];
+    
+    callBgView.tag = 2;
+    [callBgView addGestureRecognizer:tapGesture2];
+    
+    expirBgView.tag = 3;
+    [expirBgView addGestureRecognizer:tapGesture3];
+    
+    bordbandBgView.tag = 4;
+    [bordbandBgView addGestureRecognizer:tapGesture4];
 
 }
 - (void)taskViewItem:(UIView *)bgView withImg:(NSString *)imgName withTitle:(NSString *)title withNum:(NSString *)num{
@@ -642,6 +661,21 @@
     [self getFluItem:incomeFluBgView withIcon:@"income" withStr:@"收入波动" withNum:@"5"];
     [self getFluItem:volumeFluBgView withIcon:@"volume" withStr:@"话务量波动" withNum:@"5"];
     [self getFluItem:assetsFluBgView withIcon:@"assets" withStr:@"资产波动" withNum:@"5"];
+    
+    UITapGestureRecognizer * tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fluTap:)];
+    UITapGestureRecognizer * tapGesture2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fluTap:)];
+    UITapGestureRecognizer * tapGesture3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fluTap:)];
+
+    
+    incomeFluBgView.tag = 1;
+    [incomeFluBgView addGestureRecognizer:tapGesture1];
+    
+    volumeFluBgView.tag = 2;
+    [volumeFluBgView addGestureRecognizer:tapGesture2];
+    
+    assetsFluBgView.tag = 3;
+    [assetsFluBgView addGestureRecognizer:tapGesture3];
+    
     
     myBuleNumBg = [[UIView alloc] init];
     visitedBg = [[UIView alloc] init];
@@ -1037,6 +1071,22 @@
     
 }
 #pragma mark - event
+
+- (void)fluTap:(UITapGestureRecognizer *)gesture
+{
+    if (_fluClick) {
+        _fluClick(gesture.view.tag);
+    }
+    NSLog(@"%d",gesture.view.tag);
+}
+
+- (void)visitListTap:(UITapGestureRecognizer *)gesture
+{
+    if (_visitListClick) {
+        _visitListClick(gesture.view.tag);
+    }
+    NSLog(@"%d",gesture.view.tag);
+}
 
 - (void)menuTap:(UITapGestureRecognizer *)gesture
 {

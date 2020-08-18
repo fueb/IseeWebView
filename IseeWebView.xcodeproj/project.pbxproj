@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -39,7 +39,6 @@
 		2D9FFDE324C9D01800A41353 /* IseeScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9FFDDC24C9D01800A41353 /* IseeScanView.m */; };
 		2D9FFDE724C9D2E000A41353 /* CLLocation+IseeSino.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9FFDE624C9D2E000A41353 /* CLLocation+IseeSino.m */; };
 		2DDDE55E24C8490600015C76 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDDE55D24C8490600015C76 /* AppDelegate.m */; };
-		2DDDE56124C8490600015C76 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDDE56024C8490600015C76 /* SceneDelegate.m */; };
 		2DDDE56424C8490600015C76 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDDE56324C8490600015C76 /* ViewController.m */; };
 		2DDDE56724C8490600015C76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DDDE56524C8490600015C76 /* Main.storyboard */; };
 		2DDDE56924C8490B00015C76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DDDE56824C8490B00015C76 /* Assets.xcassets */; };
@@ -135,8 +134,6 @@
 		2DDDE55924C8490600015C76 /* IseeWebView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IseeWebView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DDDE55C24C8490600015C76 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2DDDE55D24C8490600015C76 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		2DDDE55F24C8490600015C76 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
-		2DDDE56024C8490600015C76 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		2DDDE56224C8490600015C76 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		2DDDE56324C8490600015C76 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		2DDDE56624C8490600015C76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -393,8 +390,6 @@
 				2D7B49B624C88F45008DE649 /* Classes */,
 				2DDDE55C24C8490600015C76 /* AppDelegate.h */,
 				2DDDE55D24C8490600015C76 /* AppDelegate.m */,
-				2DDDE55F24C8490600015C76 /* SceneDelegate.h */,
-				2DDDE56024C8490600015C76 /* SceneDelegate.m */,
 				2DDDE56224C8490600015C76 /* ViewController.h */,
 				2DDDE56324C8490600015C76 /* ViewController.m */,
 				2DDDE56524C8490600015C76 /* Main.storyboard */,
@@ -631,7 +626,6 @@
 				2D7B4A1524C89100008DE649 /* MASLayoutConstraint.m in Sources */,
 				2D7B4A1424C89100008DE649 /* MASConstraintMaker.m in Sources */,
 				2DDDE56F24C8490B00015C76 /* main.m in Sources */,
-				2DDDE56124C8490600015C76 /* SceneDelegate.m in Sources */,
 				2DE6470724CDB26D006D970E /* SiriViewController.m in Sources */,
 				2D7B4A1624C89100008DE649 /* NSArray+MASAdditions.m in Sources */,
 				2D8B299B24DBDBBC004EAC27 /* IseeHomeViewController.m in Sources */,

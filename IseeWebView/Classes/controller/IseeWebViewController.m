@@ -162,8 +162,16 @@
     
    
     
-    if (_titleHave) {
+    if (_titleHave && _tabbarHave) {
         wkFrame = CGRectMake(0, statusBarH, ScreenWidth, ScreenHeight - statusBarH - 50 -(50+safeBottom));
+    }
+    else if (_titleHave)
+    {
+        wkFrame = CGRectMake(0, statusBarH, ScreenWidth, ScreenHeight - statusBarH);
+    }
+    else if (_tabbarHave)
+    {
+        wkFrame = CGRectMake(0, 0, ScreenWidth, ScreenHeight - (50+safeBottom));
     }
     self.wkWebView = [[WKWebView alloc] initWithFrame:wkFrame configuration:config];
     [self.view addSubview:self.wkWebView];

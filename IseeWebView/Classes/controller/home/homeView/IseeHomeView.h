@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic,strong) void (^menuClick)(NSInteger type);
 @property (nonatomic,strong) void (^searchItemClick)(NSInteger type);
+@property (nonatomic,strong) void (^visitListClick)(NSInteger type);
+@property (nonatomic,strong) void (^fluClick)(NSInteger type);
 @property (nonatomic,strong)NSMutableArray *model;
 @property (nonatomic,strong)NSString *taskNum;
 @property (nonatomic,strong)NSString *querySendOrder;
