@@ -123,8 +123,8 @@
                 NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
                 NSString *md5Key = [IseeConfig md5:md5Str];
                 
-//                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?loginName=%@&companyId=%@md5key=%@&source=isee",WEBHOST,_mLoginName,_mCompanyId,md5Key]];//urlTF.text];
-                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",@"http://8.129.218.5:8081/qyportal/service/test"]];
+                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?loginName=%@&companyId=%@md5key=%@&source=isee",WEBHOST,_mLoginName,_mCompanyId,md5Key]];//urlTF.text];
+//                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",@"http://8.129.218.5:8081/qyportal/service/test"]];
                 iseeVc.mWebViewUrl = url;
             }
             else if([vc isKindOfClass:[IseeHomeViewController class]])
