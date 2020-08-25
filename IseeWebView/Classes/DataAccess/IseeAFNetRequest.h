@@ -43,7 +43,6 @@ typedef NS_ENUM(NSUInteger,RequestType) {
  */
 
 #define DOMAINNAME @"http://115.233.6.88:9090"       //域名
-#define SEARCHDOMAINNAME @"http://qxisee.zjtelecom.com.cn:9090"       //域名
 #define WEBHOST     @"http://115.233.6.88:9090/custInfoApp"
 
 #define isText NO
@@ -51,14 +50,15 @@ typedef NS_ENUM(NSUInteger,RequestType) {
 //数据url
 
 #define LOGINURL            @"/loginInfo/devLogin/rollBackToSuperAdministrator"
-#define HOMEMENU            @"/custInfo/api/toolConfig/getToolList"
-#define MYTASK              @"/custInfo/api/indexCustomerManager/getMyTask"
-#define QUERYSENDORDER      @"/custInfo/api/sendOrder/querySendOrderAllInfos"
-#define KEYPOINT            @"/custInfo/api/indexCustomerManager/getKeyPoint"
-#define CUSTOMLOST            @"/custInfo/api/customLostControlMain/getManagerCustomLost"
-#define MYBULE              @"/custInfo/api/blueOcean/getBlueCustMsg"
-#define FINDCUST            @"/custInfo/api/indexManager/findCust"
-#define FINDPROD            @"/custInfo/api/indexManager/findProd"
+#define HOMEMENU            @"/custInfoApp/api/toolConfig/getToolList"
+#define MYTASK              @"/custInfoApp/api/indexCustomerManager/getMyTask"
+#define QUERYSENDORDER      @"/custInfoApp/api/sendOrder/querySendOrderAllInfos"
+#define KEYPOINT            @"/custInfoApp/api/indexCustomerManager/getKeyPoint"
+#define CUSTOMLOST            @"/custInfoApp/api/customLostControlMain/getManagerCustomLost"
+#define MYBULE              @"/custInfoApp/api/blueOcean/getBlueCustMsg"
+#define FINDCUST            @"/custInfoApp/api/indexManager/findCust"
+#define FINDPROD            @"/custInfoApp/api/indexManager/findProd"
+#define FINDPRODUCT         @"/custInfoApp/api/indexManager/findProduct"
 //weburl
 
 #define VISITLISTWEBURL     @"/visitList"
@@ -79,5 +79,6 @@ typedef NS_ENUM(NSUInteger,RequestType) {
 #define invoiceQueryWEBURL           @"/tools/invoiceQuery"
 #define paymentLogWEBURL             @"/tools/paymentLog"
 #define contactManagementWEBURL      @"/contactManagement/Index"
+#define integratedQueryWEBURL      @"/integratedQuery/Index"
 #define enterpriseNewViewWEBURL      @"/enterpriseNewView/income"
 @end

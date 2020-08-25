@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithFrame:(CGRect)frame;
 - (void)getTable;
 - (void)removeTable;
+- (void)reloadTable;
 @end
 
 NS_ASSUME_NONNULL_END

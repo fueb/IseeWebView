@@ -53,7 +53,7 @@ static MBProgressHUD *HUD;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/plain", @"text/html;charset=utf-8",@"text/javascript", nil];
-    manager.requestSerializer.timeoutInterval = 15;
+    manager.requestSerializer.timeoutInterval = 20;
     URLString=[URLString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     switch (type)
     {
@@ -61,6 +61,7 @@ static MBProgressHUD *HUD;
         {
             [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 if (success) {
+                    [IseeAFNetRequest removeHUD];
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;// 关闭网络指示器
                     });

@@ -17,6 +17,9 @@
 //底部的安全距离
 #define kBottomSafeAreaHeight [UIApplication sharedApplication].delegate.window.safeAreaInsets.bottom
 
+/*告警框*/
+#define IseeAlert(title,msg) [[[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil] show]
+
 #define BASEGREEN   @"#05a642"
 #define oldgreen    @"#76d754"
 @interface IseeConfig : NSObject

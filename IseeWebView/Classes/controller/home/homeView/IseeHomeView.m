@@ -39,6 +39,7 @@
 @property (nonatomic, strong) UIView *monthBg;
 
 @property (nonatomic, strong) UIView *tableBgView;
+@property (nonatomic, strong) UITableView *searchTable;
 @end
 
 @implementation IseeHomeView
@@ -79,6 +80,7 @@
     UITextField *searchField;
     
     UIView *tableBgView;
+    UITableView *searchTable;
     
     
 }
@@ -246,6 +248,7 @@
     //设置是否显示水平和垂直显示条
     _scroll.showsVerticalScrollIndicator = NO;
     _scroll.showsHorizontalScrollIndicator = NO;
+    _scroll.delegate = _mDelegate;
 //    [_scroll setBackgroundColor:[UIColor yellowColor]];
     [self addSubview:_scroll];
     
@@ -1031,20 +1034,30 @@
 
 - (void)getTable{
     [_scroll addSubview:self.tableBgView];
+    [tableBgView addSubview:self.searchTable];
     
     [tableBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+         
         make.top.equalTo(searchField.mas_bottom).offset(5);
         make.left.right.bottom.equalTo(_scroll);
     }];
+    [searchTable mas_makeConstraints:^(MASConstraintMaker *make) {
+       
+        make.left.bottom.top.right.mas_equalTo(tableBgView);
+    }];
     
-    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tableTap:)];
-
-    [tableBgView addGestureRecognizer:tapGesture];
+//    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tableTap:)];
+//    tapGesture.cancelsTouchesInView = NO;
+//    [tableBgView addGestureRecognizer:tapGesture];
     
 }
 
 - (void)removeTable{
     [tableBgView removeFromSuperview];
+}
+
+- (void)reloadTable{
+    [searchTable reloadData];
 }
 
 /**
@@ -1405,11 +1418,22 @@
 {
     if (tableBgView == nil) {
         UIView *av = [[UIView alloc] init];
-        [av setBackgroundColor:[IseeConfig stringTOColor:@"#EDF0F3"]];
+        [av setBackgroundColor:[UIColor clearColor]];
 
         tableBgView = av;
     }
     return tableBgView;
+}
+- (UITableView *)searchTable
+{
+    if (searchTable == nil)
+    {
+        searchTable = [[UITableView alloc] init];
+        searchTable.backgroundColor = [UIColor whiteColor];
+        searchTable.delegate = _mDelegate;
+        searchTable.dataSource = _mDelegate;
+    }
+    return searchTable;
 }
 
 
