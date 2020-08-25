@@ -21,6 +21,7 @@
     IseeHomeTabBarModel   *iseeHomeTabBarModel;
     IseeHomeView *home;
     NSMutableArray *modelAry;
+    NSInteger searchInt;
 }
 
 @end
@@ -30,6 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     CGFloat safeBottom = 0;
+    searchInt = 0;
     modelAry = [[NSMutableArray alloc] init];
     
     if ([IseeConfig isNotchScreen]) {
@@ -79,6 +81,52 @@
     [home setMenuClick:^(NSInteger tag) {
         NSDictionary *tempMenuDict = [modelAry objectAtIndex:tag];
         NSLog(@"%@",tempMenuDict[@"moduleName"]);
+        NSString *moduleName = tempMenuDict[@"moduleName"];
+        NSString *methodName;
+        if (moduleName.length<=0) {
+            return;
+        }
+        
+        if ([moduleName isEqualToString:@"联系人管理"]) {
+            methodName = contactManagementWEBURL;
+        }
+        else if ([moduleName isEqualToString:@"装维工单"]) {
+            methodName = InstallationWorkorderWEBURL;
+        }
+        else if ([moduleName isEqualToString:@"套餐使用量"]) {
+            methodName = packageUsageWEBURL;
+        }
+        else if ([moduleName isEqualToString:@"套餐优惠"]) {
+            methodName = packageOfferWEBURL;
+        }
+        else if ([moduleName isEqualToString:@"客户积分"]) {
+            methodName = customerPointsWEBURL;
+        }
+        else if ([moduleName isEqualToString:@"虚拟网信息"]) {
+            methodName = vpnInformationWEBURL;
+        }
+        else if ([moduleName isEqualToString:@"客户账单"]) {
+            methodName = customerBillWEBURL;
+        }
+        else if ([moduleName isEqualToString:@"消费余额"]) {
+            methodName = customerOverageWEBURL;
+        }
+        else if ([moduleName isEqualToString:@"用户欠费"]) {
+            methodName = customerArrearsWEBURL;
+        }
+        else if ([moduleName isEqualToString:@"电子发票"]) {
+            methodName = invoiceQueryWEBURL;
+        }
+        else if ([moduleName isEqualToString:@"交费日志"]) {
+            methodName = paymentLogWEBURL;
+        }
+        else if ([moduleName isEqualToString:@"联系人管理"]) {
+            methodName = contactManagementWEBURL;
+        }
+        else if ([moduleName isEqualToString:@"政企视图"]) {
+            methodName = enterpriseNewViewWEBURL;
+        }
+        
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 
         // 设置想要的格式，hh与HH的区别:分别表示12小时制,24小时制
@@ -93,7 +141,10 @@
         
         NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
         NSString *md5Key = [IseeConfig md5:md5Str];
-        NSString *urlStr = [NSString stringWithFormat:@"%@?loginName=%@&companyId=%@&md5key=%@&source=isee",WEBHOST,_mLoginName,_mCompanyId,md5Key];
+        NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee",WEBHOST,methodName,_mLoginName,_mCompanyId,md5Key];
+        if ([moduleName isEqualToString:@"联系人管理"]) {
+            urlStr = @"http://115.233.6.88:9090/custInfoApp/contactManagement/Index?managerId=120608&latnId=71&areaId=66363";
+        }
         
         IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
         frameVC.titleHave = YES;
@@ -111,27 +162,47 @@
     
     //任务点击
     [home setVisitListClick:^(NSInteger type) {
-        NSString *urlStr;// = [NSString stringWithFormat:@"%@?loginName=%@&companyId=%@&md5key=%@&source=isee",WEBHOST,_mLoginName,_mCompanyId,md5Key];
+        NSString *methodName;// = [NSString stringWithFormat:@"%@?loginName=%@&companyId=%@&md5key=%@&source=isee",WEBHOST,_mLoginName,_mCompanyId,md5Key];
         NSString *titleName;
         if (type == 1) {
-            urlStr = VISITLISTWEBURL;
+            methodName = VISITLISTWEBURL;
             titleName = @"走访任务";
         }
         else if (type == 2)
         {
-            urlStr = @"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee";
+            methodName = @"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee";
             titleName = @"欠费催缴";
+            return;
         }
         else if (type == 3)
         {
-            urlStr = @"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee";
+            methodName = @"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee";
             titleName = @"电路到期";
+            return;
         }
         else if (type == 4)
         {
-            urlStr = @"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee";
+            methodName = @"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee";
             titleName = @"宽带(专线)到期";
+            return;
         }
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+
+        // 设置想要的格式，hh与HH的区别:分别表示12小时制,24小时制
+
+        [formatter setDateFormat:@"YYYYMMdd"];
+
+        NSDate *dateNow = [NSDate date];
+
+        //把NSDate按formatter格式转成NSString
+
+        NSString *currentTime = [formatter stringFromDate:dateNow];
+        
+        NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
+        NSString *md5Key = [IseeConfig md5:md5Str];
+        NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee",WEBHOST,methodName,_mLoginName,_mCompanyId,md5Key];
+        
         IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
        frameVC.titleHave = YES;
         frameVC.tabbarHave = NO;
@@ -148,7 +219,7 @@
     
     //波动
     [home setFluClick:^(NSInteger type) {
-        
+        return;
         NSString *urlStr;// = [NSString stringWithFormat:@"%@?loginName=%@&companyId=%@&md5key=%@&source=isee",WEBHOST,_mLoginName,_mCompanyId,md5Key];
         NSString *titleName;
         if (type == 1) {
@@ -181,6 +252,10 @@
          [wkSelf presentViewController:frameVC animated:YES completion:nil];
     }];
     
+    //查询类型
+    [home setSearchItemClick:^(NSInteger type) {
+        searchInt = type;
+    }];
 }
 
 
@@ -411,6 +486,33 @@
     }];
 }
 
+- (void)searchWIthText:(NSString *)text{
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:text forKey:@"text"];
+    if (searchInt == 0) {
+        [self.iseeHomeModel isee_findCustMsgWithParam:param WithSuccess:^(id  _Nonnull result) {
+            if ([result[@"code"] integerValue] == 200)
+            {
+                NSArray *data = result[@"data"];
+            }
+        } failure:^{
+            
+        }];
+    }
+    else if (searchInt == 1)
+    {
+        [self.iseeHomeModel isee_findProdWithParam:param WithSuccess:^(id  _Nonnull result) {
+            if ([result[@"code"] integerValue] == 200)
+            {
+                NSArray *data = result[@"data"];
+            }
+        } failure:^{
+            
+        }];
+    }
+    
+}
+
 #pragma mark -init
 
 - (IseeHomeModel *)iseeHomeModel
@@ -433,7 +535,12 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
+    [self searchWIthText:textField.text];
     return YES;
+}
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [home getTable];
 }
 /*
 #pragma mark - Navigation

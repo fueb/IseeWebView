@@ -35,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 -(void)setFluWith:(NSString *)incomeNum withVolume:(NSString *)volumeNum withAssets:(NSString *)assetsNum;
 -(void)setMyBuleWith:(NSString *)myBuleNum withVisitedNum:(NSString *)visitedNum withYearNum:(NSString *)yearNum withMonthNum:(NSString *)monthNum;
 - (instancetype)initWithFrame:(CGRect)frame;
+- (void)getTable;
+- (void)removeTable;
 @end
 
 NS_ASSUME_NONNULL_END

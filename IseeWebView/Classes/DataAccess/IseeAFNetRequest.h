@@ -41,10 +41,14 @@ typedef NS_ENUM(NSUInteger,RequestType) {
  let URL_ALI_QUERY_ORDER_BY_STATUS = "\(URL_STRING)queryOrderByStatus.action";
  let URL_ALI_CANCELORDER = "\(URL_STRING)aliCancelOrder.action";     //撤销支付宝订单
  */
+
 #define DOMAINNAME @"http://115.233.6.88:9090"       //域名
-#define WEBHOST     @"http://115.233.6.88:9090/custInfoApp/visitList"
+#define SEARCHDOMAINNAME @"http://qxisee.zjtelecom.com.cn:9090"       //域名
+#define WEBHOST     @"http://115.233.6.88:9090/custInfoApp"
 
 #define isText NO
+
+//数据url
 
 #define LOGINURL            @"/loginInfo/devLogin/rollBackToSuperAdministrator"
 #define HOMEMENU            @"/custInfo/api/toolConfig/getToolList"
@@ -53,12 +57,27 @@ typedef NS_ENUM(NSUInteger,RequestType) {
 #define KEYPOINT            @"/custInfo/api/indexCustomerManager/getKeyPoint"
 #define CUSTOMLOST            @"/custInfo/api/customLostControlMain/getManagerCustomLost"
 #define MYBULE              @"/custInfo/api/blueOcean/getBlueCustMsg"
+#define FINDCUST            @"/custInfo/api/indexManager/findCust"
+#define FINDPROD            @"/custInfo/api/indexManager/findProd"
+//weburl
 
+#define VISITLISTWEBURL     @"/visitList"
 
-#define VISITLISTWEBURL     @"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee"
+#define MYWEBURL        @"/mine"
+#define MESSAGEWEBURL   @"/message"
+#define TOOLWEBURL      @"/tools"
 
-
-
-
-
+#define InstallationWorkorderWEBURL      @"/tools/InstallationWorkorder"
+#define packageUsageWEBURL               @"/tools/packageUsage"
+#define packageUsageDetailWEBURL      @"/tools/packageUsage/packageUsageDetail"
+#define packageOfferWEBURL           @"/tools/packageOffer"
+#define customerPointsWEBURL         @"/tools/customerPoints"
+#define vpnInformationWEBURL         @"/tools/vpnInformation"
+#define customerBillWEBURL           @"/tools/customerBill"
+#define customerOverageWEBURL        @"/tools/customerOverage"
+#define customerArrearsWEBURL        @"/tools/customerArrears"
+#define invoiceQueryWEBURL           @"/tools/invoiceQuery"
+#define paymentLogWEBURL             @"/tools/paymentLog"
+#define contactManagementWEBURL      @"/contactManagement/Index"
+#define enterpriseNewViewWEBURL      @"/enterpriseNewView/income"
 @end

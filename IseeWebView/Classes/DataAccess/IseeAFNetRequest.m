@@ -59,7 +59,7 @@ static MBProgressHUD *HUD;
     {
         case RequestTypeGet:
         {
-            [[AFAppDotNetAPIClient sharedClient] GET:URLString parameters:nil headers: nil progress:nil success:^(NSURLSessionDataTask * __unused task, id responseObject) {
+            [manager GET:URLString parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 if (success) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;// 关闭网络指示器
@@ -76,18 +76,20 @@ static MBProgressHUD *HUD;
                         success(result);
                     }
                 }
-            } failure:^(NSURLSessionDataTask *__unused task, NSError *error) {
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 [IseeAFNetRequest removeHUD];
                 if (failure) {
                     failure(error);
                 }
             }];
+            
+            
         }
             break;
         case RequestTypePost:
         {
             
-            [manager POST:URLString parameters:parameters headers:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            [manager POST:URLString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 [IseeAFNetRequest removeHUD];
                 if (success)
                 {

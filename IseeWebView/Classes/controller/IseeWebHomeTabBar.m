@@ -9,7 +9,7 @@
 #define titleKey   @"title"
 #define imgKey     @"imageName"
 #define selImgKey  @"selectedImageName"
-
+#define urlKey     @"webViewUrl"
 
 #import "IseeWebHomeTabBar.h"
 #import "IseeWebViewController.h"
@@ -90,22 +90,26 @@
                                          @{classKey  : @"IseeWebViewController",
                                            titleKey  : @"工具",
                                            imgKey    : @"tool",
-                                           selImgKey : @"toolSelect"} ,
+                                           selImgKey : @"toolSelect",
+                                           urlKey    : TOOLWEBURL} ,
                                          
                                          @{classKey  : @"IseeWebViewController",
                                            titleKey  : @"沙盘",
                                            imgKey    : @"sandTable",
-                                           selImgKey : @"sandTableSelect"},
+                                           selImgKey : @"sandTableSelect",
+                                           urlKey    : TOOLWEBURL},
                                          
                                          @{classKey  : @"IseeWebViewController",
                                            titleKey  : @"消息",
                                            imgKey    : @"message",
-                                           selImgKey : @"messageSelect"},
+                                           selImgKey : @"messageSelect",
+                                           urlKey    : MESSAGEWEBURL},
                                          
                                          @{classKey  : @"IseeWebViewController",
                                            titleKey  : @"我的",
                                            imgKey    : @"my",
-                                           selImgKey : @"mySelect"},nil];
+                                           selImgKey : @"mySelect",
+                                           urlKey    : MYWEBURL},nil];
         
         for (NSDictionary *dict in childItemsAry)
         {
@@ -120,11 +124,13 @@
                    NSDate *dateNow = [NSDate date];
                    NSString *currentTime = [formatter stringFromDate:dateNow];
                       
-                NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
-                NSString *md5Key = [IseeConfig md5:md5Str];
+                NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_mLoginName,_mCompanyId,currentTime];
+                NSString *md5Key = [[IseeConfig md5:md5Str] lowercaseString];
                 
-//                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@?loginName=%@&companyId=%@md5key=%@&source=isee",WEBHOST,_mLoginName,_mCompanyId,md5Key]];//urlTF.text];
-                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",@"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee"]];
+                NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,dict[urlKey],_mLoginName,_mCompanyId,md5Key];
+                
+                NSURL *url = [NSURL URLWithString:urlStr];//urlTF.text];
+//                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",@"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee"]];
                 iseeVc.mWebViewUrl = url;
             }
             else if([vc isKindOfClass:[IseeHomeViewController class]])

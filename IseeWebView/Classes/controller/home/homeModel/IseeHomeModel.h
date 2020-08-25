@@ -28,6 +28,12 @@ failure:(void (^)(void))failed;
 - (void)isee_getBlueCustMsgWithParam:(NSMutableDictionary *)param
                          WithSuccess:(void (^)(id result))success
                              failure:(void (^)(void))failed;
+- (void)isee_findCustMsgWithParam:(NSMutableDictionary *)param
+                      WithSuccess:(void (^)(id result))success
+                          failure:(void (^)(void))failed;
+- (void)isee_findProdWithParam:(NSMutableDictionary *)param
+                   WithSuccess:(void (^)(id result))success
+                       failure:(void (^)(void))failed;
 @end
 
 NS_ASSUME_NONNULL_END

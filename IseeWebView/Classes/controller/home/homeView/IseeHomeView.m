@@ -37,6 +37,8 @@
 @property (nonatomic, strong) UIView *visitedBg;
 @property (nonatomic, strong) UIView *yearBg;
 @property (nonatomic, strong) UIView *monthBg;
+
+@property (nonatomic, strong) UIView *tableBgView;
 @end
 
 @implementation IseeHomeView
@@ -75,6 +77,8 @@
     UIButton *numBtn;
     UIButton *knowBtn;
     UITextField *searchField;
+    
+    UIView *tableBgView;
     
     
 }
@@ -261,6 +265,7 @@
     
     [_scroll addSubview:searchBgView];
     
+    
     [_scroll addSubview:self.upBgView];
     [_scroll addSubview:self.menuView];
     [_scroll addSubview:self.taskBgView];
@@ -283,6 +288,8 @@
         make.height.equalTo(@(300));
         make.left.right.equalTo(_scroll);
     }];
+    
+    
     
     [upBgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(searchBgView.mas_bottom);
@@ -777,10 +784,10 @@
         make.height.equalTo(@30);
     }];
     
-    [self addSubview:self.devShareBgView];
-    [self addSubview:self.devMoveBgView];
-    [self addSubview:self.devIptvBgView];
-    [self addSubview:self.devBoardbandBgView];
+    [_scroll addSubview:self.devShareBgView];
+    [_scroll addSubview:self.devMoveBgView];
+    [_scroll addSubview:self.devIptvBgView];
+    [_scroll addSubview:self.devBoardbandBgView];
     
     [devBoardbandBgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(developeTitleLab.mas_bottom);
@@ -1021,6 +1028,25 @@
     
     
 }
+
+- (void)getTable{
+    [_scroll addSubview:self.tableBgView];
+    
+    [tableBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(searchField.mas_bottom).offset(5);
+        make.left.right.bottom.equalTo(_scroll);
+    }];
+    
+    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tableTap:)];
+
+    [tableBgView addGestureRecognizer:tapGesture];
+    
+}
+
+- (void)removeTable{
+    [tableBgView removeFromSuperview];
+}
+
 /**
  *  给UITextField设置右侧的图片
  *
@@ -1071,7 +1097,11 @@
     
 }
 #pragma mark - event
-
+- (void)tableTap:(UITapGestureRecognizer *)gesture
+{
+    [self removeTable];
+    [searchField resignFirstResponder];
+}
 - (void)fluTap:(UITapGestureRecognizer *)gesture
 {
     if (_fluClick) {
@@ -1370,6 +1400,18 @@
     }
     return assetsFluBgView;
 }
+
+- (UIView *)tableBgView
+{
+    if (tableBgView == nil) {
+        UIView *av = [[UIView alloc] init];
+        [av setBackgroundColor:[IseeConfig stringTOColor:@"#EDF0F3"]];
+
+        tableBgView = av;
+    }
+    return tableBgView;
+}
+
 
 
 
