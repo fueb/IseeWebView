@@ -9,6 +9,7 @@
 #import "IseeNaviBarView.h"
 #import "UIView+IseeExtension.h"
 #import "IseeWebViewController.h"
+#import "IseeConfig.h"
 
 #define TagRightMenu -300   // 右侧菜单栏
 #define TagRightImg -301  // 右侧图片
@@ -89,8 +90,8 @@
     if (srcBack)
         return;
     
-    UIImage *background = [UIImage imageNamed:@"ico_return"];
-    UIImage *backgroundOn = [UIImage imageNamed:@"ico_return"] ;
+    UIImage *background = [IseeConfig imageNamed:@"ico_return"];
+    UIImage *backgroundOn = [IseeConfig imageNamed:@"ico_return"] ;
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setAccessibilityIdentifier:@"TopBackBtn"];
@@ -110,8 +111,8 @@
 //首页分类页用到
 - (void)addScanAndWishList {
     if (_leftScanQRCode == nil) {
-        UIImage *background = [UIImage imageNamed:@"nav_scan"];
-        UIImage *backgroundOn = [UIImage imageNamed:@"nav_scan"];
+        UIImage *background = [IseeConfig imageNamed:@"nav_scan"];
+        UIImage *backgroundOn = [IseeConfig imageNamed:@"nav_scan"];
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setImage:background forState:UIControlStateNormal];
         [button setImage:backgroundOn forState:UIControlStateSelected];
@@ -129,7 +130,7 @@
         [_navigationBar addSubview:searchView];
         
         UIImageView *searchIcon = [[UIImageView alloc] initWithFrame:CGRectMake(10, 7.5, 12, 12)];
-        searchIcon.image = [UIImage imageNamed:@"ic_smallsearch"];
+        searchIcon.image = [IseeConfig imageNamed:@"ic_smallsearch"];
         [searchView addSubview:searchIcon];
         
         UILabel *searchLabel = [[UILabel alloc] initWithFrame:CGRectMake(30, 0, searchView.width - 60, 28)];
@@ -141,8 +142,8 @@
         _searchBarView = searchView;
     }
     if (_rightWishBtn == nil) {
-        UIImage *background = [UIImage imageNamed:@"nav_wish_black"];
-        UIImage *backgroundOn = [UIImage imageNamed:@"nav_wish_black"];
+        UIImage *background = [IseeConfig imageNamed:@"nav_wish_black"];
+        UIImage *backgroundOn = [IseeConfig imageNamed:@"nav_wish_black"];
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         [button setImage:background forState:UIControlStateNormal];
@@ -164,8 +165,8 @@
         _rightWishBtn = nil;
     }
     
-    UIImage *background = [UIImage imageNamed:@"ic_home_wishlist_normal"];
-    UIImage *backgroundOn = [UIImage imageNamed:@"ic_home_wishlist_highLight"];
+    UIImage *background = [IseeConfig imageNamed:@"ic_home_wishlist_normal"];
+    UIImage *backgroundOn = [IseeConfig imageNamed:@"ic_home_wishlist_highLight"];
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button setImage:background forState:UIControlStateNormal];
@@ -240,8 +241,8 @@
 
 
 - (void)setBackImage:(NSString *)imageName {
-    UIImage *background = [UIImage imageNamed:imageName];
-    UIImage *backgroundOn = [UIImage imageNamed:imageName];
+    UIImage *background = [IseeConfig imageNamed:imageName];
+    UIImage *backgroundOn = [IseeConfig imageNamed:imageName];
     [_backBtn setImage:background forState:UIControlStateNormal];
     [_backBtn setImage:backgroundOn forState:UIControlStateHighlighted];
 }

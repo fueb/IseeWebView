@@ -37,7 +37,7 @@
     NSString *md5Str = [NSString stringWithFormat:@"%@%@1!9@3#6$8%%9z",staffCode,currentTime];
     
     
-    [sendDict setObject:[IseeConfig md5:md5Str] forKey:@"token"];
+    [sendDict setObject:[[IseeConfig md5:md5Str] uppercaseString] forKey:@"token"];
     
     NSArray *keys = sendDict.allKeys;
     NSArray *values = sendDict.allValues;

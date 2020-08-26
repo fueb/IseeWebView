@@ -440,7 +440,7 @@
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, width-50, width-50)];
         
         NSString *iconStr = menuDict[@"icon"];
-        UIImage *iconImage = [UIImage imageNamed:iconStr];
+        UIImage *iconImage = [IseeConfig imageNamed:iconStr];
         
         [imgView setImage:iconImage];
         
@@ -573,7 +573,7 @@
 
 }
 - (void)taskViewItem:(UIView *)bgView withImg:(NSString *)imgName withTitle:(NSString *)title withNum:(NSString *)num{
-    UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imgName]];
+    UIImageView *icon = [[UIImageView alloc] initWithImage:[IseeConfig imageNamed:imgName]];
     UILabel *titleLab = [[UILabel alloc] init];
     titleLab.text = title;
     titleLab.textColor = [UIColor grayColor];
@@ -838,7 +838,7 @@
     [bgView addSubview:changeLab];
     [bgView addSubview:changeImg];
     
-    [iconi setImage:[UIImage imageNamed:imgName]];
+    [iconi setImage:[IseeConfig imageNamed:imgName]];
     
     titleLab.textAlignment = 1;
     titleLab.textColor = [IseeConfig stringTOColor:@"#3A84D0"];
@@ -907,9 +907,9 @@
     [bgView addSubview:titleLab];
     [bgView addSubview:sumLab];
     
-    [topRightImg setImage:[UIImage imageNamed:@"earlyWarn"]];
+    [topRightImg setImage:[IseeConfig imageNamed:@"earlyWarn"]];
     
-    [iconi setImage:[UIImage imageNamed:imgName]];
+    [iconi setImage:[IseeConfig imageNamed:imgName]];
     
     titleLab.textAlignment = 1;
     titleLab.textColor = [IseeConfig stringTOColor:@"#6A6B6E"];
@@ -1072,11 +1072,11 @@
     [reght setBounds:CGRectMake(0, 0, 80, 40)];
     
     UIImageView *image1 = [[UIImageView alloc]init];
-    image1.image = [UIImage imageNamed:imageName];
+    image1.image = [IseeConfig imageNamed:imageName];
     [image1 setFrame:CGRectMake(0, 0, 40, 40)];
 //    image1.contentMode = UIViewContentModeCenter;
     UIImageView *image2 = [[UIImageView alloc]init];
-    image2.image = [UIImage imageNamed:img];
+    image2.image = [IseeConfig imageNamed:img];//[IseeConfig imageNamed:img];
     [image2 setFrame:CGRectMake(40, 0, 40, 40)];
 //    image2.contentMode = UIViewContentModeCenter;
     [reght addSubview:image1];
@@ -1101,7 +1101,7 @@
     [left setBounds:CGRectMake(0, 0, 40, 40)];
     
     UIImageView *leftView = [[UIImageView alloc]init];
-    leftView.image = [UIImage imageNamed:imageName];
+    leftView.image = [IseeConfig imageNamed:imageName];
     [leftView setFrame:CGRectMake(0, 0, 40, 40)];
     [left addSubview:leftView];
 //    leftView.contentMode = UIViewContentModeCenter;

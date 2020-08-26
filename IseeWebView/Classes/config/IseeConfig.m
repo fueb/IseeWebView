@@ -75,7 +75,26 @@
         [outputstring appendFormat:@"%02x", digest[i]];
     }
     
-    return [outputstring uppercaseString];
+    return [outputstring lowercaseString];
+}
+
+//获取bundle图片
++ (UIImage *)imageNamed:(NSString *)imageName
+{
+//   NSString * bundlePath = [[NSBundle mainBundle]pathForResource:@"IseeWebResource" ofType:@"bundle"];
+//    NSBundle*bundle = [NSBundle bundleWithPath:bundlePath];
+//
+//   NSString* image = [bundle pathForResource:imageName ofType:@"png"];
+    
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"IseeWebResource.bundle" withExtension:nil];
+    NSBundle *bundle = [NSBundle bundleWithURL:url];
+    NSString *name = [@"img" stringByAppendingPathComponent:imageName];
+    
+    UIImage *image = [UIImage imageNamed:name inBundle:bundle compatibleWithTraitCollection:nil];//[UIImage imageNamed:imageName];
+    //优先取上层bundle 里的图片，如果没有，则用自带资源的图片
+    return image ? image : [UIImage imageNamed:name inBundle:bundle compatibleWithTraitCollection:nil];
+
+//    return [UIImage imageNamed:name];
 }
 
 @end

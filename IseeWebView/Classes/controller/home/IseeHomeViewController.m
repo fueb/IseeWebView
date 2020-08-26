@@ -146,7 +146,7 @@
         
         NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
         NSString *md5Key = [IseeConfig md5:md5Str];
-        NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee",WEBHOST,methodName,_mLoginName,_mCompanyId,md5Key];
+        NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,methodName,_mLoginName,_mCompanyId,md5Key];
         if ([moduleName isEqualToString:@"联系人管理"]) {
             urlStr = @"http://115.233.6.88:9090/custInfoApp/contactManagement/Index?managerId=120608&latnId=71&areaId=66363";
         }
@@ -206,7 +206,7 @@
         
         NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
         NSString *md5Key = [IseeConfig md5:md5Str];
-        NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee",WEBHOST,methodName,_mLoginName,_mCompanyId,md5Key];
+        NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,methodName,_mLoginName,_mCompanyId,md5Key];
         
         IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
        frameVC.titleHave = YES;
@@ -290,7 +290,7 @@
         }
         else
         {
-            NSLog(@"%@",result[@"errmsg"], nil);
+             IseeAlert(result[@"msg"],NULL);
         }
     } failure:^{
     //        [home setModel:modelAry];
@@ -386,7 +386,7 @@
             NSDictionary *data = result[@"data"];
             NSInteger taskNum = data[@"processingAllCount"];
             
-            [home setQuerySendOrder:[NSString stringWithFormat:@"%@",taskNum] withType:type];
+            [home setQuerySendOrder:[NSString stringWithFormat:@"%ld",(long)taskNum] withType:type];
             
         }
         else
@@ -585,7 +585,7 @@
              NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
              NSString *md5Key = [IseeConfig md5:md5Str];
             NSString *urlStr;
-            urlStr = [NSString stringWithFormat:@"%@%@?accNbr=%@&latnId=%@&servId=%@&custId=%@&crmCustId=%@&loginName=%@&companyId=%@&md5key=%@&source=isee",WEBHOST,integratedQueryWEBURL,tempModel.accNbr,tempModel.latnId,tempModel.servId,data[@"custId"],tempModel.crmCustId,_mLoginName,_mCompanyId,md5Key];
+            urlStr = [NSString stringWithFormat:@"%@%@?accNbr=%@&latnId=%@&servId=%@&custId=%@&crmCustId=%@&loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,integratedQueryWEBURL,tempModel.accNbr,tempModel.latnId,tempModel.servId,data[@"custId"],tempModel.crmCustId,_mLoginName,_mCompanyId,md5Key];
              
              
              IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
@@ -700,7 +700,7 @@
          NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
          NSString *md5Key = [IseeConfig md5:md5Str];
         NSString *urlStr;
-        urlStr = [NSString stringWithFormat:@"%@%@?vipCard=%@&latnId=%@&loginName=%@&companyId=%@&md5key=%@&source=isee",WEBHOST,enterpriseNewViewWEBURL,tempModel.ser_id,tempModel.latn_id,_mLoginName,_mCompanyId,md5Key];
+        urlStr = [NSString stringWithFormat:@"%@%@?vipCard=%@&latnId=%@&loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,enterpriseNewViewWEBURL,tempModel.ser_id,tempModel.latn_id,_mLoginName,_mCompanyId,md5Key];
          
         if ([tempModel.id_type_name isEqualToString:@"他网"]||[tempModel.id_type_name isEqualToString:@"蓝海"]) {
             

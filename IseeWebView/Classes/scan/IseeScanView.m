@@ -29,7 +29,7 @@
     scanZomeBack.backgroundColor = [UIColor clearColor];
     scanZomeBack.layer.borderColor = [UIColor whiteColor].CGColor;
     scanZomeBack.layer.borderWidth = 2.5;
-    scanZomeBack.image = [UIImage imageNamed:@"scanscanBg"];
+    scanZomeBack.image = [IseeConfig imageNamed:@"scanscanBg"];
     //添加一个背景图片
     CGRect mImagerect = CGRectMake(60 * widthRate,(self.frame.size.height - 200 * widthRate) / 2,
                                    200 * widthRate, 200 * widthRate);
@@ -104,7 +104,7 @@
     else
     {
         _readLineView = [[UIImageView alloc] initWithFrame:rect];
-        [_readLineView setImage:[UIImage imageNamed:@"scanLine"]];
+        [_readLineView setImage:[IseeConfig imageNamed:@"scanLine"]];
         [self addSubview:_readLineView];
     }
     
@@ -138,8 +138,8 @@
     [reader addSubview:self.moneyNumberLab];
     //开关灯按键
     UIButton *lampBtn = [[UIButton alloc]initWithFrame:CGRectMake(UIScreenWidth - wid - 25, heih - 30, 25, 25)];
-    [lampBtn setImage:[UIImage imageNamed:@"scanning_btn_light_close"] forState:UIControlStateNormal];
-    [lampBtn setImage:[UIImage imageNamed:@"scanning_btn_light_open"] forState:UIControlStateSelected];
+    [lampBtn setImage:[IseeConfig imageNamed:@"scanning_btn_light_close"] forState:UIControlStateNormal];
+    [lampBtn setImage:[IseeConfig imageNamed:@"scanning_btn_light_open"] forState:UIControlStateSelected];
     [lampBtn addTarget:self action:@selector(lampBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [upView addSubview:lampBtn];
 

@@ -24,23 +24,19 @@
 		2D9CD07224F5408F002B9CE1 /* IseeCustModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9CD07124F5408E002B9CE1 /* IseeCustModel.m */; };
 		2D9CD07524F55813002B9CE1 /* IseeProdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9CD07424F55813002B9CE1 /* IseeProdModel.m */; };
 		2D9CD07824F55921002B9CE1 /* IseeProdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9CD07724F55921002B9CE1 /* IseeProdCell.m */; };
-		2D9FFDDE24C9D01800A41353 /* qrcode_flash.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D9FFDD724C9D01800A41353 /* qrcode_flash.png */; };
-		2D9FFDDF24C9D01800A41353 /* scanscanBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D9FFDD824C9D01800A41353 /* scanscanBg.png */; };
-		2D9FFDE024C9D01800A41353 /* qrcode_flash_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D9FFDD924C9D01800A41353 /* qrcode_flash_on.png */; };
-		2D9FFDE124C9D01800A41353 /* scanLine@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D9FFDDA24C9D01800A41353 /* scanLine@3x.png */; };
-		2D9FFDE224C9D01800A41353 /* scanLine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D9FFDDB24C9D01800A41353 /* scanLine@2x.png */; };
 		2D9FFDE324C9D01800A41353 /* IseeScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9FFDDC24C9D01800A41353 /* IseeScanView.m */; };
 		2D9FFDE724C9D2E000A41353 /* CLLocation+IseeSino.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9FFDE624C9D2E000A41353 /* CLLocation+IseeSino.m */; };
 		2DDDE55E24C8490600015C76 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDDE55D24C8490600015C76 /* AppDelegate.m */; };
 		2DDDE56424C8490600015C76 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDDE56324C8490600015C76 /* ViewController.m */; };
 		2DDDE56724C8490600015C76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DDDE56524C8490600015C76 /* Main.storyboard */; };
-		2DDDE56924C8490B00015C76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DDDE56824C8490B00015C76 /* Assets.xcassets */; };
 		2DDDE56C24C8490B00015C76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DDDE56A24C8490B00015C76 /* LaunchScreen.storyboard */; };
 		2DDDE56F24C8490B00015C76 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDDE56E24C8490B00015C76 /* main.m */; };
 		2DDDE57924C8490C00015C76 /* IseeWebViewTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDDE57824C8490C00015C76 /* IseeWebViewTests.m */; };
 		2DDDE58424C8490C00015C76 /* IseeWebViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDDE58324C8490C00015C76 /* IseeWebViewUITests.m */; };
 		2DDDE59424C84AD700015C76 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 2DDDE59324C84AD700015C76 /* www */; };
 		2DE6470724CDB26D006D970E /* SiriViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE6470624CDB26D006D970E /* SiriViewController.m */; };
+		2DF5513E24F69220009F743D /* IseeWebResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2DF5513D24F69220009F743D /* IseeWebResource.bundle */; };
+		2DF5514024F69316009F743D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DF5513F24F69316009F743D /* Assets.xcassets */; };
 		73A9E6F49D854085D3A6E7F3 /* libPods-IseeWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C3FFFB8606F300C951FB90 /* libPods-IseeWebView.a */; };
 /* End PBXBuildFile section */
 
@@ -97,11 +93,6 @@
 		2D9CD07424F55813002B9CE1 /* IseeProdModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeProdModel.m; sourceTree = "<group>"; };
 		2D9CD07624F55921002B9CE1 /* IseeProdCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IseeProdCell.h; path = IseeWebView/Classes/controller/home/homeView/IseeProdCell.h; sourceTree = SOURCE_ROOT; };
 		2D9CD07724F55921002B9CE1 /* IseeProdCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = IseeProdCell.m; path = IseeWebView/Classes/controller/home/homeView/IseeProdCell.m; sourceTree = SOURCE_ROOT; };
-		2D9FFDD724C9D01800A41353 /* qrcode_flash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qrcode_flash.png; sourceTree = "<group>"; };
-		2D9FFDD824C9D01800A41353 /* scanscanBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scanscanBg.png; sourceTree = "<group>"; };
-		2D9FFDD924C9D01800A41353 /* qrcode_flash_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = qrcode_flash_on.png; sourceTree = "<group>"; };
-		2D9FFDDA24C9D01800A41353 /* scanLine@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanLine@3x.png"; sourceTree = "<group>"; };
-		2D9FFDDB24C9D01800A41353 /* scanLine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scanLine@2x.png"; sourceTree = "<group>"; };
 		2D9FFDDC24C9D01800A41353 /* IseeScanView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IseeScanView.m; sourceTree = "<group>"; };
 		2D9FFDDD24C9D01800A41353 /* IseeScanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IseeScanView.h; sourceTree = "<group>"; };
 		2D9FFDE524C9D2E000A41353 /* CLLocation+IseeSino.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+IseeSino.h"; sourceTree = "<group>"; };
@@ -112,7 +103,6 @@
 		2DDDE56224C8490600015C76 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		2DDDE56324C8490600015C76 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		2DDDE56624C8490600015C76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		2DDDE56824C8490B00015C76 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2DDDE56B24C8490B00015C76 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2DDDE56D24C8490B00015C76 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2DDDE56E24C8490B00015C76 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -125,6 +115,8 @@
 		2DDDE59324C84AD700015C76 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		2DE6470524CDB26D006D970E /* SiriViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SiriViewController.h; sourceTree = "<group>"; };
 		2DE6470624CDB26D006D970E /* SiriViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SiriViewController.m; sourceTree = "<group>"; };
+		2DF5513D24F69220009F743D /* IseeWebResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IseeWebResource.bundle; sourceTree = "<group>"; };
+		2DF5513F24F69316009F743D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A7FF4EA19FF42ED579CF236 /* Pods-IseeWebView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IseeWebView.release.xcconfig"; path = "Target Support Files/Pods-IseeWebView/Pods-IseeWebView.release.xcconfig"; sourceTree = "<group>"; };
 		92C3FFFB8606F300C951FB90 /* libPods-IseeWebView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IseeWebView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -292,11 +284,6 @@
 		2D9FFDD624C9D01800A41353 /* scanImg */ = {
 			isa = PBXGroup;
 			children = (
-				2D9FFDD724C9D01800A41353 /* qrcode_flash.png */,
-				2D9FFDD824C9D01800A41353 /* scanscanBg.png */,
-				2D9FFDD924C9D01800A41353 /* qrcode_flash_on.png */,
-				2D9FFDDA24C9D01800A41353 /* scanLine@3x.png */,
-				2D9FFDDB24C9D01800A41353 /* scanLine@2x.png */,
 			);
 			path = scanImg;
 			sourceTree = "<group>";
@@ -313,6 +300,7 @@
 		2DDDE55024C8490600015C76 = {
 			isa = PBXGroup;
 			children = (
+				2DF5513D24F69220009F743D /* IseeWebResource.bundle */,
 				2DDDE59324C84AD700015C76 /* www */,
 				2DDDE55B24C8490600015C76 /* IseeWebView */,
 				2DDDE57724C8490C00015C76 /* IseeWebViewTests */,
@@ -341,8 +329,8 @@
 				2DDDE55D24C8490600015C76 /* AppDelegate.m */,
 				2DDDE56224C8490600015C76 /* ViewController.h */,
 				2DDDE56324C8490600015C76 /* ViewController.m */,
+				2DF5513F24F69316009F743D /* Assets.xcassets */,
 				2DDDE56524C8490600015C76 /* Main.storyboard */,
-				2DDDE56824C8490B00015C76 /* Assets.xcassets */,
 				2DDDE56A24C8490B00015C76 /* LaunchScreen.storyboard */,
 				2DDDE56D24C8490B00015C76 /* Info.plist */,
 				2DDDE56E24C8490B00015C76 /* main.m */,
@@ -493,13 +481,9 @@
 			files = (
 				2DDDE59424C84AD700015C76 /* www in Resources */,
 				2DDDE56C24C8490B00015C76 /* LaunchScreen.storyboard in Resources */,
-				2D9FFDE124C9D01800A41353 /* scanLine@3x.png in Resources */,
-				2D9FFDE024C9D01800A41353 /* qrcode_flash_on.png in Resources */,
-				2D9FFDDE24C9D01800A41353 /* qrcode_flash.png in Resources */,
-				2DDDE56924C8490B00015C76 /* Assets.xcassets in Resources */,
-				2D9FFDDF24C9D01800A41353 /* scanscanBg.png in Resources */,
+				2DF5514024F69316009F743D /* Assets.xcassets in Resources */,
+				2DF5513E24F69220009F743D /* IseeWebResource.bundle in Resources */,
 				2DDDE56724C8490600015C76 /* Main.storyboard in Resources */,
-				2D9FFDE224C9D01800A41353 /* scanLine@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

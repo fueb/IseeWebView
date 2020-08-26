@@ -148,7 +148,7 @@
             nav.delegate                = self;
             nav.navigationBar.translucent = NO;
             
-    //        nav.navigationBar.barTintColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"top_bg"]];
+    //        nav.navigationBar.barTintColor = [UIColor colorWithPatternImage:[IseeConfig imageNamed:@"top_bg"]];
             nav.navigationBarHidden = YES;
             [nav.navigationBar setTitleTextAttributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:20],NSForegroundColorAttributeName:[UIColor whiteColor]}];
             /*常态*/
@@ -159,9 +159,9 @@
             
             UITabBarItem *item   = vc.tabBarItem;
             item.title           = dict[titleKey];
-            item.image           = [[UIImage imageNamed:dict[imgKey]]
+            item.image           = [[IseeConfig imageNamed:dict[imgKey]]
                                     imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-            item.selectedImage   = [[UIImage imageNamed:dict[selImgKey]]
+            item.selectedImage   = [[IseeConfig imageNamed:dict[selImgKey]]
                                     imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
             
             

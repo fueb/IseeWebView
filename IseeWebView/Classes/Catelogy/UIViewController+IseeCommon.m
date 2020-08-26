@@ -14,7 +14,7 @@
 - (void)setBottomLogoView
 {
 //    WS(weakSelf);
-//    UIImageView *bottomImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_bottom_prompt"]];
+//    UIImageView *bottomImgView = [[UIImageView alloc]initWithImage:[IseeConfig imageNamed:@"login_bottom_prompt"]];
 //    [self.view addSubview:bottomImgView];
 //    [bottomImgView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.bottom.equalTo(@-15);
@@ -40,8 +40,8 @@
     button.frame = CGRectMake(0, 0, title.length?100:30, 30);
     if (title.length) [button setTitle:title forState:UIControlStateNormal];
     button.titleLabel.font = [UIFont systemFontOfSize:15];
-    [button setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:selectImage] forState:UIControlStateSelected];
+    [button setImage:[IseeConfig imageNamed:image] forState:UIControlStateNormal];
+    [button setImage:[IseeConfig imageNamed:selectImage] forState:UIControlStateSelected];
     [button addTarget:self
                action:type?@selector(rightAction:):@selector(leftAction:)
      forControlEvents:UIControlEventTouchUpInside];
@@ -80,8 +80,8 @@
     button.frame = CGRectMake(0, 0, size.width, size.width);
     if (title.length) [button setTitle:title forState:UIControlStateNormal];
     if (UIScreenWidth == 320) button.titleLabel.font = [UIFont systemFontOfSize:15];
-    [button setImage:[UIImage imageNamed:image] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:selectImage] forState:UIControlStateSelected];
+    [button setImage:[IseeConfig imageNamed:image] forState:UIControlStateNormal];
+    [button setImage:[IseeConfig imageNamed:selectImage] forState:UIControlStateSelected];
     [button addTarget:self
                action:type?@selector(rightAction:):@selector(leftAction:)
      forControlEvents:UIControlEventTouchUpInside];

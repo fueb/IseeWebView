@@ -20,6 +20,11 @@
 /*告警框*/
 #define IseeAlert(title,msg) [[[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil] show]
 
+#define IseeBundle_Name @"IseeWebResource.bundle"
+#define IseeBundle_Path [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:IseeBundle_Name]
+#define IseeBundle [NSBundle bundleWithPath:IseeBundle_Path]
+
+
 #define BASEGREEN   @"#05a642"
 #define oldgreen    @"#76d754"
 @interface IseeConfig : NSObject
@@ -30,4 +35,5 @@
 + (BOOL)isNotchScreen;
 //md5加密
 + (NSString *)md5:(NSString *)md5Str;
++ (UIImage *)imageNamed:(NSString *)imageName;
 @end
