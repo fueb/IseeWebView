@@ -118,6 +118,7 @@
                 IseeWebViewController *iseeVc = (IseeWebViewController *)vc;
                 iseeVc.titleHave = NO;
                 iseeVc.tabbarHave = YES;
+                iseeVc.isHomeGo = NO;
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 
                    [formatter setDateFormat:@"YYYYMMdd"];
@@ -131,6 +132,8 @@
                 
                 NSURL *url = [NSURL URLWithString:urlStr];//urlTF.text];
 //                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",@"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee"]];
+//                 NSString *filePath = [[NSBundle mainBundle]pathForResource:@"test" ofType:@"html" inDirectory:@"www"];
+//                url = [NSURL fileURLWithPath:filePath];
                 iseeVc.mWebViewUrl = url;
             }
             else if([vc isKindOfClass:[IseeHomeViewController class]])

@@ -287,6 +287,22 @@
  //    [self.longButton finishAndRest];
      
  }
+
+//跳转页面
+-(void)goController{
+
+    if (_isHomeGo)
+    {
+        [self dismissViewControllerAnimated:YES completion:^{
+    
+        }];
+    }
+    else
+    {
+        [self.tabBarController setSelectedIndex:0];
+    }
+}
+
 // 识别语音
 -(void)startEvent{
     if (self.recognitionTask) {
@@ -623,6 +639,9 @@
         }
         else if([method isEqualToString:@"scanqrcode"]){
             [self gotoScanQRCode];
+        }
+        else if([method isEqualToString:@"openZqhelper"]){
+            [self goController];
         }
         decisionHandler(WKNavigationActionPolicyCancel);
         return;

@@ -27,8 +27,9 @@
     NSInteger searchInt;
     NSMutableArray *searchCustAry;
     NSMutableArray *searchProdAry;
+    
 }
-
+@property (nonatomic, strong)NSDictionary *loginDict;
 @end
 
 @implementation IseeHomeViewController
@@ -154,6 +155,7 @@
         IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
         frameVC.titleHave = YES;
         frameVC.tabbarHave = NO;
+        frameVC.isHomeGo = YES;
         frameVC.titleName = tempMenuDict[@"moduleName"];
         frameVC.titleBgColor = @"#FFFFFF";  //白色
         frameVC.statusBarColor = @"#3086E8";//@"#50D4F9";  //自定义颜色
@@ -175,8 +177,16 @@
         }
         else if (type == 2)
         {
-            methodName = @"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee";
-            titleName = @"欠费催缴";
+//            methodName = @"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee";
+//            titleName = @"欠费催缴";
+            NSURL *url = [NSURL URLWithString:@"zqhelper://account=WZTEST&token=ac3c9575492d3c8e55da8b9d7dd73e38"];
+            if ([[UIApplication sharedApplication] canOpenURL:url]) {
+                [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
+                   
+                }];
+            }else{
+                NSLog(@"设备没有安装销售助手");
+            }
             return;
         }
         else if (type == 3)
@@ -210,13 +220,18 @@
         
         IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
        frameVC.titleHave = YES;
-        frameVC.tabbarHave = NO;
+       frameVC.tabbarHave = NO;
+        frameVC.isHomeGo = YES;
        frameVC.titleName = titleName;
        frameVC.titleBgColor = @"#FFFFFF";  //白色
        frameVC.statusBarColor = @"#3086E8";//@"#50D4F9";  //自定义颜色
       
         
        NSURL *url = [NSURL URLWithString:urlStr];
+        
+//        NSString *filePath = [[NSBundle mainBundle]pathForResource:@"test" ofType:@"html" inDirectory:@"www"];
+//       url = [NSURL fileURLWithPath:filePath];
+        
        frameVC.mWebViewUrl = url;
        frameVC.modalPresentationStyle = UIModalPresentationFullScreen;
        [wkSelf presentViewController:frameVC animated:YES completion:nil];
@@ -246,6 +261,7 @@
         IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
          frameVC.titleHave = YES;
           frameVC.tabbarHave = NO;
+        frameVC.isHomeGo = YES;
          frameVC.titleName = titleName;
          frameVC.titleBgColor = @"#FFFFFF";  //白色
          frameVC.statusBarColor = @"#3086E8";//@"#50D4F9";  //自定义颜色
@@ -281,6 +297,7 @@
         if ([result[@"code"] integerValue] == 200)
         {
             NSDictionary *data = result[@"data"];
+            self.loginDict = [NSDictionary dictionaryWithDictionary:data];
             NSDictionary *currentManagerTm = data[@"currentManagerTm"];
             _areaId = (NSString * )currentManagerTm[@"areaId"];
             _latnId = (NSString * )currentManagerTm[@"latnId"];
@@ -591,6 +608,7 @@
              IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
              frameVC.titleHave = YES;
              frameVC.tabbarHave = NO;
+            frameVC.isHomeGo = YES;
              frameVC.titleName = @"综合查询";
              frameVC.titleBgColor = @"#FFFFFF";  //白色
              frameVC.statusBarColor = @"#3086E8";//@"#50D4F9";  //自定义颜色
@@ -713,6 +731,7 @@
          IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
          frameVC.titleHave = YES;
          frameVC.tabbarHave = NO;
+        frameVC.isHomeGo = YES;
          frameVC.titleName = @"政企视图";
          frameVC.titleBgColor = @"#FFFFFF";  //白色
          frameVC.statusBarColor = @"#3086E8";//@"#50D4F9";  //自定义颜色
