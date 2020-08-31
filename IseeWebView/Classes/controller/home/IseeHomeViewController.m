@@ -49,7 +49,8 @@
     
     [self.view addSubview:home];
 //    [home setModel:modelAry];
-    [self login];
+    [self ssoLogin];
+//    [self login];
     
     // Do any additional setup after loading the view.
 }
@@ -288,6 +289,36 @@
     }];
 }
 
+- (void)ssoLogin{
+    [IseeAFNetRequest showHUD:self.view];
+    [self.iseeHomeTabBarModel isee_ssoLoginWith:_mLoginName withCompanyId:_mCompanyId Success:^(id  _Nonnull result) {
+        NSLog(@"%@", result);
+        if ([result[@"code"] integerValue] == 200)
+        {
+            NSDictionary *data = result[@"data"];
+            self.loginDict = [NSDictionary dictionaryWithDictionary:data];
+            NSDictionary *currentManagerTm = data[@"currentManagerTm"];
+            long tempMangerId = [currentManagerTm[@"managerId"] longValue];
+            _mManagerId = [NSString stringWithFormat:@"%ld",tempMangerId];
+            
+            if (_mManagerId.length>0) {
+                [self login];
+            }
+            else
+            {
+                IseeAlert(@"单点登录失败",NULL);
+            }
+            
+        }
+        else
+        {
+             IseeAlert(result[@"msg"],NULL);
+        }
+    } failure:^{
+        
+    }];
+    
+}
 
 - (void)login{
     
@@ -297,11 +328,12 @@
         if ([result[@"code"] integerValue] == 200)
         {
             NSDictionary *data = result[@"data"];
-            self.loginDict = [NSDictionary dictionaryWithDictionary:data];
+            
             NSDictionary *currentManagerTm = data[@"currentManagerTm"];
             _areaId = (NSString * )currentManagerTm[@"areaId"];
             _latnId = (NSString * )currentManagerTm[@"latnId"];
             _mLoginName = (NSString *)currentManagerTm[@"relaMobile"];
+            
            
             [self getData];
         }
@@ -366,7 +398,9 @@
         if ([result[@"code"] integerValue] == 200)
         {
             NSDictionary *data = result[@"data"];
-            NSString *taskNum = data[@"value6"];
+            NSLog(@"getTask:%@",[data description]);
+            long tempValue6 = [data[@"value6"] longValue];
+            NSString *taskNum = [NSString stringWithFormat:@"%ld",tempValue6];
             if (taskNum != nil&&(![taskNum isKindOfClass:[NSNull class]])) {
                 [home setTaskNum:taskNum];
             }
@@ -401,7 +435,7 @@
         if ([result[@"code"] integerValue] == 200)
         {
             NSDictionary *data = result[@"data"];
-            NSInteger taskNum = data[@"processingAllCount"];
+            long taskNum = [data[@"processingAllCount"] longValue];
             
             [home setQuerySendOrder:[NSString stringWithFormat:@"%ld",(long)taskNum] withType:type];
             
@@ -428,14 +462,26 @@
         if ([result[@"code"] integerValue] == 200)
         {
             NSDictionary *data = result[@"data"];
-            NSString *baordBandSum = data[@"value1"];
-            NSString *baordBandAdd = data[@"value2"];
-            NSString *moveSum = data[@"value3"];
-            NSString *moveAdd = data[@"value4"];
-            NSString *iptvSum = data[@"value5"];
-            NSString *iptvAdd = data[@"value6"];
-            NSString *shareSum = data[@"value7"];
-            NSString *shareAdd = data[@"value8"];
+            long baordBandSum = [data[@"value1"] longValue];
+            long baordBandAdd = [data[@"value2"] longValue];
+            long moveSum = [data[@"value3"] longValue];
+            long moveAdd = [data[@"value4"] longValue];
+            long iptvSum = [data[@"value5"] longValue];
+            long iptvAdd = [data[@"value6"] longValue];
+            long shareSum = [data[@"value7"] longValue];
+            long shareAdd = [data[@"value8"] longValue];
+
+            NSMutableDictionary *keyPointDict = [NSMutableDictionary dictionary];
+            [keyPointDict setObject:[NSString stringWithFormat:@"%ld",baordBandSum] forKey:@"boardBandNum"];
+            [keyPointDict setObject:[NSString stringWithFormat:@"%ld",baordBandAdd] forKey:@"boardBandChange"];
+            [keyPointDict setObject:[NSString stringWithFormat:@"%ld",moveSum] forKey:@"moveNum"];
+            [keyPointDict setObject:[NSString stringWithFormat:@"%ld",moveAdd] forKey:@"moveChange"];
+            [keyPointDict setObject:[NSString stringWithFormat:@"%ld",iptvSum] forKey:@"iptvNum"];
+            [keyPointDict setObject:[NSString stringWithFormat:@"%ld",iptvAdd] forKey:@"iptvChange"];
+            [keyPointDict setObject:[NSString stringWithFormat:@"%ld",shareSum] forKey:@"shareNum"];
+            [keyPointDict setObject:[NSString stringWithFormat:@"%ld",shareAdd] forKey:@"shareChange"];
+            [home setKeyPointDict:keyPointDict];
+            
         }
         else
         {

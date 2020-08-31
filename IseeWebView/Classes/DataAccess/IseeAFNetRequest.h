@@ -48,7 +48,7 @@ typedef NS_ENUM(NSUInteger,RequestType) {
 #define isText NO
 
 //数据url
-
+#define SSOLOGINURL         @"/loginInfo/devLogin/ssoLogin"
 #define LOGINURL            @"/loginInfo/devLogin/rollBackToSuperAdministrator"
 #define HOMEMENU            @"/custInfoApp/api/toolConfig/getToolList"
 #define MYTASK              @"/custInfoApp/api/indexCustomerManager/getMyTask"

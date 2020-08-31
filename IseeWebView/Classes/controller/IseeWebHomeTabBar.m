@@ -27,18 +27,16 @@
 
 @implementation IseeWebHomeTabBar
 
-- (instancetype)initWithLoginName:(NSString *)loginName withCompanyId:(NSString *)comanyId withManageId:(NSString *)managerId withStaffCode:(NSString *)staffCode
+- (instancetype)initWithLoginName:(NSString *)loginName withCompanyId:(NSString *)comanyId withStaffCode:(NSString *)staffCode
 {
     self.mCompanyId = comanyId;
     self.mLoginName = loginName;
-    self.mManagerId = managerId;
     self.mStaffCode = staffCode;
     self = [super init];
     if (self != nil)
     {
         self.mCompanyId = comanyId;
         self.mLoginName = loginName;
-        self.mManagerId = managerId;
         self.mStaffCode = staffCode;
     }
     return self;
@@ -116,9 +114,12 @@
             UIViewController *vc        = [[NSClassFromString(dict[classKey]) alloc]init];
             if ([vc isKindOfClass:[IseeWebViewController class]]) {
                 IseeWebViewController *iseeVc = (IseeWebViewController *)vc;
-                iseeVc.titleHave = NO;
+                iseeVc.titleHave = YES;
                 iseeVc.tabbarHave = YES;
                 iseeVc.isHomeGo = NO;
+                iseeVc.titleName = dict[titleKey];
+                iseeVc.titleBgColor = @"#FFFFFF";  //白色
+                iseeVc.statusBarColor = @"#3086E8";//@"#50D4F9";  //自定义颜色
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 
                    [formatter setDateFormat:@"YYYYMMdd"];
@@ -142,7 +143,6 @@
                 iseeHome.mCompanyId = self.mCompanyId;
                 iseeHome.mLoginName = self.mLoginName;
                 iseeHome.mStaffCode = self.mStaffCode;
-                iseeHome.mManagerId = self.mManagerId;
             }
             
             

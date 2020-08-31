@@ -11,6 +11,62 @@
 #import "IseeConfig.h"
 
 @implementation IseeHomeTabBarModel
+
+- (void)isee_ssoLoginWith:(NSString *)loginName
+            withCompanyId:(NSString *)companyId
+                  Success:(void (^)(id result))success
+                  failure:(void (^)(void))failed
+{
+    NSMutableDictionary *sendDict = [[NSMutableDictionary alloc]init];
+
+
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+
+    // 设置想要的格式，hh与HH的区别:分别表示12小时制,24小时制
+
+    [formatter setDateFormat:@"YYYYMMdd"];
+
+    NSDate *dateNow = [NSDate date];
+
+    //把NSDate按formatter格式转成NSString
+    NSString *currentTime = [formatter stringFromDate:dateNow];
+    [sendDict setObject:loginName forKey:@"loginMe"];
+    [sendDict setObject:companyId forKey:@"companyId"];
+    [sendDict setObject:@"220" forKey:@"managerTypeId"];
+    [sendDict setObject:@"isee" forKey:@"source"];
+    
+    NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",loginName,companyId,currentTime];
+    
+    
+    [sendDict setObject:[[IseeConfig md5:md5Str] uppercaseString] forKey:@"md5key"];
+    
+    NSArray *keys = sendDict.allKeys;
+    NSArray *values = sendDict.allValues;
+    
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",DOMAINNAME,SSOLOGINURL];
+    
+    for (int i = 0; i < keys.count; i++) {
+        if(i == 0)
+        {
+            urlString = [urlString stringByAppendingFormat:@"?%@=%@",keys[i],values[i]];
+        }
+        else
+        {
+            urlString = [urlString stringByAppendingFormat:@"&%@=%@",keys[i],values[i]];
+        }
+    }
+    
+    [IseeAFNetRequest requestWithURLString:urlString parameters:sendDict type:RequestTypePost success:success failure:^(id error) {
+        //请求失败
+        
+        NSLog(@"%@", error);
+        failed();
+    }];
+
+}
+
 - (void)isee_loginWith:(NSString *)managerId
          withStaffCode:(NSString *)staffCode
                Success:(void (^)(id result))success

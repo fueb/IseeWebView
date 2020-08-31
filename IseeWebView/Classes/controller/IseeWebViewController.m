@@ -92,7 +92,11 @@
     IseeNaviBarView *naviBar = [[IseeNaviBarView alloc] initWithController:self];
     [self.view addSubview:naviBar];
     self.topNavBar = naviBar;
-    [_topNavBar addBackBtn];
+    if (_isHomeGo)
+    {//首页打开需要返回
+        [_topNavBar addBackBtn];
+    }
+    
     [_topNavBar setNavigationTitle:titleName];
     [_topNavBar setNavigationBarClolor:barBg];
     [_topNavBar setTitleColor:titlebg];
