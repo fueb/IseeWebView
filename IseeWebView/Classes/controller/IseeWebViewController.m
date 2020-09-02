@@ -7,6 +7,7 @@
 //
 
 #import "IseeWebViewController.h"
+#import <objc/message.h>
 #import "IseeScanView.h"
 #import "IseeConfig.h"
 #import "CLLocation+IseeSino.h"
@@ -80,7 +81,7 @@
     }
     //配置wkWebView
     [self configWKWebView];
- 
+    
 }
 
 /// 在旋转界面时重新构造导航条
@@ -92,10 +93,10 @@
     IseeNaviBarView *naviBar = [[IseeNaviBarView alloc] initWithController:self];
     [self.view addSubview:naviBar];
     self.topNavBar = naviBar;
-    if (_isHomeGo)
-    {//首页打开需要返回
-        [_topNavBar addBackBtn];
-    }
+//    if (_isHomeGo)
+//    {//首页打开需要返回
+    [_topNavBar addBackBtn];
+//    }
     
     [_topNavBar setNavigationTitle:titleName];
     [_topNavBar setNavigationBarClolor:barBg];
@@ -140,7 +141,21 @@
 
 - (void)doBackPrev {
 //    [self.navigationController popViewControllerAnimated:YES];
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+    if (_reallyGo) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        return;
+    }
+    if (self.wkWebView.canGoBack) {
+
+        [self.wkWebView goBack];
+
+    }else{
+        if (_isHomeGo) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        
+    }
 }
 
 
@@ -167,7 +182,7 @@
    
     
     if (_titleHave && _tabbarHave) {
-        wkFrame = CGRectMake(0, statusBarH, ScreenWidth, ScreenHeight - statusBarH - 50 -(50+safeBottom));
+        wkFrame = CGRectMake(0, statusBarH, ScreenWidth, ScreenHeight - statusBarH -(50+safeBottom));
     }
     else if (_titleHave)
     {
@@ -182,6 +197,8 @@
     
     self.wkWebView.UIDelegate = self;
     self.wkWebView.navigationDelegate = self;
+    [self.wkWebView.scrollView setShowsVerticalScrollIndicator:NO];
+    [self.wkWebView.scrollView setShowsHorizontalScrollIndicator:NO];
 
     [self.wkWebView loadRequest:[NSURLRequest requestWithURL:_mWebViewUrl]];
     
@@ -294,18 +311,79 @@
 
 //跳转页面
 -(void)goController{
-
-    if (_isHomeGo)
-    {
-        [self dismissViewControllerAnimated:YES completion:^{
     
+    NSString *urlStr = [NSString stringWithFormat:@"zqhelper://account=%@&token=ac3c9575492d3c8e55da8b9d7dd73e38",_mLoginName];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    if ([[UIApplication sharedApplication] canOpenURL:url]) {
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
+           
         }];
+    }else{
+        NSLog(@"设备没有安装销售助手");
+        if (_isHomeGo)
+        {
+            [self dismissViewControllerAnimated:YES completion:^{
+        
+            }];
+        }
+        else
+        {
+            [self.tabBarController setSelectedIndex:0];
+        }
     }
-    else
-    {
-        [self.tabBarController setSelectedIndex:0];
-    }
+
+    
 }
+
+//获取登录信息
+-(void)getUserInfo{
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSString *loginStr = [userDefault objectForKey:@"IseeWebSsoLoginJson"];
+    IseeBSJSON *jsonCode = [[IseeBSJSON alloc] init];
+    [jsonCode setObject:@"0000" forKey:@"code"];
+    [jsonCode setObject:@"ok" forKey:@"msg"];
+    [jsonCode setObject:_seq forKey:@"seq"];
+    IseeBSJSON * nextJson = [[IseeBSJSON alloc] init];
+    [nextJson setObject:loginStr forKey:@"loginJsonStr"];
+
+    [jsonCode setObject:nextJson forKey:@"data"];
+     NSString *js1 = [NSString stringWithFormat:@"\"%@\",%@", method,[jsonCode serialization]];
+    NSString *js = [NSString stringWithFormat:@"eval(%@(%@))", _callBack,js1];
+    [self execJavaScript:js];
+   
+}
+
+-(void)getSession{
+    NSLog(@"获取session");
+    IseeBSJSON *jsonCode = [[IseeBSJSON alloc] init];
+    [jsonCode setObject:@"0000" forKey:@"code"];
+    [jsonCode setObject:@"ok" forKey:@"msg"];
+    [jsonCode setObject:_seq forKey:@"seq"];
+    IseeBSJSON * nextJson = [[IseeBSJSON alloc] init];
+    [nextJson setObject:_mSession forKey:@"session"];
+
+    [jsonCode setObject:nextJson forKey:@"data"];
+     NSString *js1 = [NSString stringWithFormat:@"\"%@\",%@", method,[jsonCode serialization]];
+    NSString *js = [NSString stringWithFormat:@"eval(%@(%@))", _callBack,js1];
+    [self execJavaScript:js];
+}
+
+
+
+-(void)exitIsee{
+//    [self dismissViewControllerAnimated:YES completion:nil];
+
+    UIViewController *vc        = [[NSClassFromString(@"PersonalCenterController") alloc]init];
+    SEL runAction = NSSelectorFromString(@"logOut");
+    
+    if([vc respondsToSelector:runAction]){
+
+        objc_msgSend(vc, runAction);
+    }
+    
+    
+}
+
 
 // 识别语音
 -(void)startEvent{
@@ -628,7 +706,6 @@
             NSString *str = [jsTmp objectForKey:@"timeOut"];
             int time = [str intValue];
             [self gotoRecor:time==0?10:time];
-//                    [self startRecord:time==0?10:time];
         }
         else if([method isEqualToString:@"soundstop"])
         {
@@ -647,48 +724,18 @@
         else if([method isEqualToString:@"openZqhelper"]){
             [self goController];
         }
+        else if([method isEqualToString:@"getUserInfo"]){
+            [self getUserInfo];
+        }
+        else if([method isEqualToString:@"exit"]){
+            [self exitIsee];
+        }
+        else if([method isEqualToString:@"getSession"]){
+            [self getSession];
+        }
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }
-
-    if([urlStr rangeOfString:@"soundrecord"].location !=NSNotFound){
-        
-        NSLog(@"soundrecord");
-//        [self gotoRecor];
-        decisionHandler(WKNavigationActionPolicyCancel);
-        return;
-  
-    }
-//    if([urlStr rangeOfString:@"scanqrcode"].location !=NSNotFound){
-//
-//        NSLog(@"scanqrcode");
-//        [self gotoScanQRCode];
-//        decisionHandler(WKNavigationActionPolicyCancel);
-//          return;
-//
-//      }
-//    if([urlStr rangeOfString:@"location"].location !=NSNotFound){
-//
-//          NSLog(@"location");
-//        [self gotoLocation];
-//        decisionHandler(WKNavigationActionPolicyCancel);
-//          return;
-//
-//      }
-//    if([urlStr rangeOfString:@"systeminfo"].location !=NSNotFound){
-//
-//          NSLog(@"systeminfo");
-//          return;
-//
-//      }
-//    if([urlStr rangeOfString:@"takephoto"].location !=NSNotFound){
-//
-//          NSLog(@"takephoto");
-//        [self gotoMyPhoto];
-//        decisionHandler(WKNavigationActionPolicyCancel);
-//        return;
-//
-//      }
      
         decisionHandler(WKNavigationActionPolicyAllow); // 必须实现 加载
         return;

@@ -34,6 +34,8 @@
 - (void)addScanAndWishList;
 // 添加返回按钮
 - (void)addBackBtn;
+- (void)backBtnHide;
+- (void)backBtnShow;
 // 添加底部分割线
 - (void)addBottomSepLine;
 // 设置标题

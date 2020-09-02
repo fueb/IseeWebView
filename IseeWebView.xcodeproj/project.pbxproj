@@ -35,6 +35,8 @@
 		2DDDE58424C8490C00015C76 /* IseeWebViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDDE58324C8490C00015C76 /* IseeWebViewUITests.m */; };
 		2DDDE59424C84AD700015C76 /* www in Resources */ = {isa = PBXBuildFile; fileRef = 2DDDE59324C84AD700015C76 /* www */; };
 		2DE6470724CDB26D006D970E /* SiriViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DE6470624CDB26D006D970E /* SiriViewController.m */; };
+		2DEC697224FF3B9700695ED7 /* IseeSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DEC697124FF3B9700695ED7 /* IseeSearchViewController.m */; };
+		2DEC697624FF3BEC00695ED7 /* IseeSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DEC697524FF3BEC00695ED7 /* IseeSearchView.m */; };
 		2DF5513E24F69220009F743D /* IseeWebResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2DF5513D24F69220009F743D /* IseeWebResource.bundle */; };
 		2DF5514024F69316009F743D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DF5513F24F69316009F743D /* Assets.xcassets */; };
 		73A9E6F49D854085D3A6E7F3 /* libPods-IseeWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C3FFFB8606F300C951FB90 /* libPods-IseeWebView.a */; };
@@ -115,6 +117,10 @@
 		2DDDE59324C84AD700015C76 /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; path = www; sourceTree = "<group>"; };
 		2DE6470524CDB26D006D970E /* SiriViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SiriViewController.h; sourceTree = "<group>"; };
 		2DE6470624CDB26D006D970E /* SiriViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SiriViewController.m; sourceTree = "<group>"; };
+		2DEC697024FF3B9700695ED7 /* IseeSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeSearchViewController.h; sourceTree = "<group>"; };
+		2DEC697124FF3B9700695ED7 /* IseeSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeSearchViewController.m; sourceTree = "<group>"; };
+		2DEC697424FF3BEC00695ED7 /* IseeSearchView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeSearchView.h; sourceTree = "<group>"; };
+		2DEC697524FF3BEC00695ED7 /* IseeSearchView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeSearchView.m; sourceTree = "<group>"; };
 		2DF5513D24F69220009F743D /* IseeWebResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IseeWebResource.bundle; sourceTree = "<group>"; };
 		2DF5513F24F69316009F743D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A7FF4EA19FF42ED579CF236 /* Pods-IseeWebView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IseeWebView.release.xcconfig"; path = "Target Support Files/Pods-IseeWebView/Pods-IseeWebView.release.xcconfig"; sourceTree = "<group>"; };
@@ -235,6 +241,7 @@
 		2D8B298C24DBA122004EAC27 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				2DEC696E24FF3AC700695ED7 /* search */,
 				2D8B299824DBD99C004EAC27 /* home */,
 				2D877B8D24CFBDA900AA2983 /* IseeWebViewController.h */,
 				2D877B8E24CFBDA900AA2983 /* IseeWebViewController.m */,
@@ -356,6 +363,33 @@
 				2DDDE58524C8490C00015C76 /* Info.plist */,
 			);
 			path = IseeWebViewUITests;
+			sourceTree = "<group>";
+		};
+		2DEC696E24FF3AC700695ED7 /* search */ = {
+			isa = PBXGroup;
+			children = (
+				2DEC697024FF3B9700695ED7 /* IseeSearchViewController.h */,
+				2DEC697124FF3B9700695ED7 /* IseeSearchViewController.m */,
+				2DEC697324FF3BCB00695ED7 /* model */,
+				2DEC696F24FF3B8900695ED7 /* view */,
+			);
+			path = search;
+			sourceTree = "<group>";
+		};
+		2DEC696F24FF3B8900695ED7 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				2DEC697424FF3BEC00695ED7 /* IseeSearchView.h */,
+				2DEC697524FF3BEC00695ED7 /* IseeSearchView.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		2DEC697324FF3BCB00695ED7 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		63989AD9B1626D0205A98EB9 /* Pods */ = {
@@ -533,6 +567,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DEC697224FF3B9700695ED7 /* IseeSearchViewController.m in Sources */,
 				2D24A08524CE84E900D68F82 /* IseeBSJSON.m in Sources */,
 				2D9CD07824F55921002B9CE1 /* IseeProdCell.m in Sources */,
 				2D877B9D24CFD21100AA2983 /* IseeNaviBarView.m in Sources */,
@@ -540,6 +575,7 @@
 				2D8B299E24DBDD80004EAC27 /* IseeHomeView.m in Sources */,
 				2D877BA024CFD23700AA2983 /* UIView+IseeExtension.m in Sources */,
 				2D9FFDE324C9D01800A41353 /* IseeScanView.m in Sources */,
+				2DEC697624FF3BEC00695ED7 /* IseeSearchView.m in Sources */,
 				2D9CD06F24F54049002B9CE1 /* IseeCustCell.m in Sources */,
 				2D71658E24E126A400611439 /* IseeAFNetRequest.m in Sources */,
 				2D9CD07524F55813002B9CE1 /* IseeProdModel.m in Sources */,
@@ -728,6 +764,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CM8Y5E88F5;
 				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				INFOPLIST_FILE = IseeWebView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -751,6 +788,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CM8Y5E88F5;
 				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				INFOPLIST_FILE = IseeWebView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

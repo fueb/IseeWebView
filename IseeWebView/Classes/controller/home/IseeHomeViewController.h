@@ -19,7 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)NSString *areaId;
 @property (nonatomic,strong)NSString *latnId;
 @property (nonatomic,strong)NSString *statId;
-
+@property (nonatomic,strong)NSString *mSession;
+@property (nonatomic,strong)NSString *mUserId;
+@property (nonatomic,strong)NSString *mSaleNum;
 @end
 
 NS_ASSUME_NONNULL_END

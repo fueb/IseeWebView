@@ -107,6 +107,14 @@
     [button rtlToParent];
     _backBtn = button;
 }
+- (void)backBtnHide
+{
+    [_backBtn setHidden:YES];
+}
+- (void)backBtnShow
+{
+    [_backBtn setHidden:NO];
+}
 
 //首页分类页用到
 - (void)addScanAndWishList {

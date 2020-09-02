@@ -18,6 +18,7 @@
 #import "IseeCustCell.h"
 #import "IseeProdModel.h"
 #import "IseeProdCell.h"
+#import "IseeSearchViewController.h"
 
 @interface IseeHomeViewController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>{
     IseeHomeModel   *iseeHomeModel;
@@ -44,6 +45,11 @@
         safeBottom = 34;
     }
     home = [[IseeHomeView alloc] initWithFrame:CGRectMake(0, 0, UIScreenWidth, UIScreenHeight-(50+safeBottom))];
+    if (safeBottom == 0)
+    {
+        home = [[IseeHomeView alloc] initWithFrame:CGRectMake(0, -20, UIScreenWidth, UIScreenHeight-(50+safeBottom)+20)];
+    }
+    
     
     home.mDelegate = self;
     
@@ -54,6 +60,21 @@
     
     // Do any additional setup after loading the view.
 }
+
+-(void)goSearch{
+    IseeSearchViewController *vc = [[IseeSearchViewController alloc] init];
+    vc.latnId = _latnId;
+    vc.searchInt = searchInt;
+    vc.mSession = _mSession;
+    vc.mLoginName = _mLoginName;
+    vc.mCompanyId = _mCompanyId;
+    vc.mUserId = _mUserId;
+    vc.mSaleNum = _mSaleNum;
+    vc.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self presentViewController:vc animated:YES completion:nil];
+}
+
+
 #pragma -mark network
 - (void)getData{
     [self getMenu];//菜单
@@ -154,12 +175,16 @@
         }
         
         IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
+        frameVC.mLoginName = _mLoginName;
+        frameVC.mSession   = self.mSession;
+        frameVC.mSaleNum   = self.mSaleNum;
+        frameVC.mUserId    = self.mUserId;
         frameVC.titleHave = YES;
         frameVC.tabbarHave = NO;
         frameVC.isHomeGo = YES;
         frameVC.titleName = tempMenuDict[@"moduleName"];
         frameVC.titleBgColor = @"#FFFFFF";  //白色
-        frameVC.statusBarColor = @"#3086E8";//@"#50D4F9";  //自定义颜色
+        frameVC.statusBarColor = @"#1B82D2";//@"#50D4F9";  //自定义颜色
        
          
         NSURL *url = [NSURL URLWithString:urlStr];
@@ -170,7 +195,7 @@
     
     //任务点击
     [home setVisitListClick:^(NSInteger type) {
-        NSString *methodName;// = [NSString stringWithFormat:@"%@?loginName=%@&companyId=%@&md5key=%@&source=isee",WEBHOST,_mLoginName,_mCompanyId,md5Key];
+        NSString *methodName;
         NSString *titleName;
         if (type == 1) {
             methodName = VISITLISTWEBURL;
@@ -178,56 +203,50 @@
         }
         else if (type == 2)
         {
-//            methodName = @"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee";
-//            titleName = @"欠费催缴";
-            NSURL *url = [NSURL URLWithString:@"zqhelper://account=WZTEST&token=ac3c9575492d3c8e55da8b9d7dd73e38"];
-            if ([[UIApplication sharedApplication] canOpenURL:url]) {
-                [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
-                   
-                }];
-            }else{
-                NSLog(@"设备没有安装销售助手");
-            }
-            return;
+            methodName = WORKORDERWEBURL;
+            titleName = @"欠费催缴";
+            
         }
         else if (type == 3)
         {
-            methodName = @"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee";
+            methodName = CIRCUITWEBURL;
             titleName = @"电路到期";
-            return;
+            
+            
         }
         else if (type == 4)
         {
-            methodName = @"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee";
+            methodName = BROADBANDWEBURL;
             titleName = @"宽带(专线)到期";
-            return;
+            
         }
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-
-        // 设置想要的格式，hh与HH的区别:分别表示12小时制,24小时制
-
         [formatter setDateFormat:@"YYYYMMdd"];
-
         NSDate *dateNow = [NSDate date];
-
-        //把NSDate按formatter格式转成NSString
-
         NSString *currentTime = [formatter stringFromDate:dateNow];
         
         NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
         NSString *md5Key = [IseeConfig md5:md5Str];
         NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,methodName,_mLoginName,_mCompanyId,md5Key];
+        if (type != 1) {
+            
+            urlStr = [urlStr stringByAppendingFormat:@"&managerId=%@&latnId=%@",_mManagerId,_latnId];
+        }
         
         IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
+        frameVC.mLoginName = _mLoginName;
+        frameVC.mSession   = self.mSession;
+        frameVC.mSaleNum   = self.mSaleNum;
+        frameVC.mUserId    = self.mUserId;
        frameVC.titleHave = YES;
        frameVC.tabbarHave = NO;
         frameVC.isHomeGo = YES;
        frameVC.titleName = titleName;
        frameVC.titleBgColor = @"#FFFFFF";  //白色
-       frameVC.statusBarColor = @"#3086E8";//@"#50D4F9";  //自定义颜色
+       frameVC.statusBarColor = @"#1B82D2";//@"#50D4F9";  //自定义颜色
       
-        
+        urlStr = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
        NSURL *url = [NSURL URLWithString:urlStr];
         
 //        NSString *filePath = [[NSBundle mainBundle]pathForResource:@"test" ofType:@"html" inDirectory:@"www"];
@@ -240,32 +259,44 @@
     
     //波动
     [home setFluClick:^(NSInteger type) {
-        return;
-        NSString *urlStr;// = [NSString stringWithFormat:@"%@?loginName=%@&companyId=%@&md5key=%@&source=isee",WEBHOST,_mLoginName,_mCompanyId,md5Key];
+        NSString *methodName = FLUWEBURL;
         NSString *titleName;
         if (type == 1) {
-            urlStr = VISITLISTWEBURL;
+
             titleName = @"收入波动";
         }
         else if (type == 2)
         {
-            urlStr = @"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee";
+
             titleName = @"话务量波动";
         }
         else if (type == 3)
         {
-            urlStr = @"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee";
             titleName = @"资产波动";
         }
         
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"YYYYMMdd"];
+        NSDate *dateNow = [NSDate date];
+        NSString *currentTime = [formatter stringFromDate:dateNow];
+        
+        NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
+        NSString *md5Key = [IseeConfig md5:md5Str];
+        
+        NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2&type=%d",WEBHOST,methodName,_mLoginName,_mCompanyId,md5Key,type];
+        
         
         IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
+        frameVC.mLoginName = _mLoginName;
+        frameVC.mSession   = self.mSession;
+        frameVC.mSaleNum   = self.mSaleNum;
+        frameVC.mUserId    = self.mUserId;
          frameVC.titleHave = YES;
           frameVC.tabbarHave = NO;
         frameVC.isHomeGo = YES;
          frameVC.titleName = titleName;
          frameVC.titleBgColor = @"#FFFFFF";  //白色
-         frameVC.statusBarColor = @"#3086E8";//@"#50D4F9";  //自定义颜色
+         frameVC.statusBarColor = @"#1B82D2";//@"#50D4F9";  //自定义颜色
         
           
          NSURL *url = [NSURL URLWithString:urlStr];
@@ -296,11 +327,21 @@
         if ([result[@"code"] integerValue] == 200)
         {
             NSDictionary *data = result[@"data"];
+            NSMutableDictionary *tempLoginDict = [[NSMutableDictionary alloc] initWithDictionary:data];
+            [tempLoginDict setObject:self.mUserId forKey:@"userId"];
+            [tempLoginDict setObject:self.mSaleNum forKey:@"saleNum"];
+            NSData *resultData = [NSJSONSerialization dataWithJSONObject:tempLoginDict options:NSJSONWritingPrettyPrinted error:nil];
+            NSString *loginStr = [[NSString alloc] initWithData:resultData encoding:NSUTF8StringEncoding];
+            NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+            [userDefault setObject:loginStr forKey:@"IseeWebSsoLoginJson"];
+            
+            [userDefault synchronize];
             self.loginDict = [NSDictionary dictionaryWithDictionary:data];
             NSDictionary *currentManagerTm = data[@"currentManagerTm"];
             long tempMangerId = [currentManagerTm[@"managerId"] longValue];
+            NSString *tempCode = currentManagerTm[@"staffCode"];
             _mManagerId = [NSString stringWithFormat:@"%ld",tempMangerId];
-            
+            _mStaffCode = [NSString stringWithFormat:@"%@",tempCode];
             if (_mManagerId.length>0) {
                 [self login];
             }
@@ -571,6 +612,7 @@
     [param setObject:text forKey:@"text"];
     [IseeAFNetRequest showHUD:self.view];
     if (searchInt == 0) {
+        [param setObject:_latnId forKey:@"latnId"];
         [self.iseeHomeModel isee_findCustMsgWithParam:param WithSuccess:^(id  _Nonnull result) {
             if ([result[@"code"] integerValue] == 200)
             {
@@ -652,18 +694,26 @@
              
              
              IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
+            frameVC.mLoginName = _mLoginName;
+            frameVC.mSession   = self.mSession;
+            frameVC.mSaleNum   = self.mSaleNum;
+            frameVC.mUserId    = self.mUserId;
              frameVC.titleHave = YES;
              frameVC.tabbarHave = NO;
             frameVC.isHomeGo = YES;
              frameVC.titleName = @"综合查询";
              frameVC.titleBgColor = @"#FFFFFF";  //白色
-             frameVC.statusBarColor = @"#3086E8";//@"#50D4F9";  //自定义颜色
+             frameVC.statusBarColor = @"#1B82D2";//@"#50D4F9";  //自定义颜色
             
               
              NSURL *url = [NSURL URLWithString:urlStr];
              frameVC.mWebViewUrl = url;
              frameVC.modalPresentationStyle = UIModalPresentationFullScreen;
              [self presentViewController:frameVC animated:YES completion:nil];
+        }
+        else if ([result[@"code"] integerValue] == 401)
+        {
+            IseeAlert(@"客户不属此工号管辖",NULL);
         }
         else
         {
@@ -693,16 +743,13 @@
     return iseeHomeTabBarModel;
 }
 #pragma mark - delegate
-- (BOOL)textFieldShouldReturn:(UITextField *)textField
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    [textField resignFirstResponder];
-    [self searchWIthText:textField.text];
-    return YES;
+    [self goSearch];
+    return NO;
+
 }
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    [home getTable];
-}
+
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
@@ -775,12 +822,16 @@
         }
          
          IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
+        frameVC.mLoginName = _mLoginName;
+        frameVC.mSession   = self.mSession;
+        frameVC.mSaleNum   = self.mSaleNum;
+        frameVC.mUserId    = self.mUserId;
          frameVC.titleHave = YES;
          frameVC.tabbarHave = NO;
         frameVC.isHomeGo = YES;
          frameVC.titleName = @"政企视图";
          frameVC.titleBgColor = @"#FFFFFF";  //白色
-         frameVC.statusBarColor = @"#3086E8";//@"#50D4F9";  //自定义颜色
+         frameVC.statusBarColor = @"#1B82D2";//@"#50D4F9";  //自定义颜色
         
           
          NSURL *url = [NSURL URLWithString:urlStr];

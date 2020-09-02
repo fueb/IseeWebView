@@ -28,6 +28,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,copy) NSString *statusBarColor;  //状态栏背景颜色
 @property(nonatomic) BOOL tabbarHave;          //是否显示标题
 @property(nonatomic) BOOL isHomeGo;          //用于返回首页，跳转页面
+@property(nonatomic) BOOL reallyGo;          //直接返回原生上个页面
+@property(nonatomic,copy) NSString *mLoginName;
+@property (nonatomic,strong)NSString *mSession;
+@property (nonatomic,strong)NSString *mUserId;
+@property (nonatomic,strong)NSString *mSaleNum;
 // 返回按钮点击操作
 - (void)doBackPrev;
 // 扫码和心愿单

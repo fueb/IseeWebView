@@ -27,17 +27,21 @@
 
 @implementation IseeWebHomeTabBar
 
-- (instancetype)initWithLoginName:(NSString *)loginName withCompanyId:(NSString *)comanyId withStaffCode:(NSString *)staffCode
+- (instancetype)initWithLoginName:(NSString *)loginName withCompanyId:(NSString *)comanyId withSession:(NSString *)session withUserId:(NSString *)userId withSaleNum:(NSString *)saleNum
 {
     self.mCompanyId = comanyId;
     self.mLoginName = loginName;
-    self.mStaffCode = staffCode;
+    self.mSession   = session;
+    self.mSaleNum   = saleNum;
+    self.mUserId    = userId;
     self = [super init];
     if (self != nil)
     {
         self.mCompanyId = comanyId;
         self.mLoginName = loginName;
-        self.mStaffCode = staffCode;
+        self.mSession   = session;
+        self.mSaleNum   = saleNum;
+        self.mUserId    = userId;
     }
     return self;
 }
@@ -95,7 +99,7 @@
                                            titleKey  : @"沙盘",
                                            imgKey    : @"sandTable",
                                            selImgKey : @"sandTableSelect",
-                                           urlKey    : TOOLWEBURL},
+                                           urlKey    : SANDTABLE},
                                          
                                          @{classKey  : @"IseeWebViewController",
                                            titleKey  : @"消息",
@@ -114,12 +118,16 @@
             UIViewController *vc        = [[NSClassFromString(dict[classKey]) alloc]init];
             if ([vc isKindOfClass:[IseeWebViewController class]]) {
                 IseeWebViewController *iseeVc = (IseeWebViewController *)vc;
+                iseeVc.mLoginName = self.mLoginName;
+                iseeVc.mSession   = self.mSession;
+                iseeVc.mSaleNum   = self.mSaleNum;
+                iseeVc.mUserId    = self.mUserId;
                 iseeVc.titleHave = YES;
                 iseeVc.tabbarHave = YES;
                 iseeVc.isHomeGo = NO;
                 iseeVc.titleName = dict[titleKey];
                 iseeVc.titleBgColor = @"#FFFFFF";  //白色
-                iseeVc.statusBarColor = @"#3086E8";//@"#50D4F9";  //自定义颜色
+                iseeVc.statusBarColor = @"#1B82D2";//@"#50D4F9";  //自定义颜色
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 
                    [formatter setDateFormat:@"YYYYMMdd"];
@@ -132,7 +140,6 @@
                 NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,dict[urlKey],_mLoginName,_mCompanyId,md5Key];
                 
                 NSURL *url = [NSURL URLWithString:urlStr];//urlTF.text];
-//                NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@",@"http://115.233.6.88:9090/custInfoApp/visitList?loginName=15306735610&companyId=221077&md5key=162a99d33535d11e0b09e74dfe2a6220&source=isee"]];
 //                 NSString *filePath = [[NSBundle mainBundle]pathForResource:@"test" ofType:@"html" inDirectory:@"www"];
 //                url = [NSURL fileURLWithPath:filePath];
                 iseeVc.mWebViewUrl = url;
@@ -142,7 +149,9 @@
                 IseeHomeViewController *iseeHome = (IseeHomeViewController *)vc;
                 iseeHome.mCompanyId = self.mCompanyId;
                 iseeHome.mLoginName = self.mLoginName;
-                iseeHome.mStaffCode = self.mStaffCode;
+                iseeHome.mSession   = self.mSession;
+                iseeHome.mSaleNum   = self.mSaleNum;
+                iseeHome.mUserId    = self.mUserId;
             }
             
             

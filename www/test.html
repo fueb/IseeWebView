@@ -81,6 +81,16 @@
                                         <li>
                                             <button id="openZqhelper" type="button">返回页面</button>
                                         </li>
+                                        <br>
+                                        <br>
+                                                            <li>
+                                                                <button id="getUserInfo" type="button">返回登录信息</button>
+                                                            </li>
+                                                            <br>
+                                                            <br>
+                                                                                <li>
+                                                                                    <button id="exit" type="button">ISee退出</button>
+                                                                                </li>
                     <!--                    <li id="soundstop">-->
                     <!--                        <span class="left">录音停止</span>-->
                     <!--                        <span class="right"></span>-->
@@ -375,6 +385,25 @@ document.getElementById("openZqhelper").onclick = function () {
     });
 }
 
+document.getElementById("getUserInfo").onclick = function(){
+    invokePlugin('getUserInfo','','getUserInfoCallBack','').then(datas => {
+        var code = datas.code;
+        if(code == '0000'){
+            var data = datas.data;
+            //loginJsonStr
+        }
+    },(err)=>{
+
+    });
+
+}
+
+document.getElementById("exit").onclick = function () {
+    invokePlugin('exit', '', '', '').then(datas => {
+        
+    }, (err) => {
+    });
+}
 
 
     // document.getElementById("soundstop").onclick = function () {

@@ -13,6 +13,7 @@
 #import "IseeBSJSON.h"
 #import "IseeWebViewController.h"
 #import "IseeWebHomeTabBar.h"
+#import "IseeSearchViewController.h"
 
 @interface ViewController () <WKNavigationDelegate, WKUIDelegate,UIImagePickerControllerDelegate,ScanViewDelegate,CLLocationManagerDelegate,SFSpeechRecognizerDelegate>
 {
@@ -81,8 +82,18 @@
     [super viewDidAppear:animated];
     [self gotoHome];
 }
+-(void)goSearch{
+    IseeSearchViewController *vc = [[IseeSearchViewController alloc] init];
+    
+//    homeTabBar.mLoginName = @"13305834567";
+//    homeTabBar.mCompanyId = @"221166";
+    
+//    UINavigationController *navigate=[[UINavigationController alloc] initWithRootViewController:homeTabBar];
+    vc.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self presentViewController:vc animated:YES completion:nil];
+}
 -(void)gotoHome{
-    IseeWebHomeTabBar *homeTabBar = [[IseeWebHomeTabBar alloc]initWithLoginName:@"13305834567" withCompanyId:@"221166" withStaffCode:@"PMS_SYS"];
+    IseeWebHomeTabBar *homeTabBar = [[IseeWebHomeTabBar alloc]initWithLoginName:@"13305834567" withCompanyId:@"221166" withSession:@"sasdad" withUserId:@"1231" withSaleNum:@"1231"];
 //    homeTabBar.mLoginName = @"13305834567";
 //    homeTabBar.mCompanyId = @"221166";
     

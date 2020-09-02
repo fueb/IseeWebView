@@ -127,15 +127,15 @@
     _querySendOrder = querySendOrder;
     NSArray *querySendOrderViews;
     if ([type isEqualToString:@"1"]) {
-        querySendOrderViews = callBgView.subviews;
+        querySendOrderViews = bordbandBgView.subviews;
         
     }
     else if ([type isEqualToString:@"4"]) {
-        querySendOrderViews = expirBgView.subviews;
+        querySendOrderViews = callBgView.subviews;
         
     }
     else if ([type isEqualToString:@"5"]) {
-        querySendOrderViews = bordbandBgView.subviews;
+        querySendOrderViews = expirBgView.subviews;
         
     }
     
@@ -181,6 +181,18 @@
                 subViewLab.textColor = [IseeConfig stringTOColor:@"#71E133"];
             }
             [subViewLab setNeedsDisplay];
+        }
+        if (Item.tag == 3) {
+            UIImageView *subViewImg = (UIImageView *)Item;
+           
+            if ([changeNum integerValue] > 0) {
+                [subViewImg setImage:[IseeConfig imageNamed:@"up"]];
+            }
+            else
+            {
+                [subViewImg setImage:[IseeConfig imageNamed:@"down"]];
+            }
+            [subViewImg setNeedsDisplay];
         }
     }
 }
@@ -264,7 +276,7 @@
     [_scroll addSubview:self.downView];
     
     searchBgView = [[UIView alloc] init];
-    [searchBgView setBackgroundColor:[IseeConfig stringTOColor:@"#3086E8"]];
+    [searchBgView setBackgroundColor:[IseeConfig stringTOColor:@"#1B82D2"]];
     
     [_scroll addSubview:searchBgView];
     
@@ -350,9 +362,15 @@
 }
 
 - (void)searchView{
+    
+    UIImageView *searchBgImg = [[UIImageView alloc] init];
+    [searchBgImg setImage:[IseeConfig imageNamed:@"top-bg"]];
+    searchBgImg.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    [searchBgView addSubview:searchBgImg];
+    
     businessBtn = [[UIButton alloc] init];
     [businessBtn setTitle:@"查企业" forState:UIControlStateNormal];
-    [businessBtn setTitleColor:[IseeConfig stringTOColor:@"#BBBBBB"] forState:UIControlStateNormal];
+    [businessBtn setTitleColor:[IseeConfig stringTOColor:@"#B6DAFB"] forState:UIControlStateNormal];
     [businessBtn setTitleColor:[IseeConfig stringTOColor:@"#FFFFFF"] forState:UIControlStateSelected];
     businessBtn.selected = YES;
     [businessBtn addTarget:self action:@selector(searchItemEvent:) forControlEvents:UIControlEventTouchUpInside];
@@ -360,7 +378,7 @@
     
     numBtn = [[UIButton alloc] init];
     [numBtn setTitle:@"查号码" forState:UIControlStateNormal];
-    [numBtn setTitleColor:[IseeConfig stringTOColor:@"#BBBBBB"] forState:UIControlStateNormal];
+    [numBtn setTitleColor:[IseeConfig stringTOColor:@"#B6DAFB"] forState:UIControlStateNormal];
     [numBtn setTitleColor:[IseeConfig stringTOColor:@"#FFFFFF"] forState:UIControlStateSelected];
     numBtn.selected = NO;
     [numBtn addTarget:self action:@selector(searchItemEvent:) forControlEvents:UIControlEventTouchUpInside];
@@ -368,7 +386,7 @@
     
     knowBtn = [[UIButton alloc] init];
     [knowBtn setTitle:@"查知识" forState:UIControlStateNormal];
-    [knowBtn setTitleColor:[IseeConfig stringTOColor:@"#BBBBBB"] forState:UIControlStateNormal];
+    [knowBtn setTitleColor:[IseeConfig stringTOColor:@"#B6DAFB"] forState:UIControlStateNormal];
     [knowBtn setTitleColor:[IseeConfig stringTOColor:@"#FFFFFF"] forState:UIControlStateSelected];
     knowBtn.selected = NO;
     [knowBtn addTarget:self action:@selector(searchItemEvent:) forControlEvents:UIControlEventTouchUpInside];
@@ -379,15 +397,19 @@
     searchField.returnKeyType = UIReturnKeyGo;
 //    searchField.placeholder = @"请输入企业名称";
     
-    NSMutableAttributedString *placeholderString = [[NSMutableAttributedString alloc] initWithString:@"请输入企业名称" attributes:@{NSForegroundColorAttributeName : [IseeConfig stringTOColor:@"#87C0F8"]}];
+    NSMutableAttributedString *placeholderString = [[NSMutableAttributedString alloc] initWithString:@"请输入..." attributes:@{NSForegroundColorAttributeName : [IseeConfig stringTOColor:@"#87C0F8"]}];
     searchField.attributedPlaceholder = placeholderString;
 
-    [self setRightViewWithTextField:searchField imageName:@"camerIcon" withImg:@"micIcon"];
+//    [self setRightViewWithTextField:searchField imageName:@"camerIcon" withImg:@"micIcon"];
     [self setLeftViewWithTextField:searchField imageName:@"queryIcon"];
     [searchField setBackgroundColor:[IseeConfig stringTOColor:@"#CAE1F9"]];
     [searchField.layer setCornerRadius:10];
     searchField.layer.masksToBounds = YES;
     [searchBgView addSubview:searchField];
+    
+    [searchBgImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.bottom.mas_equalTo(searchBgView);
+    }];
     
     [searchField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(40);
@@ -416,9 +438,6 @@
            make.height.mas_equalTo(30);
            make.bottom.mas_equalTo(searchField.mas_top).with.offset(-10);
        }];
-    
-    
-    
 }
 
 - (void)menu{
@@ -435,7 +454,7 @@
         
         UIView *imgBgView = [[UIView alloc] initWithFrame:CGRectMake(15, 15, width-30, width-30)];
         imgBgView.layer.cornerRadius = (width-30)/2;
-        imgBgView.backgroundColor = [IseeConfig stringTOColor:@"#308AF5"];
+        imgBgView.backgroundColor = [IseeConfig stringTOColor:@"#2F8AF5"];
         
         UIImageView *imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, width-50, width-50)];
         
@@ -577,7 +596,7 @@
     UILabel *titleLab = [[UILabel alloc] init];
     titleLab.text = title;
     titleLab.textColor = [UIColor grayColor];
-    titleLab.font = [UIFont fontWithName:@"Helvetica" size:15];
+    titleLab.font = [UIFont fontWithName:@"Helvetica" size:13];
     UILabel *numLab = [[UILabel alloc] init];
     numLab.text = num;
     numLab.textColor = [UIColor blackColor];
@@ -587,6 +606,11 @@
     [bgView addSubview:icon];
     [bgView addSubview:titleLab];
     [bgView addSubview:numLab];
+    CGFloat titleWidth = 95.0f;
+    if (![title isEqualToString:@"宽带(专线)到期"])
+    {
+        titleWidth = 80;
+    }
     
     [icon mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(bgView.mas_left).offset(10);
@@ -597,7 +621,7 @@
     [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(icon.mas_right).offset(5);
         make.height.mas_equalTo(50);
-        make.width.mas_equalTo(105);
+        make.width.mas_equalTo(@(titleWidth));
         make.top.mas_equalTo(bgView.mas_top).offset(25);
     }];
     
@@ -616,12 +640,15 @@
     fllowLab.textColor = [IseeConfig stringTOColor:@"#474858"];
     fllowLab.font = [UIFont fontWithName:@"Helvetica" size:20];
     
+    UIView * downBgView = [[UIView alloc] init];
+    [downBgView setBackgroundColor:[IseeConfig stringTOColor:@"#EDF0F5"]];
+    
     UILabel * myBule = [[UILabel alloc] init];
     myBule.text = @"我的蓝海";
     myBule.textColor = [IseeConfig stringTOColor:@"#474858"];
     myBule.font = [UIFont fontWithName:@"Helvetica" size:20];
     
-    
+    [downView addSubview:downBgView];
     [downView addSubview:fllowLab];
     [downView addSubview:myBule];
     
@@ -663,9 +690,15 @@
         make.height.equalTo(incomeFluBgView);
     }];
     
+    [downBgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.mas_equalTo(downView);
+        make.top.mas_equalTo(assetsFluBgView.mas_bottom).with.offset(15);
+        make.height.mas_equalTo(@20);
+    }];
+    
     [myBule mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.height.mas_equalTo(fllowLab);
-        make.top.mas_equalTo(assetsFluBgView.mas_bottom).offset(35);
+        make.top.mas_equalTo(downBgView.mas_bottom).offset(20);
     }];
     
     [self getFluItem:incomeFluBgView withIcon:@"income" withStr:@"收入波动" withNum:@"5"];
@@ -702,7 +735,8 @@
     
     [myBuleNumBg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(myBule.mas_bottom).offset(20);
-        make.left.right.mas_equalTo(myBule);
+        make.left.mas_equalTo(myBule);
+        make.right.mas_equalTo(myBule.mas_right).with.offset(-20);
         make.height.mas_equalTo(40);
     }];
     [visitedBg mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -729,7 +763,7 @@
     [downView addSubview:percentageBg];
     
     [percentageBg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(myBule.mas_left).offset(170);
+        make.left.mas_equalTo(myBule.mas_left).offset(150);
         make.top.mas_equalTo(monthBg.mas_bottom);
         make.right.height.mas_equalTo(monthBg);
     }];
@@ -862,8 +896,11 @@
     titleLab.backgroundColor = [UIColor whiteColor];
     sumLab.backgroundColor = [UIColor whiteColor];
     changeLab.backgroundColor = [UIColor whiteColor];
-    changeImg.backgroundColor = [UIColor orangeColor];
-    changeImg.hidden = YES;
+    changeImg.backgroundColor = [UIColor clearColor];
+    changeImg.tag = 3;
+    
+    
+//    changeImg.hidden = YES;
     
     [iconi mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(bgView.mas_centerX);
@@ -928,7 +965,8 @@
     sumLab.backgroundColor = [UIColor clearColor];
     
     [topRightImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.top.mas_equalTo(bgView);
+        make.top.mas_equalTo(bgView).with.offset(-1);
+        make.right.mas_equalTo(bgView).with.offset(1);
         make.width.height.mas_equalTo(40);
     }];
     
@@ -1008,7 +1046,7 @@
     
     [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.top.bottom.mas_equalTo(bgView);
-        make.width.equalTo(@100);
+        make.width.equalTo(@80);
     }];
     
     [numLab mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1018,7 +1056,7 @@
     }];
     
     [sumLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(bgView.mas_right);
+        make.right.mas_equalTo(bgView.mas_right).with.offset(20);
         make.left.mas_equalTo(numLab.mas_right).offset(5);
         make.centerY.mas_equalTo(titleLab);
         make.height.mas_equalTo(10);
@@ -1045,11 +1083,6 @@
        
         make.left.bottom.top.right.mas_equalTo(tableBgView);
     }];
-    
-//    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tableTap:)];
-//    tapGesture.cancelsTouchesInView = NO;
-//    [tableBgView addGestureRecognizer:tapGesture];
-    
 }
 
 - (void)removeTable{
@@ -1098,11 +1131,11 @@
     
     UIView *left = [[UIView alloc] init];
     //    reght.backgroundColor = [UIColor redColor];
-    [left setBounds:CGRectMake(0, 0, 40, 40)];
+    [left setBounds:CGRectMake(0, 0, 50, 40)];
     
     UIImageView *leftView = [[UIImageView alloc]init];
     leftView.image = [IseeConfig imageNamed:imageName];
-    [leftView setFrame:CGRectMake(0, 0, 40, 40)];
+    [leftView setFrame:CGRectMake(10, 0, 40, 40)];
     [left addSubview:leftView];
 //    leftView.contentMode = UIViewContentModeCenter;
     textField.leftView = left;
@@ -1141,6 +1174,7 @@
 
 - (void)searchItemEvent:(UIButton *)btn
 {
+    searchField.text = @"";
     btn.selected = YES;
     int i = -1;
     if ([btn isEqual:knowBtn]) {

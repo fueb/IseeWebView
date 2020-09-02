@@ -62,10 +62,16 @@ typedef NS_ENUM(NSUInteger,RequestType) {
 //weburl
 
 #define VISITLISTWEBURL     @"/visitList"
+#define WORKORDERWEBURL     @"/workOrderReminder/Index"
+#define CIRCUITWEBURL                  @"/workOrderReminder/circuitExpiration"
+#define BROADBANDWEBURL                    @"/workOrderReminder/broadbandExpiration"
 
 #define MYWEBURL        @"/mine"
 #define MESSAGEWEBURL   @"/message"
 #define TOOLWEBURL      @"/tools"
+#define SANDTABLE       @"/sandTable/Index"
+
+#define FLUWEBURL       @"/customerFluctuation"
 
 #define InstallationWorkorderWEBURL      @"/tools/InstallationWorkorder"
 #define packageUsageWEBURL               @"/tools/packageUsage"
@@ -81,4 +87,5 @@ typedef NS_ENUM(NSUInteger,RequestType) {
 #define contactManagementWEBURL      @"/contactManagement/Index"
 #define integratedQueryWEBURL      @"/integratedQuery/Index"
 #define enterpriseNewViewWEBURL      @"/enterpriseNewView/income"
+
 @end
