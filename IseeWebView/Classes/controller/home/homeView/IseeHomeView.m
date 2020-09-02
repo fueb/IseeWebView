@@ -267,6 +267,10 @@
     int menuLine = 0;
     if (_model.count > 0) {
         menuLine = (_model.count/5) + 1;
+        int tempCount = _model.count%5;
+        if (tempCount == 0) {
+            menuLine--;
+        }
     }
     
     _contentView = [[UIView alloc] init];

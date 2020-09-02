@@ -199,6 +199,7 @@
     self.wkWebView.navigationDelegate = self;
     [self.wkWebView.scrollView setShowsVerticalScrollIndicator:NO];
     [self.wkWebView.scrollView setShowsHorizontalScrollIndicator:NO];
+    [self.wkWebView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:NULL];
 
     [self.wkWebView loadRequest:[NSURLRequest requestWithURL:_mWebViewUrl]];
     
@@ -821,6 +822,46 @@
     [self.wkWebView evaluateJavaScript:js completionHandler:nil];
 }
 
+#pragma mark KVO的监听代理
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+
+    
+    //网页title
+     if ([keyPath isEqualToString:@"title"])
+    {
+        if (object == self.wkWebView)
+        {
+            [_topNavBar setNavigationTitle:self.wkWebView.title];
+            NSString *title = self.wkWebView.title;
+            if ([title isEqualToString:@"工具"]||[title isEqualToString:@"沙盘"]||[title isEqualToString:@"消息"]||[title isEqualToString:@"我的"]) {
+                if (!_isHomeGo) {
+                    [_topNavBar backBtnHide];
+                }
+                
+                
+            }
+            else
+            {
+                [_topNavBar backBtnShow];
+            }
+            NSLog(@"%@",self.title);
+        }
+        else
+        {
+            [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+        }
+    }
+    else
+    {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
+}
+
+#pragma mark 移除观察者
+- (void)dealloc
+{
+    [self.wkWebView removeObserver:self forKeyPath:@"title"];
+}
 
 /*
 #pragma mark - Navigation

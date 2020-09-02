@@ -28,6 +28,7 @@
     NSInteger searchInt;
     NSMutableArray *searchCustAry;
     NSMutableArray *searchProdAry;
+    BOOL isFirstOpen;
     
 }
 @property (nonatomic, strong)NSDictionary *loginDict;
@@ -37,6 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    isFirstOpen = YES;
     CGFloat safeBottom = 0;
     searchInt = 0;
     modelAry = [[NSMutableArray alloc] init];
@@ -60,6 +62,16 @@
     
     // Do any additional setup after loading the view.
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (!isFirstOpen) {
+        [self getMenu];
+    }
+    
+    isFirstOpen = NO;
+}
+
 
 -(void)goSearch{
     IseeSearchViewController *vc = [[IseeSearchViewController alloc] init];
@@ -91,15 +103,15 @@
 //    [home setQuerySendOrder:@"45" withType:@"4"];
 //    [home setQuerySendOrder:@"127" withType:@"5"];
     
-    NSMutableDictionary *keyPointDict = [NSMutableDictionary dictionary];
-    [keyPointDict setObject:@"35291" forKey:@"boardBandNum"];
-    [keyPointDict setObject:@"23" forKey:@"boardBandChange"];
-    [keyPointDict setObject:@"88546" forKey:@"moveNum"];
-    [keyPointDict setObject:@"-23" forKey:@"moveChange"];
-    [keyPointDict setObject:@"15345" forKey:@"iptvNum"];
-    [keyPointDict setObject:@"23" forKey:@"iptvChange"];
-    [keyPointDict setObject:@"21291" forKey:@"shareNum"];
-    [keyPointDict setObject:@"-23" forKey:@"shareChange"];
+//    NSMutableDictionary *keyPointDict = [NSMutableDictionary dictionary];
+//    [keyPointDict setObject:@"35291" forKey:@"boardBandNum"];
+//    [keyPointDict setObject:@"23" forKey:@"boardBandChange"];
+//    [keyPointDict setObject:@"88546" forKey:@"moveNum"];
+//    [keyPointDict setObject:@"-23" forKey:@"moveChange"];
+//    [keyPointDict setObject:@"15345" forKey:@"iptvNum"];
+//    [keyPointDict setObject:@"23" forKey:@"iptvChange"];
+//    [keyPointDict setObject:@"21291" forKey:@"shareNum"];
+//    [keyPointDict setObject:@"-23" forKey:@"shareChange"];
 //    [home setKeyPointDict:keyPointDict];
 //
 //    [home setFluWith:@"6" withVolume:@"6" withAssets:@"6"];
@@ -154,6 +166,7 @@
         else if ([moduleName isEqualToString:@"政企视图"]) {
             methodName = enterpriseNewViewWEBURL;
         }
+         
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 
@@ -168,6 +181,11 @@
         NSString *currentTime = [formatter stringFromDate:dateNow];
         
         NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
+        if ([moduleName isEqualToString:@"更多"]) {
+            methodName = TOOLWEBURL;
+            md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_mLoginName,_mCompanyId,currentTime];
+        }
+        
         NSString *md5Key = [IseeConfig md5:md5Str];
         NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,methodName,_mLoginName,_mCompanyId,md5Key];
         if ([moduleName isEqualToString:@"联系人管理"]) {
@@ -404,9 +422,19 @@
             NSArray *all = data[@"all"];
             NSArray *define = data[@"define"];
             
-            
+            if (modelAry.count > 0) {
+                [modelAry removeAllObjects];
+            }
 //            [modelAry addObjectsFromArray:all];
             [modelAry addObjectsFromArray:define];
+            NSMutableDictionary *moreDict = [NSMutableDictionary dictionary];
+            [moreDict setObject:@"10" forKey:@"orderId"];
+            [moreDict setObject:@"more" forKey:@"icon"];
+            [moreDict setObject:@"更多" forKey:@"moduleName"];
+            [moreDict setObject:@"2" forKey:@"sumModuleId"];
+            [moreDict setObject:@"-1" forKey:@"moduleId"];
+            [modelAry addObject:moreDict];
+            
             [home setModel:modelAry];
             [self getTask];//走访任务
             [self getQuerySendOrder:@"1"];
