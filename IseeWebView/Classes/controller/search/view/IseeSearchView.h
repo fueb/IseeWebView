@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)getTable;
 - (void)removeTable;
 - (void)reloadTable;
+- (void)setFieldPlace:(NSString *)place;
 @end
 
 NS_ASSUME_NONNULL_END

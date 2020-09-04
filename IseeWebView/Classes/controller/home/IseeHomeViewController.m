@@ -82,6 +82,8 @@
     vc.mCompanyId = _mCompanyId;
     vc.mUserId = _mUserId;
     vc.mSaleNum = _mSaleNum;
+    vc.areaId = _areaId;
+    vc.mManagerId = _mManagerId;
     vc.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:vc animated:YES completion:nil];
 }
@@ -166,6 +168,18 @@
         else if ([moduleName isEqualToString:@"政企视图"]) {
             methodName = enterpriseNewViewWEBURL;
         }
+        else if ([moduleName isEqualToString:@"故障单"]) {
+            methodName = MALFUCTIONQUERYWEBURL;
+        }
+        else if ([moduleName isEqualToString:@"投诉单查询"]) {
+            methodName = COMPLAINTQUERYWEBURL;
+        }
+        else if ([moduleName isEqualToString:@"订单查询"]) {
+            methodName = ORDERQUERYWEBURL;
+        }
+        else if ([moduleName isEqualToString:@"资产查询"]) {
+            methodName = ASSETSQUERYWEBURL;
+        }
          
         
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -180,7 +194,7 @@
 
         NSString *currentTime = [formatter stringFromDate:dateNow];
         
-        NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
+        NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_mLoginName,_mCompanyId,currentTime];
         if ([moduleName isEqualToString:@"更多"]) {
             methodName = TOOLWEBURL;
             md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_mLoginName,_mCompanyId,currentTime];
@@ -189,7 +203,8 @@
         NSString *md5Key = [IseeConfig md5:md5Str];
         NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,methodName,_mLoginName,_mCompanyId,md5Key];
         if ([moduleName isEqualToString:@"联系人管理"]) {
-            urlStr = @"http://115.233.6.88:9090/custInfoApp/contactManagement/Index?managerId=120608&latnId=71&areaId=66363";
+            urlStr = [NSString stringWithFormat:@"%@%@?managerId=%@&latnId=%@&areaId=%@",WEBHOST,contactManagementWEBURL,_mManagerId,_latnId,_areaId];
+//            urlStr = @"http://115.233.6.88:9090/custInfoApp/contactManagement/Index?managerId=120608&latnId=71&areaId=66363";
         }
         
         IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
@@ -244,7 +259,7 @@
         NSDate *dateNow = [NSDate date];
         NSString *currentTime = [formatter stringFromDate:dateNow];
         
-        NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
+        NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_mLoginName,_mCompanyId,currentTime];
         NSString *md5Key = [IseeConfig md5:md5Str];
         NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,methodName,_mLoginName,_mCompanyId,md5Key];
         if (type != 1) {
@@ -279,17 +294,19 @@
     [home setFluClick:^(NSInteger type) {
         NSString *methodName = FLUWEBURL;
         NSString *titleName;
+        NSInteger intType;
         if (type == 1) {
-
+            intType = 1;
             titleName = @"收入波动";
         }
         else if (type == 2)
         {
-
+            intType = 3;
             titleName = @"话务量波动";
         }
         else if (type == 3)
         {
+            intType = 2;
             titleName = @"资产波动";
         }
         
@@ -298,10 +315,10 @@
         NSDate *dateNow = [NSDate date];
         NSString *currentTime = [formatter stringFromDate:dateNow];
         
-        NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
+        NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_mLoginName,_mCompanyId,currentTime];
         NSString *md5Key = [IseeConfig md5:md5Str];
         
-        NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2&type=%d",WEBHOST,methodName,_mLoginName,_mCompanyId,md5Key,type];
+        NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2&type=%d",WEBHOST,methodName,_mLoginName,_mCompanyId,md5Key,intType];
         
         
         IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
@@ -438,8 +455,8 @@
             [home setModel:modelAry];
             [self getTask];//走访任务
             [self getQuerySendOrder:@"1"];
-            [self getQuerySendOrder:@"4"];
-            [self getQuerySendOrder:@"5"];
+//            [self getQuerySendOrder:@"4"];
+//            [self getQuerySendOrder:@"5"];
             [self getImporant];
             [self getManagerCustomLost];//波动
             [self getMyBule];
@@ -486,17 +503,9 @@
 
 - (void)getQuerySendOrder:(NSString *)type{
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setObject:_mLoginName forKey:@"loginName"];
+    [param setObject:_mManagerId forKey:@"managerId"];
     [param setObject:_latnId forKey:@"latnId"];
-    [param setObject:type forKey:@"queryType"];
      
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-
-    [formatter setDateFormat:@"YYYYMM"];
-    NSDate *dateNow = [NSDate date];
-    NSString *currentTime = [formatter stringFromDate:dateNow];
-     
-    [param setObject:currentTime forKey:@"monthId"];
     
     [IseeAFNetRequest showHUD:self.view];
     [self.iseeHomeModel isee_querySendOrderWithParam:param WithSuccess:^(id  _Nonnull result) {
@@ -504,9 +513,14 @@
         if ([result[@"code"] integerValue] == 200)
         {
             NSDictionary *data = result[@"data"];
-            long taskNum = [data[@"processingAllCount"] longValue];
+            long kdCount = [data[@"kdCount"] longValue];
+            long qfCount = [data[@"qfCount"] longValue];
+            long dlCount = [data[@"dlCount"] longValue];
+
             
-            [home setQuerySendOrder:[NSString stringWithFormat:@"%ld",(long)taskNum] withType:type];
+            [home setQuerySendOrder:[NSString stringWithFormat:@"%ld",(long)kdCount] withType:@"1"];
+            [home setQuerySendOrder:[NSString stringWithFormat:@"%ld",(long)qfCount] withType:@"4"];
+            [home setQuerySendOrder:[NSString stringWithFormat:@"%ld",(long)dlCount] withType:@"5"];
             
         }
         else
@@ -715,7 +729,7 @@
 
              NSString *currentTime = [formatter stringFromDate:dateNow];
              
-             NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
+             NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_mLoginName,_mCompanyId,currentTime];
              NSString *md5Key = [IseeConfig md5:md5Str];
             NSString *urlStr;
             urlStr = [NSString stringWithFormat:@"%@%@?accNbr=%@&latnId=%@&servId=%@&custId=%@&crmCustId=%@&loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,integratedQueryWEBURL,tempModel.accNbr,tempModel.latnId,tempModel.servId,data[@"custId"],tempModel.crmCustId,_mLoginName,_mCompanyId,md5Key];
@@ -773,6 +787,10 @@
 #pragma mark - delegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
+    if (searchInt == 2)
+    {
+        return NO;
+    }
     [self goSearch];
     return NO;
 
@@ -836,7 +854,7 @@
 
          NSString *currentTime = [formatter stringFromDate:dateNow];
          
-         NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
+         NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_mLoginName,_mCompanyId,currentTime];
          NSString *md5Key = [IseeConfig md5:md5Str];
         NSString *urlStr;
         urlStr = [NSString stringWithFormat:@"%@%@?vipCard=%@&latnId=%@&loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,enterpriseNewViewWEBURL,tempModel.ser_id,tempModel.latn_id,_mLoginName,_mCompanyId,md5Key];

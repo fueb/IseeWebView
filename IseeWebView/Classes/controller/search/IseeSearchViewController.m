@@ -46,6 +46,13 @@
     [self.view addSubview:search];
     [search setModel:modelAry];
     [self setClick];
+    if (_searchInt == 0) {
+        [search setFieldPlace:@"请输入企业名称"];
+    }
+    else if (_searchInt == 1)
+    {
+        [search setFieldPlace:@"请输入号码"];
+    }
     // Do any additional setup after loading the view.
 }
 
@@ -140,10 +147,10 @@
 
              NSString *currentTime = [formatter stringFromDate:dateNow];
              
-             NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
+             NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_mLoginName,_mCompanyId,currentTime];
              NSString *md5Key = [IseeConfig md5:md5Str];
             NSString *urlStr;
-            urlStr = [NSString stringWithFormat:@"%@%@?accNbr=%@&latnId=%@&servId=%@&custId=%@&crmCustId=%@&loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,integratedQueryWEBURL,tempModel.accNbr,tempModel.latnId,tempModel.servId,data[@"custId"],tempModel.crmCustId,_mLoginName,_mCompanyId,md5Key];
+            urlStr = [NSString stringWithFormat:@"%@%@?accNbr97=%@&productType=%@&accNbr=%@&latnId=%@&servId=%@&custId=%@&crmCustId=%@&loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,integratedQueryWEBURL,data[@"accNbar97"],tempModel.productTypeId,tempModel.accNbr,tempModel.latnId,tempModel.servId,data[@"custId"],tempModel.crmCustId,_mLoginName,_mCompanyId,md5Key];
              
              
              IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
@@ -177,6 +184,185 @@
     }];
 }
 
+- (void)findCrm:(NSString *)vipCard withLatnId:(NSString *)latnId withModel:(IseeCustModel *)tempModel
+{
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:vipCard forKey:@"vipCard"];
+    [param setObject:latnId forKey:@"latnId"];
+    [IseeAFNetRequest showHUD:self.view];
+    [self.iseeHomeModel isee_findCrmWithParam:param WithSuccess:^(id  _Nonnull result) {
+        if ([result[@"code"] integerValue] == 200)
+        {
+            NSArray *data = result[@"data"];
+            
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+
+             // 设置想要的格式，hh与HH的区别:分别表示12小时制,24小时制
+
+             [formatter setDateFormat:@"YYYYMMdd"];
+
+             NSDate *dateNow = [NSDate date];
+
+             //把NSDate按formatter格式转成NSString
+
+             NSString *currentTime = [formatter stringFromDate:dateNow];
+             
+             NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_mLoginName,_mCompanyId,currentTime];
+             NSString *md5Key = [IseeConfig md5:md5Str];
+            NSString *urlStr;
+            NSString *method;
+            NSString *titleStr;
+            if ([tempModel.id_type_name isEqualToString:@"本网"]&&tempModel.ser_id) {
+                if (data.count > 1){
+                    method = enterpriseNewViewWEBURL;
+                    titleStr = @"政企视图";
+                }
+                else
+                {
+                    method = CRMCUSTViewWEBURL;
+                    titleStr = @"CRM视图";
+                }
+                    
+            }
+            else if (([tempModel.id_type_name isEqualToString:@"他网"]||[tempModel.id_type_name isEqualToString:@"蓝海"])&&tempModel.ser_id) {
+                method = BLUEViewWEBURL;
+                titleStr = @"蓝海视图";
+//                [self findBlue:tempModel.ser_id withModel:tempModel];
+                
+                IseeAlert(@"正在开发中-敬请期待",NULL);
+                return;
+                
+            }
+            else if (((![tempModel.id_type_name isEqualToString:@"他网"])&&(![tempModel.id_type_name isEqualToString:@"蓝海"])&&(![tempModel.id_type_name isEqualToString:@"本网"]))&&tempModel.ser_id)
+            {
+                method = CRMCUSTViewWEBURL;
+                titleStr = @"CRM视图";
+            }
+            
+             urlStr = [NSString stringWithFormat:@"%@%@?vipCard=%@&latnId=%@&loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,method,tempModel.ser_id,tempModel.latn_id,_mLoginName,_mCompanyId,md5Key];
+             
+            IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
+            frameVC.mLoginName = _mLoginName;
+            frameVC.mSession   = self.mSession;
+            frameVC.mSaleNum   = self.mSaleNum;
+            frameVC.mUserId    = self.mUserId;
+            frameVC.titleHave = YES;
+            frameVC.tabbarHave = NO;
+            frameVC.isHomeGo = YES;
+            frameVC.reallyGo = YES;
+            frameVC.titleName = titleStr;
+            frameVC.titleBgColor = @"#FFFFFF";  //白色
+            frameVC.statusBarColor = @"#1B82D2";//@"#50D4F9";  //自定义颜色
+            
+              
+             NSURL *url = [NSURL URLWithString:urlStr];
+             frameVC.mWebViewUrl = url;
+             frameVC.modalPresentationStyle = UIModalPresentationFullScreen;
+             [self presentViewController:frameVC animated:YES completion:nil];
+        }
+        else if ([result[@"code"] integerValue] == 401)
+        {
+            IseeAlert(@"客户不属此工号管辖",NULL);
+        }
+        else
+        {
+            IseeAlert(result[@"msg"],NULL);
+        }
+    }
+    failure:^{
+        
+    }];
+    
+}
+
+- (void)findVip:(NSString *)test withModel:(IseeCustModel *)tempModel{
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:test forKey:@"text"];
+    [IseeAFNetRequest showHUD:self.view];
+    [self.iseeHomeModel isee_findVipWithParam:param WithSuccess:^(id  _Nonnull result) {
+        if ([result[@"code"] integerValue] == 200)
+        {
+            [self findCrm:tempModel.ser_id withLatnId:_latnId withModel:tempModel];
+        }
+        else if ([result[@"code"] integerValue] == 401)
+        {
+            IseeAlert(@"客户不属此工号管辖",NULL);
+        }
+        else
+        {
+            IseeAlert(result[@"msg"],NULL);
+        }
+    }
+    failure:^{
+        
+    }];
+}
+
+- (void)findBlue:(NSString *)test withModel:(IseeCustModel *)tempModel{
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:test forKey:@"text"];
+    [IseeAFNetRequest showHUD:self.view];
+    [self.iseeHomeModel isee_findBlueWithParam:param WithSuccess:^(id  _Nonnull result) {
+        if ([result[@"code"] integerValue] == 200)
+        {
+            NSArray *data = result[@"data"];
+            
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+
+             // 设置想要的格式，hh与HH的区别:分别表示12小时制,24小时制
+
+             [formatter setDateFormat:@"YYYYMMdd"];
+
+             NSDate *dateNow = [NSDate date];
+
+             //把NSDate按formatter格式转成NSString
+
+             NSString *currentTime = [formatter stringFromDate:dateNow];
+             
+             NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_mLoginName,_mCompanyId,currentTime];
+             NSString *md5Key = [IseeConfig md5:md5Str];
+            NSString *urlStr;
+            NSString *method;
+            NSString *titleStr;
+
+            method = BLUEViewWEBURL;
+            titleStr = @"蓝海视图";
+           
+             urlStr = [NSString stringWithFormat:@"%@%@?areaId=%@&latnId=%@&managerId=%@&loginName=%@",WEBHOST,method,_areaId,_latnId,_mManagerId,_mLoginName];
+             
+            IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
+            frameVC.mLoginName = _mLoginName;
+            frameVC.mSession   = self.mSession;
+            frameVC.mSaleNum   = self.mSaleNum;
+            frameVC.mUserId    = self.mUserId;
+            frameVC.titleHave = YES;
+            frameVC.tabbarHave = NO;
+            frameVC.isHomeGo = YES;
+            frameVC.reallyGo = YES;
+            frameVC.titleName = titleStr;
+            frameVC.titleBgColor = @"#FFFFFF";  //白色
+            frameVC.statusBarColor = @"#1B82D2";//@"#50D4F9";  //自定义颜色
+            
+              
+             NSURL *url = [NSURL URLWithString:urlStr];
+             frameVC.mWebViewUrl = url;
+             frameVC.modalPresentationStyle = UIModalPresentationFullScreen;
+             [self presentViewController:frameVC animated:YES completion:nil];
+        }
+        else if ([result[@"code"] integerValue] == 401)
+        {
+            IseeAlert(@"客户不属此工号管辖",NULL);
+        }
+        else
+        {
+            IseeAlert(result[@"msg"],NULL);
+        }
+    }
+    failure:^{
+        
+    }];
+}
+
 #pragma mark - delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
@@ -195,7 +381,7 @@
 #pragma mark - tableview
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 55;
+    return 60;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -231,57 +417,29 @@
     return [UITableViewCell new];
     
 }
+- (void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
+
+   [cell setSeparatorInset:UIEdgeInsetsZero];
+
+    [cell setLayoutMargins:UIEdgeInsetsZero];
+
+    cell.preservesSuperviewLayoutMargins = NO;
+
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (_searchInt == 0) {
-        IseeCustModel *tempModel = searchCustAry[indexPath.row];
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-
-         // 设置想要的格式，hh与HH的区别:分别表示12小时制,24小时制
-
-         [formatter setDateFormat:@"YYYYMMdd"];
-
-         NSDate *dateNow = [NSDate date];
-
-         //把NSDate按formatter格式转成NSString
-
-         NSString *currentTime = [formatter stringFromDate:dateNow];
-         
-         NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",_mLoginName,_mCompanyId,currentTime];
-         NSString *md5Key = [IseeConfig md5:md5Str];
-        NSString *urlStr;
-        urlStr = [NSString stringWithFormat:@"%@%@?vipCard=%@&latnId=%@&loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,enterpriseNewViewWEBURL,tempModel.ser_id,tempModel.latn_id,_mLoginName,_mCompanyId,md5Key];
-         
-        if ([tempModel.id_type_name isEqualToString:@"他网"]||[tempModel.id_type_name isEqualToString:@"蓝海"]) {
-            
-        }
-        else if ((![tempModel.id_type_name isEqualToString:@"他网"])&&(![tempModel.id_type_name isEqualToString:@"蓝海"])&&(![tempModel.id_type_name isEqualToString:@"本网"]))
-        {
-            
-        }
-         
-        IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
-        frameVC.mLoginName = _mLoginName;
-        frameVC.mSession   = self.mSession;
-        frameVC.mSaleNum   = self.mSaleNum;
-        frameVC.mUserId    = self.mUserId;
-        frameVC.titleHave = YES;
-        frameVC.tabbarHave = NO;
-        frameVC.isHomeGo = YES;
-        frameVC.reallyGo = YES;
-        frameVC.titleName = @"政企视图";
-        frameVC.titleBgColor = @"#FFFFFF";  //白色
-        frameVC.statusBarColor = @"#1B82D2";//@"#50D4F9";  //自定义颜色
         
-          
-         NSURL *url = [NSURL URLWithString:urlStr];
-         frameVC.mWebViewUrl = url;
-         frameVC.modalPresentationStyle = UIModalPresentationFullScreen;
-         [self presentViewController:frameVC animated:YES completion:nil];
+//        IseeProdModel *tempModel = searchProdAry[indexPath.row];
+//        [self findProdute:tempModel.servId withProductType:tempModel.productTypeId withText:tempModel.accNbr withModel:tempModel];
+        
+        IseeCustModel *tempModel = searchCustAry[indexPath.row];
+        [self findVip:tempModel.ser_id withModel:tempModel];
     }
     else  if (_searchInt == 1) {
         IseeProdModel *tempModel = searchProdAry[indexPath.row];
-        [self findProdute:tempModel.servId withProductType:tempModel.productType withText:tempModel.accNbr withModel:tempModel];
+        [self findProdute:tempModel.servId withProductType:tempModel.productTypeId withText:tempModel.accNbr withModel:tempModel];
     }
 }
 

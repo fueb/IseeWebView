@@ -127,7 +127,9 @@
                 iseeVc.isHomeGo = NO;
                 iseeVc.titleName = dict[titleKey];
                 iseeVc.titleBgColor = @"#FFFFFF";  //白色
-                iseeVc.statusBarColor = @"#1B82D2";//@"#50D4F9";  //自定义颜色
+                iseeVc.statusBarColor = @"#1B82D2";//@"#50D4F9";
+               
+                //自定义颜色
                 NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 
                    [formatter setDateFormat:@"YYYYMMdd"];
@@ -138,6 +140,10 @@
                 NSString *md5Key = [[IseeConfig md5:md5Str] lowercaseString];
                 
                 NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,dict[urlKey],_mLoginName,_mCompanyId,md5Key];
+                if ([dict[titleKey] isEqualToString:@"沙盘"]||[dict[titleKey] isEqualToString:@"消息"])
+                {
+                    urlStr = [urlStr stringByAppendingFormat:@"&session=%@&userId=%@&saleNum=%@",_mSession,_mUserId,_mSaleNum];
+                }
                 
                 NSURL *url = [NSURL URLWithString:urlStr];//urlTF.text];
 //                 NSString *filePath = [[NSBundle mainBundle]pathForResource:@"test" ofType:@"html" inDirectory:@"www"];

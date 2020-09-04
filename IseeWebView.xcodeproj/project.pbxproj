@@ -26,6 +26,7 @@
 		2D9CD07824F55921002B9CE1 /* IseeProdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9CD07724F55921002B9CE1 /* IseeProdCell.m */; };
 		2D9FFDE324C9D01800A41353 /* IseeScanView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9FFDDC24C9D01800A41353 /* IseeScanView.m */; };
 		2D9FFDE724C9D2E000A41353 /* CLLocation+IseeSino.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9FFDE624C9D2E000A41353 /* CLLocation+IseeSino.m */; };
+		2DA6339F2501264700E46868 /* UIImage+IseeSVGTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DA6339E2501264700E46868 /* UIImage+IseeSVGTool.m */; };
 		2DDDE55E24C8490600015C76 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDDE55D24C8490600015C76 /* AppDelegate.m */; };
 		2DDDE56424C8490600015C76 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DDDE56324C8490600015C76 /* ViewController.m */; };
 		2DDDE56724C8490600015C76 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DDDE56524C8490600015C76 /* Main.storyboard */; };
@@ -99,6 +100,8 @@
 		2D9FFDDD24C9D01800A41353 /* IseeScanView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IseeScanView.h; sourceTree = "<group>"; };
 		2D9FFDE524C9D2E000A41353 /* CLLocation+IseeSino.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+IseeSino.h"; sourceTree = "<group>"; };
 		2D9FFDE624C9D2E000A41353 /* CLLocation+IseeSino.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+IseeSino.m"; sourceTree = "<group>"; };
+		2DA6339D2501264700E46868 /* UIImage+IseeSVGTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+IseeSVGTool.h"; sourceTree = "<group>"; };
+		2DA6339E2501264700E46868 /* UIImage+IseeSVGTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+IseeSVGTool.m"; sourceTree = "<group>"; };
 		2DDDE55924C8490600015C76 /* IseeWebView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IseeWebView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DDDE55C24C8490600015C76 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2DDDE55D24C8490600015C76 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -221,6 +224,8 @@
 		2D877B9024CFC69200AA2983 /* Catelogy */ = {
 			isa = PBXGroup;
 			children = (
+				2DA6339D2501264700E46868 /* UIImage+IseeSVGTool.h */,
+				2DA6339E2501264700E46868 /* UIImage+IseeSVGTool.m */,
 				2D877B9E24CFD23700AA2983 /* UIView+IseeExtension.h */,
 				2D877B9F24CFD23700AA2983 /* UIView+IseeExtension.m */,
 				2D877B9124CFC69200AA2983 /* UIViewController+IseeCommon.m */,
@@ -577,6 +582,7 @@
 				2D9FFDE324C9D01800A41353 /* IseeScanView.m in Sources */,
 				2DEC697624FF3BEC00695ED7 /* IseeSearchView.m in Sources */,
 				2D9CD06F24F54049002B9CE1 /* IseeCustCell.m in Sources */,
+				2DA6339F2501264700E46868 /* UIImage+IseeSVGTool.m in Sources */,
 				2D71658E24E126A400611439 /* IseeAFNetRequest.m in Sources */,
 				2D9CD07524F55813002B9CE1 /* IseeProdModel.m in Sources */,
 				2D7B4A1F24C891CE008DE649 /* IseeConfig.m in Sources */,

@@ -57,35 +57,72 @@ typedef NS_ENUM(NSUInteger,RequestType) {
 #define CUSTOMLOST            @"/custInfoApp/api/customLostControlMain/getManagerCustomLost"
 #define MYBULE              @"/custInfoApp/api/blueOcean/getBlueCustMsg"
 #define FINDCUST            @"/custInfoApp/api/indexManager/findCust"
+#define FINDCRM             @"/custInfoApp/api/indexManager/getCrmCustList"
+#define FINDVIP             @"/custInfoApp/api//indexManager/findVip"
 #define FINDPROD            @"/custInfoApp/api/indexManager/findProd"
 #define FINDPRODUCT         @"/custInfoApp/api/indexManager/findProduct"
+#define FINDBLUEOCEAN       @"/indexManager/findBlueOcean"
+#define GETDEALCOUNT        @"/custInfoApp/api/jobDeal/getDealCount"
 //weburl
-
+//走访任务
 #define VISITLISTWEBURL     @"/visitList"
+//欠费催缴
 #define WORKORDERWEBURL     @"/workOrderReminder/Index"
+//电路到期
 #define CIRCUITWEBURL                  @"/workOrderReminder/circuitExpiration"
+//宽带到期
 #define BROADBANDWEBURL                    @"/workOrderReminder/broadbandExpiration"
 
+//我的
 #define MYWEBURL        @"/mine"
+//消息
 #define MESSAGEWEBURL   @"/message"
+//工具
 #define TOOLWEBURL      @"/tools"
+//沙盘
 #define SANDTABLE       @"/sandTable/Index"
 
+//客户流失管理
 #define FLUWEBURL       @"/customerFluctuation"
 
+//装维工单
 #define InstallationWorkorderWEBURL      @"/tools/InstallationWorkorder"
+//套餐使用量查询
 #define packageUsageWEBURL               @"/tools/packageUsage"
+//套餐使用量详情
 #define packageUsageDetailWEBURL      @"/tools/packageUsage/packageUsageDetail"
+//套餐优惠查询
 #define packageOfferWEBURL           @"/tools/packageOffer"
+//客户积分查询
 #define customerPointsWEBURL         @"/tools/customerPoints"
+//虚拟网信息
 #define vpnInformationWEBURL         @"/tools/vpnInformation"
+//客户账单
 #define customerBillWEBURL           @"/tools/customerBill"
+//消费余额
 #define customerOverageWEBURL        @"/tools/customerOverage"
+//用户欠费
 #define customerArrearsWEBURL        @"/tools/customerArrears"
+//电子发票
 #define invoiceQueryWEBURL           @"/tools/invoiceQuery"
+//缴费日志
 #define paymentLogWEBURL             @"/tools/paymentLog"
+//联系人管理
 #define contactManagementWEBURL      @"/contactManagement/Index"
-#define integratedQueryWEBURL      @"/integratedQuery/Index"
-#define enterpriseNewViewWEBURL      @"/enterpriseNewView/income"
-
+//综合查询
+#define integratedQueryWEBURL        @"/integratedQuery/Index"
+//政企视图
+#define enterpriseNewViewWEBURL      @"/enterpriseNewView/Index"
+//crm视图
+#define CRMCUSTViewWEBURL            @"/crmCustView/Index"
+//蓝海视图
+#define BLUEViewWEBURL               @"/blueOceanClientView"
+//故障单
+#define MALFUCTIONQUERYWEBURL        @"/crmCustView/malfuctionQuery"
+//投诉单查询
+#define COMPLAINTQUERYWEBURL         @"/crmCustView/complaintQuery"
+//订单查询
+#define ORDERQUERYWEBURL             @"/tools/orderQuery"
+//资产查询
+#define ASSETSQUERYWEBURL            @"/tools/clientAssetsQuery"
 @end

@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong)NSString *mSession;
 @property (nonatomic,strong)NSString *mUserId;
 @property (nonatomic,strong)NSString *mSaleNum;
+@property (nonatomic,strong)NSString *areaId;
+@property (nonatomic,strong)NSString *mManagerId;
 @property (nonatomic)NSInteger searchInt;
 @end
 

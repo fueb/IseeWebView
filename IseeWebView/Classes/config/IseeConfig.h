@@ -36,4 +36,5 @@
 //md5加密
 + (NSString *)md5:(NSString *)md5Str;
 + (UIImage *)imageNamed:(NSString *)imageName;
++ (UIImage *)imageNamed:(NSString *)imageName size:(CGSize)size;
 @end

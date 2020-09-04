@@ -8,6 +8,7 @@
 
 #import "IseeConfig.h"
 #import <CommonCrypto/CommonDigest.h>
+#import "UIImage+IseeSVGTool.h"
 
 @implementation IseeConfig
 /**
@@ -81,11 +82,7 @@
 //获取bundle图片
 + (UIImage *)imageNamed:(NSString *)imageName
 {
-//   NSString * bundlePath = [[NSBundle mainBundle]pathForResource:@"IseeWebResource" ofType:@"bundle"];
-//    NSBundle*bundle = [NSBundle bundleWithPath:bundlePath];
-//
-//   NSString* image = [bundle pathForResource:imageName ofType:@"png"];
-    
+  
     NSURL *url = [[NSBundle mainBundle] URLForResource:@"IseeWebResource.bundle" withExtension:nil];
     NSBundle *bundle = [NSBundle bundleWithURL:url];
     NSString *name = [@"img" stringByAppendingPathComponent:imageName];
@@ -95,6 +92,30 @@
     return image ? image : [UIImage imageNamed:name inBundle:bundle compatibleWithTraitCollection:nil];
 
 //    return [UIImage imageNamed:name];
+}
+
+//获取bundle图片
++ (UIImage *)imageNamed:(NSString *)imageName size:(CGSize)size
+{
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"IseeWebResource.bundle" withExtension:nil];
+    NSBundle *bundle = [NSBundle bundleWithURL:url];
+    NSString *name = [@"img" stringByAppendingPathComponent:imageName];
+    imageName = [NSString stringWithFormat:@"svg/%@",imageName];
+    
+    UIImage *image;
+    @try {
+        image = [UIImage svgImgNamed:imageName size:size];
+    } @catch (NSException *exception) {
+        image = nil;
+        NSLog(@"加载%@.svg失败",imageName);
+    } @finally {
+        
+    }
+    
+    
+    //[UIImage sv:name inBundle:bundle compatibleWithTraitCollection:nil];
+    //优先取上层bundle 里的图片，如果没有，则用自带资源的图片
+    return image ? image : [UIImage imageNamed:name inBundle:bundle compatibleWithTraitCollection:nil];
 }
 
 @end

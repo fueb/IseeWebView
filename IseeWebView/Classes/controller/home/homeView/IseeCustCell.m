@@ -31,22 +31,24 @@
 
     
     [idTypeNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(@5);
+        make.top.equalTo(@7.5);
         make.left.equalTo(@15);
-        make.height.equalTo(@45);
-        make.width.equalTo(@100);
-    }];
-    
-    [serNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.height.equalTo(idTypeNameLab);
-        make.left.equalTo(idTypeNameLab.mas_right).offset(10);
-        make.right.equalTo(serIdLab.mas_left).offset(-10);
+        make.height.equalTo(@20);
+        make.left.equalTo(@15);
+        
     }];
     
     [serIdLab mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(@-15);
         make.top.height.equalTo(idTypeNameLab);
         make.width.equalTo(@100);
+        make.right.equalTo(@-10);
+    }];
+    
+    [serNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(@-10);
+        make.left.equalTo(@15);
+        make.height.equalTo(idTypeNameLab);
+        make.top.equalTo(idTypeNameLab.mas_bottom).with.offset(5);
     }];
     
 
@@ -58,8 +60,9 @@
     {
         idTypeNameLab      = [[UILabel alloc]init];
         idTypeNameLab.font = [UIFont systemFontOfSize:15];
-        idTypeNameLab.textColor = [IseeConfig stringTOColor:@"#BBBBBB"];
+        idTypeNameLab.textColor = [IseeConfig stringTOColor:@"#262C33"];
         idTypeNameLab.text = [NSString stringWithFormat:@"%@-%@",_model.latName,_model.id_type_name];
+        idTypeNameLab.layer.opacity = 0.68;
     }
     return idTypeNameLab;
 }
@@ -72,6 +75,8 @@
         serNameLab.font = [UIFont systemFontOfSize:15];
         serNameLab.text = _model.ser_name;
         serNameLab.numberOfLines = 0;
+//        serNameLab.textAlignment = 2;
+//        serNameLab.backgroundColor = [UIColor redColor];
     }
     return serNameLab;
 }
@@ -82,9 +87,10 @@
     {
         serIdLab      = [[UILabel alloc]init];
         serIdLab.font = [UIFont systemFontOfSize:15];
-        serIdLab.textColor = [IseeConfig stringTOColor:@"#BBBBBB"];
-        
+        serIdLab.textColor = [IseeConfig stringTOColor:@"#262C33"];
+        serIdLab.textAlignment = 2;
         serIdLab.text = _model.ser_id;
+        serIdLab.layer.opacity = 0.68;
     }
     return serIdLab;
 }

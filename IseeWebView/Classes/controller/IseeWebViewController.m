@@ -79,6 +79,7 @@
     if (_titleHave) {
         [self drawTopNaviBar:_titleName withTitleBg:[IseeConfig stringTOColor:_titleBgColor] withBarBg:[IseeConfig stringTOColor:_statusBarColor]];
     }
+    
     //配置wkWebView
     [self configWKWebView];
     
@@ -142,10 +143,10 @@
 - (void)doBackPrev {
 //    [self.navigationController popViewControllerAnimated:YES];
 //    [self dismissViewControllerAnimated:YES completion:nil];
-    if (_reallyGo) {
-        [self dismissViewControllerAnimated:YES completion:nil];
-        return;
-    }
+//    if (_reallyGo) {
+//        [self dismissViewControllerAnimated:YES completion:nil];
+//        return;
+//    }
     if (self.wkWebView.canGoBack) {
 
         [self.wkWebView goBack];
@@ -178,9 +179,7 @@
     } else {
          statusBarH = NavHeight;
     }
-    
-   
-    
+
     if (_titleHave && _tabbarHave) {
         wkFrame = CGRectMake(0, statusBarH, ScreenWidth, ScreenHeight - statusBarH -(50+safeBottom));
     }
@@ -201,8 +200,7 @@
     [self.wkWebView.scrollView setShowsHorizontalScrollIndicator:NO];
     [self.wkWebView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:NULL];
 
-    [self.wkWebView loadRequest:[NSURLRequest requestWithURL:_mWebViewUrl]];
-    
+    [self.wkWebView loadRequest:[NSURLRequest requestWithURL:_mWebViewUrl cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:30]];
     NSLog(@"打开web链接：%@",_mWebViewUrl);
 
     WKUserContentController *userCC = config.userContentController;
@@ -316,9 +314,20 @@
     NSString *urlStr = [NSString stringWithFormat:@"zqhelper://account=%@&token=ac3c9575492d3c8e55da8b9d7dd73e38",_mLoginName];
     NSURL *url = [NSURL URLWithString:urlStr];
     if ([[UIApplication sharedApplication] canOpenURL:url]) {
-        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
-           
-        }];
+        if(@available(iOS 10.0, *))
+        {
+
+            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
+               
+            }];
+
+        }else{
+
+            [[UIApplication sharedApplication] openURL:url];
+
+        }
+
+        
     }else{
         NSLog(@"设备没有安装销售助手");
         if (_isHomeGo)
@@ -368,11 +377,14 @@
     NSString *js = [NSString stringWithFormat:@"eval(%@(%@))", _callBack,js1];
     [self execJavaScript:js];
 }
+-(void)openIsee{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 
 -(void)exitIsee{
-//    [self dismissViewControllerAnimated:YES completion:nil];
+//
 
     UIViewController *vc        = [[NSClassFromString(@"PersonalCenterController") alloc]init];
     SEL runAction = NSSelectorFromString(@"logOut");
@@ -734,6 +746,9 @@
         else if([method isEqualToString:@"getSession"]){
             [self getSession];
         }
+        else if([method isEqualToString:@"openIsee"]){
+            [self openIsee];
+        }
         decisionHandler(WKNavigationActionPolicyCancel);
         return;
     }
@@ -831,6 +846,7 @@
     {
         if (object == self.wkWebView)
         {
+            
             [_topNavBar setNavigationTitle:self.wkWebView.title];
             NSString *title = self.wkWebView.title;
             if ([title isEqualToString:@"工具"]||[title isEqualToString:@"沙盘"]||[title isEqualToString:@"消息"]||[title isEqualToString:@"我的"]) {
@@ -844,6 +860,46 @@
             {
                 [_topNavBar backBtnShow];
             }
+            
+            CGFloat safeBottom = 0;
+               
+            if ([IseeConfig isNotchScreen]) {
+                safeBottom = 34;
+            }
+            
+            CGRect wkFrame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-(50+safeBottom));
+            
+            CGFloat statusBarH = 64.0;
+            if (@available(iOS 13.0, *)) {
+                 UIWindowScene *windowScene = (UIWindowScene *)[UIApplication sharedApplication].connectedScenes.allObjects.firstObject;
+                 statusBarH = windowScene.statusBarManager.statusBarFrame.size.height + NavBarHeight;
+            } else {
+                 statusBarH = NavHeight;
+            }
+           
+            if ([title isEqualToString:@"我的"])
+            {
+                [_topNavBar setHidden:YES];
+                wkFrame = CGRectMake(0, 0, ScreenWidth, ScreenHeight - (50+safeBottom));
+                
+            }
+            else
+            {
+                [_topNavBar setHidden:NO];
+                if (_titleHave && _tabbarHave) {
+                    wkFrame = CGRectMake(0, statusBarH, ScreenWidth, ScreenHeight - statusBarH -(50+safeBottom));
+                }
+                else if (_titleHave)
+                {
+                    wkFrame = CGRectMake(0, statusBarH, ScreenWidth, ScreenHeight - statusBarH);
+                }
+                else if (_tabbarHave)
+                {
+                    wkFrame = CGRectMake(0, 0, ScreenWidth, ScreenHeight - (50+safeBottom));
+                }
+            }
+            [self.wkWebView setFrame:wkFrame];
+            [self.wkWebView setNeedsDisplay];
             NSLog(@"%@",self.title);
         }
         else

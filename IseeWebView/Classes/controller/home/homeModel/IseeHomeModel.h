@@ -37,6 +37,16 @@ failure:(void (^)(void))failed;
 - (void)isee_findProductWithParam:(NSMutableDictionary *)param
                       WithSuccess:(void (^)(id result))success
                           failure:(void (^)(void))failed;
+
+- (void)isee_findCrmWithParam:(NSMutableDictionary *)param
+                  WithSuccess:(void (^)(id result))success
+                      failure:(void (^)(void))failed;
+- (void)isee_findVipWithParam:(NSMutableDictionary *)param
+                  WithSuccess:(void (^)(id result))success
+                      failure:(void (^)(void))failed;
+- (void)isee_findBlueWithParam:(NSMutableDictionary *)param
+                   WithSuccess:(void (^)(id result))success
+                       failure:(void (^)(void))failed;
 @end
 
 NS_ASSUME_NONNULL_END

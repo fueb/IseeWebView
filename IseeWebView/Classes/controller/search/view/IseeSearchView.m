@@ -38,7 +38,9 @@
     [self getTable];
 }
 
-
+- (void)setFieldPlace:(NSString *)place{
+    _searchField.placeholder = place;
+}
 - (void)searchView{
     
 
@@ -53,8 +55,8 @@
     _searchField.returnKeyType = UIReturnKeyGo;
 //    searchField.placeholder = @"请输入企业名称";
     
-    NSMutableAttributedString *placeholderString = [[NSMutableAttributedString alloc] initWithString:@"请输入..." attributes:@{NSForegroundColorAttributeName : [IseeConfig stringTOColor:@"#87C0F8"]}];
-    _searchField.textColor = [IseeConfig stringTOColor:@"#5FA9F7"];
+    NSMutableAttributedString *placeholderString = [[NSMutableAttributedString alloc] initWithString:@"请输入企业名称" attributes:@{NSForegroundColorAttributeName : [IseeConfig stringTOColor:@"#87C0F8"]}];
+    _searchField.textColor = [IseeConfig stringTOColor:@"#1B82D2"];
     _searchField.attributedPlaceholder = placeholderString;
 
 //    [self setRightViewWithTextField:searchField imageName:@"camerIcon" withImg:@"micIcon"];
@@ -122,8 +124,8 @@
     [left setBounds:CGRectMake(0, 0, 40, 40)];
     
     UIImageView *leftView = [[UIImageView alloc]init];
-    leftView.image = [IseeConfig imageNamed:imageName];
-    [leftView setFrame:CGRectMake(0, 0, 40, 40)];
+    leftView.image = [IseeConfig imageNamed:imageName size:CGSizeMake(20, 20)];
+    [leftView setFrame:CGRectMake(10, 10, 20, 20)];
     [left addSubview:leftView];
 //    leftView.contentMode = UIViewContentModeCenter;
     textField.leftView = left;
@@ -159,6 +161,7 @@
         searchTable.backgroundColor = [UIColor whiteColor];
         searchTable.delegate = _mDelegate;
         searchTable.dataSource = _mDelegate;
+        searchTable.tableFooterView = [[UIView alloc]init];
     }
     return searchTable;
 }

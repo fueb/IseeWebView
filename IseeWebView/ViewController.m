@@ -93,9 +93,9 @@
     [self presentViewController:vc animated:YES completion:nil];
 }
 -(void)gotoHome{
-    IseeWebHomeTabBar *homeTabBar = [[IseeWebHomeTabBar alloc]initWithLoginName:@"13305834567" withCompanyId:@"221166" withSession:@"sasdad" withUserId:@"1231" withSaleNum:@"1231"];
-//    homeTabBar.mLoginName = @"13305834567";
-//    homeTabBar.mCompanyId = @"221166";
+    IseeWebHomeTabBar *homeTabBar = [[IseeWebHomeTabBar alloc]initWithLoginName:@"15305796839" withCompanyId:@"9662" withSession:@"sasdad" withUserId:@"1231" withSaleNum:@"1231"];
+//    homeTabBar.mLoginName = @"15305735193";
+//    homeTabBar.mCompanyId = @"10212913";
     
 //    UINavigationController *navigate=[[UINavigationController alloc] initWithRootViewController:homeTabBar];
     homeTabBar.modalPresentationStyle = UIModalPresentationFullScreen;
