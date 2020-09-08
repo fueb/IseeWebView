@@ -17,6 +17,8 @@ NS_ASSUME_NONNULL_BEGIN
                failure:(void (^)(void))failed;
 - (void)isee_ssoLoginWith:(NSString *)loginName
             withCompanyId:(NSString *)companyId
+            withStaffCode:(NSString *)staffCode
+            withManagerId:(NSString *)managerId
                   Success:(void (^)(id result))success
                   failure:(void (^)(void))failed;
 @end

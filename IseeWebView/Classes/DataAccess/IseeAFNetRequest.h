@@ -42,8 +42,8 @@ typedef NS_ENUM(NSUInteger,RequestType) {
  let URL_ALI_CANCELORDER = "\(URL_STRING)aliCancelOrder.action";     //撤销支付宝订单
  */
 
-#define DOMAINNAME @"http://115.233.6.88:9090"       //域名
-#define WEBHOST     @"http://115.233.6.88:9090/custInfoApp"
+#define DOMAINNAME @"http://qxisee.zjtelecom.com.cn:9090"       //域名
+#define WEBHOST     @"http://qxisee.zjtelecom.com.cn:9090/custInfoApp"
 
 #define isText NO
 
@@ -63,6 +63,7 @@ typedef NS_ENUM(NSUInteger,RequestType) {
 #define FINDPRODUCT         @"/custInfoApp/api/indexManager/findProduct"
 #define FINDBLUEOCEAN       @"/indexManager/findBlueOcean"
 #define GETDEALCOUNT        @"/custInfoApp/api/jobDeal/getDealCount"
+#define GETREGION           @"/loginInfo/devLogin/getManagerList"
 //weburl
 //走访任务
 #define VISITLISTWEBURL     @"/visitList"

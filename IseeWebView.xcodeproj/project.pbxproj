@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		2D24A08524CE84E900D68F82 /* IseeBSJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D24A08324CE84E900D68F82 /* IseeBSJSON.m */; };
+		2D398C1225077F5B00E516C5 /* IseeChoiceRegionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D398C1125077F5B00E516C5 /* IseeChoiceRegionView.m */; };
+		2D398C1525077F8C00E516C5 /* IseeChoiceRegionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D398C1425077F8C00E516C5 /* IseeChoiceRegionViewController.m */; };
+		2D398C1825078EF600E516C5 /* IseeChoiceRegionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D398C1725078EF600E516C5 /* IseeChoiceRegionModel.m */; };
+		2D398C1B25078F6C00E516C5 /* IseeRegionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D398C1A25078F6C00E516C5 /* IseeRegionCell.m */; };
+		2D398C1E25078F7D00E516C5 /* IseeRegionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D398C1D25078F7D00E516C5 /* IseeRegionModel.m */; };
 		2D5D43A624E4305D005A3E2F /* IseeHomeTabBarModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5D43A524E4305D005A3E2F /* IseeHomeTabBarModel.m */; };
 		2D71658E24E126A400611439 /* IseeAFNetRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D71658D24E126A400611439 /* IseeAFNetRequest.m */; };
 		2D71659124E12F9000611439 /* AFAppDotNetAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D71658F24E12F9000611439 /* AFAppDotNetAPIClient.m */; };
@@ -20,6 +25,7 @@
 		2D8B298F24DBA148004EAC27 /* IseeWebHomeTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8B298E24DBA148004EAC27 /* IseeWebHomeTabBar.m */; };
 		2D8B299B24DBDBBC004EAC27 /* IseeHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8B299A24DBDBBC004EAC27 /* IseeHomeViewController.m */; };
 		2D8B299E24DBDD80004EAC27 /* IseeHomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8B299C24DBDD80004EAC27 /* IseeHomeView.m */; };
+		2D8E03422507BCB70006ED5C /* IseeHomeRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D8E03412507BCB70006ED5C /* IseeHomeRequestModel.m */; };
 		2D9CD06F24F54049002B9CE1 /* IseeCustCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9CD06E24F54049002B9CE1 /* IseeCustCell.m */; };
 		2D9CD07224F5408F002B9CE1 /* IseeCustModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9CD07124F5408E002B9CE1 /* IseeCustModel.m */; };
 		2D9CD07524F55813002B9CE1 /* IseeProdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9CD07424F55813002B9CE1 /* IseeProdModel.m */; };
@@ -64,6 +70,16 @@
 		22FA634AD1CCEFF856E9D66C /* Pods-IseeWebView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IseeWebView.debug.xcconfig"; path = "Target Support Files/Pods-IseeWebView/Pods-IseeWebView.debug.xcconfig"; sourceTree = "<group>"; };
 		2D24A08324CE84E900D68F82 /* IseeBSJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IseeBSJSON.m; sourceTree = "<group>"; };
 		2D24A08424CE84E900D68F82 /* IseeBSJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IseeBSJSON.h; sourceTree = "<group>"; };
+		2D398C1025077F5B00E516C5 /* IseeChoiceRegionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IseeChoiceRegionView.h; sourceTree = "<group>"; };
+		2D398C1125077F5B00E516C5 /* IseeChoiceRegionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IseeChoiceRegionView.m; sourceTree = "<group>"; };
+		2D398C1325077F8C00E516C5 /* IseeChoiceRegionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeChoiceRegionViewController.h; sourceTree = "<group>"; };
+		2D398C1425077F8C00E516C5 /* IseeChoiceRegionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeChoiceRegionViewController.m; sourceTree = "<group>"; };
+		2D398C1625078EF600E516C5 /* IseeChoiceRegionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeChoiceRegionModel.h; sourceTree = "<group>"; };
+		2D398C1725078EF600E516C5 /* IseeChoiceRegionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeChoiceRegionModel.m; sourceTree = "<group>"; };
+		2D398C1925078F6C00E516C5 /* IseeRegionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeRegionCell.h; sourceTree = "<group>"; };
+		2D398C1A25078F6C00E516C5 /* IseeRegionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeRegionCell.m; sourceTree = "<group>"; };
+		2D398C1C25078F7D00E516C5 /* IseeRegionModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeRegionModel.h; sourceTree = "<group>"; };
+		2D398C1D25078F7D00E516C5 /* IseeRegionModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeRegionModel.m; sourceTree = "<group>"; };
 		2D5D43A424E4305D005A3E2F /* IseeHomeTabBarModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeHomeTabBarModel.h; sourceTree = "<group>"; };
 		2D5D43A524E4305D005A3E2F /* IseeHomeTabBarModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeHomeTabBarModel.m; sourceTree = "<group>"; };
 		2D71658C24E126A400611439 /* IseeAFNetRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IseeAFNetRequest.h; sourceTree = "<group>"; };
@@ -88,6 +104,8 @@
 		2D8B299A24DBDBBC004EAC27 /* IseeHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeHomeViewController.m; sourceTree = "<group>"; };
 		2D8B299C24DBDD80004EAC27 /* IseeHomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = IseeHomeView.m; path = IseeWebView/Classes/controller/home/homeView/IseeHomeView.m; sourceTree = SOURCE_ROOT; };
 		2D8B299D24DBDD80004EAC27 /* IseeHomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = IseeHomeView.h; path = IseeWebView/Classes/controller/home/homeView/IseeHomeView.h; sourceTree = SOURCE_ROOT; };
+		2D8E03402507BCB70006ED5C /* IseeHomeRequestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeHomeRequestModel.h; sourceTree = "<group>"; };
+		2D8E03412507BCB70006ED5C /* IseeHomeRequestModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeHomeRequestModel.m; sourceTree = "<group>"; };
 		2D9CD06D24F54049002B9CE1 /* IseeCustCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IseeCustCell.h; path = IseeWebView/Classes/controller/home/homeView/IseeCustCell.h; sourceTree = SOURCE_ROOT; };
 		2D9CD06E24F54049002B9CE1 /* IseeCustCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = IseeCustCell.m; path = IseeWebView/Classes/controller/home/homeView/IseeCustCell.m; sourceTree = SOURCE_ROOT; };
 		2D9CD07024F5408E002B9CE1 /* IseeCustModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IseeCustModel.h; sourceTree = "<group>"; };
@@ -165,6 +183,39 @@
 			path = BEJSON;
 			sourceTree = "<group>";
 		};
+		2D398C0725077DD400E516C5 /* choiceRegion */ = {
+			isa = PBXGroup;
+			children = (
+				2D398C0925077ED000E516C5 /* model */,
+				2D398C0825077EC900E516C5 /* view */,
+				2D398C1325077F8C00E516C5 /* IseeChoiceRegionViewController.h */,
+				2D398C1425077F8C00E516C5 /* IseeChoiceRegionViewController.m */,
+			);
+			path = choiceRegion;
+			sourceTree = "<group>";
+		};
+		2D398C0825077EC900E516C5 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				2D398C1025077F5B00E516C5 /* IseeChoiceRegionView.h */,
+				2D398C1125077F5B00E516C5 /* IseeChoiceRegionView.m */,
+				2D398C1925078F6C00E516C5 /* IseeRegionCell.h */,
+				2D398C1A25078F6C00E516C5 /* IseeRegionCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		2D398C0925077ED000E516C5 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				2D398C1625078EF600E516C5 /* IseeChoiceRegionModel.h */,
+				2D398C1725078EF600E516C5 /* IseeChoiceRegionModel.m */,
+				2D398C1C25078F7D00E516C5 /* IseeRegionModel.h */,
+				2D398C1D25078F7D00E516C5 /* IseeRegionModel.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		2D71658824E1267A00611439 /* DataAccess */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +236,8 @@
 				2D71659424E13B1500611439 /* IseeHomeModel.m */,
 				2D9CD07324F55813002B9CE1 /* IseeProdModel.h */,
 				2D9CD07424F55813002B9CE1 /* IseeProdModel.m */,
+				2D8E03402507BCB70006ED5C /* IseeHomeRequestModel.h */,
+				2D8E03412507BCB70006ED5C /* IseeHomeRequestModel.m */,
 			);
 			path = homeModel;
 			sourceTree = "<group>";
@@ -246,6 +299,7 @@
 		2D8B298C24DBA122004EAC27 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				2D398C0725077DD400E516C5 /* choiceRegion */,
 				2DEC696E24FF3AC700695ED7 /* search */,
 				2D8B299824DBD99C004EAC27 /* home */,
 				2D877B8D24CFBDA900AA2983 /* IseeWebViewController.h */,
@@ -580,23 +634,29 @@
 				2D8B299E24DBDD80004EAC27 /* IseeHomeView.m in Sources */,
 				2D877BA024CFD23700AA2983 /* UIView+IseeExtension.m in Sources */,
 				2D9FFDE324C9D01800A41353 /* IseeScanView.m in Sources */,
+				2D398C1E25078F7D00E516C5 /* IseeRegionModel.m in Sources */,
 				2DEC697624FF3BEC00695ED7 /* IseeSearchView.m in Sources */,
 				2D9CD06F24F54049002B9CE1 /* IseeCustCell.m in Sources */,
 				2DA6339F2501264700E46868 /* UIImage+IseeSVGTool.m in Sources */,
 				2D71658E24E126A400611439 /* IseeAFNetRequest.m in Sources */,
 				2D9CD07524F55813002B9CE1 /* IseeProdModel.m in Sources */,
+				2D398C1B25078F6C00E516C5 /* IseeRegionCell.m in Sources */,
 				2D7B4A1F24C891CE008DE649 /* IseeConfig.m in Sources */,
 				2D8B298F24DBA148004EAC27 /* IseeWebHomeTabBar.m in Sources */,
 				2D877B9324CFC69200AA2983 /* UIViewController+IseeCommon.m in Sources */,
 				2D877B8F24CFBDA900AA2983 /* IseeWebViewController.m in Sources */,
+				2D398C1825078EF600E516C5 /* IseeChoiceRegionModel.m in Sources */,
 				2D9CD07224F5408F002B9CE1 /* IseeCustModel.m in Sources */,
 				2D9FFDE724C9D2E000A41353 /* CLLocation+IseeSino.m in Sources */,
 				2D5D43A624E4305D005A3E2F /* IseeHomeTabBarModel.m in Sources */,
 				2D71659524E13B1500611439 /* IseeHomeModel.m in Sources */,
+				2D398C1225077F5B00E516C5 /* IseeChoiceRegionView.m in Sources */,
 				2DDDE55E24C8490600015C76 /* AppDelegate.m in Sources */,
+				2D8E03422507BCB70006ED5C /* IseeHomeRequestModel.m in Sources */,
 				2DDDE56F24C8490B00015C76 /* main.m in Sources */,
 				2DE6470724CDB26D006D970E /* SiriViewController.m in Sources */,
 				2D8B299B24DBDBBC004EAC27 /* IseeHomeViewController.m in Sources */,
+				2D398C1525077F8C00E516C5 /* IseeChoiceRegionViewController.m in Sources */,
 				2D71659124E12F9000611439 /* AFAppDotNetAPIClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

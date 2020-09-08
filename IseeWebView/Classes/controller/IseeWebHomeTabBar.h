@@ -10,17 +10,13 @@
 
 
 #import <UIKit/UIKit.h>
-
+#import "IseeHomeRequestModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IseeWebHomeTabBar : UITabBarController
-@property (nonatomic,strong)NSString *mLoginName;
-@property (nonatomic,strong)NSString *mCompanyId;
-@property (nonatomic,strong)NSString *mSession;
-@property (nonatomic,strong)NSString *mUserId;
-@property (nonatomic,strong)NSString *mSaleNum;
-- (instancetype)initWithLoginName:(NSString *)loginName withCompanyId:(NSString *)comanyId  withSession:(NSString *)session withUserId:(NSString *)userId withSaleNum:(NSString *)saleNum;
+@property(nonatomic, strong)IseeHomeRequestModel *model;
+- (instancetype)initWithModel:(IseeHomeRequestModel *)model;
 @end
 
 

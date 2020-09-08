@@ -11,8 +11,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IseeHomeModel : NSObject
-- (void)isee_homeMenuWith:(NSString *)managerId Success:(void (^)(id result))success
-failure:(void (^)(void))failed;
+- (void)isee_homeMenuWith:(NSMutableDictionary *)param
+                  Success:(void (^)(id result))success
+                  failure:(void (^)(void))failed;
 - (void)isee_myTaskWithParam:(NSMutableDictionary *)param
                 WithSuccess:(void (^)(id result))success
                      failure:(void (^)(void))failed;

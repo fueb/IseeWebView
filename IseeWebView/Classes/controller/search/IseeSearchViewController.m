@@ -14,7 +14,6 @@
 #import "IseeProdModel.h"
 #import "IseeProdCell.h"
 #import "IseeAFNetRequest.h"
-#import "IseeConfig.h"
 #import "IseeHomeModel.h"
 #import "IseeWebViewController.h"
 
@@ -69,9 +68,11 @@
     }
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:text forKey:@"text"];
+    [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
+    [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
     [IseeAFNetRequest showHUD:self.view];
     if (_searchInt == 0) {
-        [param setObject:_latnId forKey:@"latnId"];
+        [param setObject:_requesetModel.latnId forKey:@"latnId"];
         [self.iseeHomeModel isee_findCustMsgWithParam:param WithSuccess:^(id  _Nonnull result) {
             if ([result[@"code"] integerValue] == 200)
             {
@@ -130,6 +131,8 @@
     [param setObject:text forKey:@"text"];
     [param setObject:productType forKey:@"productType"];
     [param setObject:servId forKey:@"servId"];
+    [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
+    [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
     [IseeAFNetRequest showHUD:self.view];
     [self.iseeHomeModel isee_findProductWithParam:param WithSuccess:^(id  _Nonnull result) {
         if ([result[@"code"] integerValue] == 200)
@@ -147,17 +150,17 @@
 
              NSString *currentTime = [formatter stringFromDate:dateNow];
              
-             NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_mLoginName,_mCompanyId,currentTime];
+             NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_requesetModel.mLoginName,_requesetModel.mCompanyId,currentTime];
              NSString *md5Key = [IseeConfig md5:md5Str];
             NSString *urlStr;
-            urlStr = [NSString stringWithFormat:@"%@%@?accNbr97=%@&productType=%@&accNbr=%@&latnId=%@&servId=%@&custId=%@&crmCustId=%@&loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,integratedQueryWEBURL,data[@"accNbar97"],tempModel.productTypeId,tempModel.accNbr,tempModel.latnId,tempModel.servId,data[@"custId"],tempModel.crmCustId,_mLoginName,_mCompanyId,md5Key];
+            urlStr = [NSString stringWithFormat:@"%@%@?accNbr97=%@&productType=%@&accNbr=%@&latnId=%@&servId=%@&custId=%@&crmCustId=%@&loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,integratedQueryWEBURL,data[@"accNbr97"],tempModel.productTypeId,tempModel.accNbr,tempModel.latnId,tempModel.servId,data[@"custId"],tempModel.crmCustId,_requesetModel.mLoginName,_requesetModel.mCompanyId,md5Key];
              
              
              IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
             frameVC.mLoginName = _mLoginName;
-            frameVC.mSession   = self.mSession;
-            frameVC.mSaleNum   = self.mSaleNum;
-            frameVC.mUserId    = self.mUserId;
+            frameVC.mSession   = _requesetModel.mSession;
+            frameVC.mSaleNum   = _requesetModel.mSaleNum;
+            frameVC.mUserId    = _requesetModel.mUserId;
              frameVC.titleHave = YES;
              frameVC.tabbarHave = NO;
             frameVC.isHomeGo = YES;
@@ -189,12 +192,19 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:vipCard forKey:@"vipCard"];
     [param setObject:latnId forKey:@"latnId"];
+    [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
+    [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
+    
     [IseeAFNetRequest showHUD:self.view];
     [self.iseeHomeModel isee_findCrmWithParam:param WithSuccess:^(id  _Nonnull result) {
         if ([result[@"code"] integerValue] == 200)
         {
             NSArray *data = result[@"data"];
-            
+            if (data.count<=0) {
+                IseeAlert(@"crm客户查询出错",NULL);
+                return;
+            }
+            NSDictionary *crmDict = [data firstObject];
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 
              // 设置想要的格式，hh与HH的区别:分别表示12小时制,24小时制
@@ -207,8 +217,8 @@
 
              NSString *currentTime = [formatter stringFromDate:dateNow];
              
-             NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_mLoginName,_mCompanyId,currentTime];
-             NSString *md5Key = [IseeConfig md5:md5Str];
+             NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_requesetModel.mLoginName,_requesetModel.mCompanyId,currentTime];
+            NSString *md5Key = [IseeConfig md5:md5Str];
             NSString *urlStr;
             NSString *method;
             NSString *titleStr;
@@ -216,11 +226,13 @@
                 if (data.count > 1){
                     method = enterpriseNewViewWEBURL;
                     titleStr = @"政企视图";
+                    urlStr = [NSString stringWithFormat:@"%@%@?vipCard=%@&latnId=%@&loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,method,tempModel.ser_id,tempModel.latn_id,_requesetModel.mLoginName,_requesetModel.mCompanyId,md5Key];
                 }
                 else
                 {
                     method = CRMCUSTViewWEBURL;
                     titleStr = @"CRM视图";
+                    urlStr = [NSString stringWithFormat:@"%@%@?custId=%@&crmCustId=%@&latnId=%@&loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,method,crmDict[@"custId"],crmDict[@"crmCustId"],tempModel.latn_id,_requesetModel.mLoginName,_requesetModel.mCompanyId,md5Key];
                 }
                     
             }
@@ -237,15 +249,16 @@
             {
                 method = CRMCUSTViewWEBURL;
                 titleStr = @"CRM视图";
+                urlStr = [NSString stringWithFormat:@"%@%@?custId=%@&crmCustId=%@&latnId=%@&loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,method,crmDict[@"custId"],crmDict[@"crmCustId"],tempModel.latn_id,_requesetModel.mLoginName,_requesetModel.mCompanyId,md5Key];
             }
             
-             urlStr = [NSString stringWithFormat:@"%@%@?vipCard=%@&latnId=%@&loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,method,tempModel.ser_id,tempModel.latn_id,_mLoginName,_mCompanyId,md5Key];
+             
              
             IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
             frameVC.mLoginName = _mLoginName;
-            frameVC.mSession   = self.mSession;
-            frameVC.mSaleNum   = self.mSaleNum;
-            frameVC.mUserId    = self.mUserId;
+            frameVC.mSession   = _requesetModel.mSession;
+            frameVC.mSaleNum   = _requesetModel.mSaleNum;
+            frameVC.mUserId    = _requesetModel.mUserId;
             frameVC.titleHave = YES;
             frameVC.tabbarHave = NO;
             frameVC.isHomeGo = YES;
@@ -278,11 +291,13 @@
 - (void)findVip:(NSString *)test withModel:(IseeCustModel *)tempModel{
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:test forKey:@"text"];
+    [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
+    [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
     [IseeAFNetRequest showHUD:self.view];
     [self.iseeHomeModel isee_findVipWithParam:param WithSuccess:^(id  _Nonnull result) {
         if ([result[@"code"] integerValue] == 200)
         {
-            [self findCrm:tempModel.ser_id withLatnId:_latnId withModel:tempModel];
+            [self findCrm:tempModel.ser_id withLatnId:_requesetModel.latnId withModel:tempModel];
         }
         else if ([result[@"code"] integerValue] == 401)
         {
@@ -301,6 +316,8 @@
 - (void)findBlue:(NSString *)test withModel:(IseeCustModel *)tempModel{
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:test forKey:@"text"];
+    [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
+    [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
     [IseeAFNetRequest showHUD:self.view];
     [self.iseeHomeModel isee_findBlueWithParam:param WithSuccess:^(id  _Nonnull result) {
         if ([result[@"code"] integerValue] == 200)
@@ -319,7 +336,7 @@
 
              NSString *currentTime = [formatter stringFromDate:dateNow];
              
-             NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_mLoginName,_mCompanyId,currentTime];
+             NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_requesetModel.mLoginName,_requesetModel.mCompanyId,currentTime];
              NSString *md5Key = [IseeConfig md5:md5Str];
             NSString *urlStr;
             NSString *method;
@@ -328,13 +345,13 @@
             method = BLUEViewWEBURL;
             titleStr = @"蓝海视图";
            
-             urlStr = [NSString stringWithFormat:@"%@%@?areaId=%@&latnId=%@&managerId=%@&loginName=%@",WEBHOST,method,_areaId,_latnId,_mManagerId,_mLoginName];
+             urlStr = [NSString stringWithFormat:@"%@%@?areaId=%@&latnId=%@&managerId=%@&loginName=%@",WEBHOST,method,_requesetModel.areaId,_requesetModel.latnId,_requesetModel.mManagerId,_requesetModel.mLoginName];
              
             IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
             frameVC.mLoginName = _mLoginName;
-            frameVC.mSession   = self.mSession;
-            frameVC.mSaleNum   = self.mSaleNum;
-            frameVC.mUserId    = self.mUserId;
+            frameVC.mSession   = _requesetModel.mSession;
+            frameVC.mSaleNum   = _requesetModel.mSaleNum;
+            frameVC.mUserId    = _requesetModel.mUserId;
             frameVC.titleHave = YES;
             frameVC.tabbarHave = NO;
             frameVC.isHomeGo = YES;

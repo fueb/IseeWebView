@@ -158,6 +158,10 @@
         
     }
 }
+- (void)goBackChoice {
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+}
 
 
 //配置wkWebView
@@ -205,7 +209,7 @@
 
     WKUserContentController *userCC = config.userContentController;
     //意思是网页中需要传递的参数是通过这个JS中的showMessage方法来传递的
-    [userCC addScriptMessageHandler:self name:@"soundrecord"];
+//    [userCC addScriptMessageHandler:self name:@"soundrecord"];
 }
 -(void)gotoRecor:(int)timeOut{
 //    SiriViewController *siriVc =[[SiriViewController alloc] init];
@@ -311,21 +315,24 @@
 //跳转页面
 -(void)goController{
     
-    NSString *urlStr = [NSString stringWithFormat:@"zqhelper://account=%@&token=ac3c9575492d3c8e55da8b9d7dd73e38",_mLoginName];
+    NSString *urlStr = [NSString stringWithFormat:@"zqhelper://account=%@&token=ac3c9575492d3c8e55da8b9d7dd73e38&bundleid=%@",_mLoginName,[[NSBundle mainBundle] bundleIdentifier]];
+    NSLog(@"销售助手url:%@",urlStr);
+    
     NSURL *url = [NSURL URLWithString:urlStr];
     if ([[UIApplication sharedApplication] canOpenURL:url]) {
-        if(@available(iOS 10.0, *))
-        {
-
-            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
-               
-            }];
-
-        }else{
-
-            [[UIApplication sharedApplication] openURL:url];
-
-        }
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
+           
+        }];
+//        if(@available(iOS 10.0, *))
+//        {
+//
+//            
+//
+//        }else{
+//
+//            [[UIApplication sharedApplication] openURL:url];
+//
+//        }
 
         
     }else{
@@ -652,6 +659,23 @@
 
 
 #pragma mark - private
+/* 页面开始加载 */
+- (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation{
+    NSLog(@"页面开始加载");
+}
+/* 开始返回内容 */
+- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation{
+    NSLog(@"开始返回内容");
+}
+/* 页面加载完成 */
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
+    NSLog(@"页面加载完成");
+}
+/* 页面加载失败 */
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error{
+    NSLog(@"页面加载失败:%@",error);
+    
+}
 
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
@@ -748,6 +772,9 @@
         }
         else if([method isEqualToString:@"openIsee"]){
             [self openIsee];
+        }
+        else if([method isEqualToString:@"goBackChoice"]){
+            [self goBackChoice];
         }
         decisionHandler(WKNavigationActionPolicyCancel);
         return;

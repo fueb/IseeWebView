@@ -14,6 +14,7 @@
 #import "IseeWebViewController.h"
 #import "IseeWebHomeTabBar.h"
 #import "IseeSearchViewController.h"
+#import "IseeChoiceRegionViewController.h"
 
 @interface ViewController () <WKNavigationDelegate, WKUIDelegate,UIImagePickerControllerDelegate,ScanViewDelegate,CLLocationManagerDelegate,SFSpeechRecognizerDelegate>
 {
@@ -74,28 +75,34 @@
     
     //配置wkWebView
 //    [self configWKWebView];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self gotoHome];
+    [self goChoice];
+}
+-(void)goChoice{
+        IseeChoiceRegionViewController *vc = [[IseeChoiceRegionViewController alloc] initWithLoginName:@"18958039970" withCompanyId:@"66346" withAreaId:@"66346" withSession:@"sasdad" withUserId:@"1231" withSaleNum:@"1231"];
+        
+    //    homeTabBar.mLoginName = @"13305834567";
+    //    homeTabBar.mCompanyId = @"221166";
+        
+    //    UINavigationController *navigate=[[UINavigationController alloc] initWithRootViewController:homeTabBar];
+        vc.modalPresentationStyle = UIModalPresentationFullScreen;
+        [self presentViewController:vc animated:YES completion:nil];
+    
 }
 -(void)goSearch{
     IseeSearchViewController *vc = [[IseeSearchViewController alloc] init];
     
-//    homeTabBar.mLoginName = @"13305834567";
-//    homeTabBar.mCompanyId = @"221166";
-    
-//    UINavigationController *navigate=[[UINavigationController alloc] initWithRootViewController:homeTabBar];
     vc.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:vc animated:YES completion:nil];
 }
 -(void)gotoHome{
-    IseeWebHomeTabBar *homeTabBar = [[IseeWebHomeTabBar alloc]initWithLoginName:@"15305796839" withCompanyId:@"9662" withSession:@"sasdad" withUserId:@"1231" withSaleNum:@"1231"];
-//    homeTabBar.mLoginName = @"15305735193";
-//    homeTabBar.mCompanyId = @"10212913";
+    IseeWebHomeTabBar *homeTabBar = [[IseeWebHomeTabBar alloc]initWithModel:nil];
+//    homeTabBar.mLoginName = @"15305796839";
+//    homeTabBar.mCompanyId = @"9662";
     
 //    UINavigationController *navigate=[[UINavigationController alloc] initWithRootViewController:homeTabBar];
     homeTabBar.modalPresentationStyle = UIModalPresentationFullScreen;

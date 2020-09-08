@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "IseeHomeRequestModel.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IseeHomeViewController : UIViewController
+@property (nonatomic,strong)IseeHomeRequestModel *requesetModel;
 @property (nonatomic,strong)NSString *mLoginName;
 @property (nonatomic,strong)NSString *mCompanyId;
 @property (nonatomic,strong)NSString *mManagerId;

@@ -27,21 +27,13 @@
 
 @implementation IseeWebHomeTabBar
 
-- (instancetype)initWithLoginName:(NSString *)loginName withCompanyId:(NSString *)comanyId withSession:(NSString *)session withUserId:(NSString *)userId withSaleNum:(NSString *)saleNum
+- (instancetype)initWithModel:(IseeHomeRequestModel *)model
 {
-    self.mCompanyId = comanyId;
-    self.mLoginName = loginName;
-    self.mSession   = session;
-    self.mSaleNum   = saleNum;
-    self.mUserId    = userId;
+    self.model = model;
     self = [super init];
     if (self != nil)
     {
-        self.mCompanyId = comanyId;
-        self.mLoginName = loginName;
-        self.mSession   = session;
-        self.mSaleNum   = saleNum;
-        self.mUserId    = userId;
+        self.model = model;
     }
     return self;
 }
@@ -118,10 +110,10 @@
             UIViewController *vc        = [[NSClassFromString(dict[classKey]) alloc]init];
             if ([vc isKindOfClass:[IseeWebViewController class]]) {
                 IseeWebViewController *iseeVc = (IseeWebViewController *)vc;
-                iseeVc.mLoginName = self.mLoginName;
-                iseeVc.mSession   = self.mSession;
-                iseeVc.mSaleNum   = self.mSaleNum;
-                iseeVc.mUserId    = self.mUserId;
+                iseeVc.mLoginName = _model.mLoginName;
+                iseeVc.mSession   = _model.mSession;
+                iseeVc.mSaleNum   = _model.mSaleNum;
+                iseeVc.mUserId    = _model.mUserId;
                 iseeVc.titleHave = YES;
                 iseeVc.tabbarHave = YES;
                 iseeVc.isHomeGo = NO;
@@ -136,13 +128,13 @@
                    NSDate *dateNow = [NSDate date];
                    NSString *currentTime = [formatter stringFromDate:dateNow];
                       
-                NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_mLoginName,_mCompanyId,currentTime];
+                NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_model.mLoginName,_model.mCompanyId,currentTime];
                 NSString *md5Key = [[IseeConfig md5:md5Str] lowercaseString];
                 
-                NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,dict[urlKey],_mLoginName,_mCompanyId,md5Key];
+                NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,dict[urlKey],_model.mLoginName,_model.mCompanyId,md5Key];
                 if ([dict[titleKey] isEqualToString:@"沙盘"]||[dict[titleKey] isEqualToString:@"消息"])
                 {
-                    urlStr = [urlStr stringByAppendingFormat:@"&session=%@&userId=%@&saleNum=%@",_mSession,_mUserId,_mSaleNum];
+                    urlStr = [urlStr stringByAppendingFormat:@"&session=%@&userId=%@&saleNum=%@",_model.mSession,_model.mUserId,_model.mSaleNum];
                 }
                 
                 NSURL *url = [NSURL URLWithString:urlStr];//urlTF.text];
@@ -153,11 +145,12 @@
             else if([vc isKindOfClass:[IseeHomeViewController class]])
             {
                 IseeHomeViewController *iseeHome = (IseeHomeViewController *)vc;
-                iseeHome.mCompanyId = self.mCompanyId;
-                iseeHome.mLoginName = self.mLoginName;
-                iseeHome.mSession   = self.mSession;
-                iseeHome.mSaleNum   = self.mSaleNum;
-                iseeHome.mUserId    = self.mUserId;
+                iseeHome.requesetModel = _model;
+                iseeHome.mCompanyId = _model.mCompanyId;
+                iseeHome.mLoginName = _model.mLoginName;
+                iseeHome.mSession   = _model.mSession;
+                iseeHome.mSaleNum   = _model.mSaleNum;
+                iseeHome.mUserId    = _model.mUserId;
             }
             
             

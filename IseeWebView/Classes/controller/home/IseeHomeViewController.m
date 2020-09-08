@@ -84,6 +84,7 @@
     vc.mSaleNum = _mSaleNum;
     vc.areaId = _areaId;
     vc.mManagerId = _mManagerId;
+    vc.requesetModel = _requesetModel;
     vc.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:vc animated:YES completion:nil];
 }
@@ -194,16 +195,16 @@
 
         NSString *currentTime = [formatter stringFromDate:dateNow];
         
-        NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_mLoginName,_mCompanyId,currentTime];
+        NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_requesetModel.mLoginName,_requesetModel.mCompanyId,currentTime];
         if ([moduleName isEqualToString:@"更多"]) {
             methodName = TOOLWEBURL;
-            md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_mLoginName,_mCompanyId,currentTime];
+            md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_requesetModel.mLoginName,_requesetModel.mCompanyId,currentTime];
         }
         
         NSString *md5Key = [IseeConfig md5:md5Str];
-        NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,methodName,_mLoginName,_mCompanyId,md5Key];
+        NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,methodName,_requesetModel.mLoginName,_requesetModel.mCompanyId,md5Key];
         if ([moduleName isEqualToString:@"联系人管理"]) {
-            urlStr = [NSString stringWithFormat:@"%@%@?managerId=%@&latnId=%@&areaId=%@",WEBHOST,contactManagementWEBURL,_mManagerId,_latnId,_areaId];
+            urlStr = [NSString stringWithFormat:@"%@%@?managerId=%@&latnId=%@&areaId=%@",WEBHOST,contactManagementWEBURL,_requesetModel.mManagerId,_requesetModel.latnId,_requesetModel.areaId];
 //            urlStr = @"http://115.233.6.88:9090/custInfoApp/contactManagement/Index?managerId=120608&latnId=71&areaId=66363";
         }
         
@@ -259,12 +260,12 @@
         NSDate *dateNow = [NSDate date];
         NSString *currentTime = [formatter stringFromDate:dateNow];
         
-        NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_mLoginName,_mCompanyId,currentTime];
+        NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",methodName,_requesetModel.mLoginName,_requesetModel.mCompanyId,currentTime];
         NSString *md5Key = [IseeConfig md5:md5Str];
-        NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,methodName,_mLoginName,_mCompanyId,md5Key];
+        NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,methodName,methodName,_requesetModel.mLoginName,_requesetModel.mCompanyId,md5Key];
         if (type != 1) {
             
-            urlStr = [urlStr stringByAppendingFormat:@"&managerId=%@&latnId=%@",_mManagerId,_latnId];
+            urlStr = [urlStr stringByAppendingFormat:@"&managerId=%@&latnId=%@",_requesetModel.mManagerId,_requesetModel.latnId];
         }
         
         IseeWebViewController *frameVC = [[IseeWebViewController alloc] init];
@@ -357,7 +358,7 @@
 
 - (void)ssoLogin{
     [IseeAFNetRequest showHUD:self.view];
-    [self.iseeHomeTabBarModel isee_ssoLoginWith:_mLoginName withCompanyId:_mCompanyId Success:^(id  _Nonnull result) {
+    [self.iseeHomeTabBarModel isee_ssoLoginWith:_requesetModel.mLoginName withCompanyId:_requesetModel.mCompanyId withStaffCode:_requesetModel.mStaffCode withManagerId:_requesetModel.mManagerId Success:^(id  _Nonnull result) {
         NSLog(@"%@", result);
         if ([result[@"code"] integerValue] == 200)
         {
@@ -399,7 +400,7 @@
 - (void)login{
     
     [IseeAFNetRequest showHUD:self.view];
-    [self.iseeHomeTabBarModel isee_loginWith:_mManagerId withStaffCode:_mStaffCode Success:^(id  _Nonnull result) {
+    [self.iseeHomeTabBarModel isee_loginWith:_requesetModel.mManagerId withStaffCode:_requesetModel.mStaffCode Success:^(id  _Nonnull result) {
         NSLog(@"%@", result);
         if ([result[@"code"] integerValue] == 200)
         {
@@ -427,11 +428,14 @@
     
 }
 
-//验证码点击切换
+
 - (void)getMenu
 {
     [IseeAFNetRequest showHUD:self.view];
-    [self.iseeHomeModel isee_homeMenuWith:self.mManagerId Success:^(id  _Nonnull result) {
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
+    [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
+    [self.iseeHomeModel isee_homeMenuWith:param Success:^(id  _Nonnull result) {
         NSLog(@"%@", result);
         if ([result[@"code"] integerValue] == 200)
         {
@@ -473,9 +477,10 @@
 }
 - (void)getTask{
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setObject:_mManagerId forKey:@"managerId"];
-    [param setObject:_latnId forKey:@"latnId"];
-    [param setObject:_areaId forKey:@"areaId"];
+    [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
+    [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
+    [param setObject:_requesetModel.latnId forKey:@"latnId"];
+    [param setObject:_requesetModel.areaId forKey:@"areaId"];
     [param setObject:@7 forKey:@"statId"];
     
      [IseeAFNetRequest showHUD:self.view];
@@ -503,8 +508,9 @@
 
 - (void)getQuerySendOrder:(NSString *)type{
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setObject:_mManagerId forKey:@"managerId"];
-    [param setObject:_latnId forKey:@"latnId"];
+    [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
+    [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
+    [param setObject:_requesetModel.latnId forKey:@"latnId"];
      
     
     [IseeAFNetRequest showHUD:self.view];
@@ -534,9 +540,10 @@
 
 - (void)getImporant{
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setObject:_mManagerId forKey:@"managerId"];
-    [param setObject:_latnId forKey:@"latnId"];
-    [param setObject:_areaId forKey:@"areaId"];
+    [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
+    [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
+    [param setObject:_requesetModel.latnId forKey:@"latnId"];
+    [param setObject:_requesetModel.areaId forKey:@"areaId"];
     [param setObject:@6 forKey:@"statId"];
     
      [IseeAFNetRequest showHUD:self.view];
@@ -578,8 +585,10 @@
 
 - (void)getManagerCustomLost{
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setObject:_mManagerId forKey:@"managerId"];
-    [param setObject:_latnId forKey:@"latnId"];
+    [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
+    [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
+    [param setObject:_requesetModel.latnId forKey:@"latnId"];
+    [param setObject:_requesetModel.areaId forKey:@"areaId"];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 
@@ -612,8 +621,10 @@
 
 - (void)getMyBule{
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
-    [param setObject:_mManagerId forKey:@"managerId"];
-    [param setObject:_latnId forKey:@"latnId"];
+    [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
+    [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
+    [param setObject:_requesetModel.latnId forKey:@"latnId"];
+    [param setObject:_requesetModel.areaId forKey:@"areaId"];
 //    [param setObject:@123 forKey:@"source"];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -652,9 +663,12 @@
     }
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:text forKey:@"text"];
+    [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
+    [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
+    
     [IseeAFNetRequest showHUD:self.view];
     if (searchInt == 0) {
-        [param setObject:_latnId forKey:@"latnId"];
+        [param setObject:_requesetModel.latnId forKey:@"latnId"];
         [self.iseeHomeModel isee_findCustMsgWithParam:param WithSuccess:^(id  _Nonnull result) {
             if ([result[@"code"] integerValue] == 200)
             {
@@ -712,6 +726,8 @@
     [param setObject:text forKey:@"text"];
     [param setObject:productType forKey:@"productType"];
     [param setObject:servId forKey:@"servId"];
+    [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
+    [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
     [IseeAFNetRequest showHUD:self.view];
     [self.iseeHomeModel isee_findProductWithParam:param WithSuccess:^(id  _Nonnull result) {
         if ([result[@"code"] integerValue] == 200)

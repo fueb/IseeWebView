@@ -10,16 +10,26 @@
 #import "IseeAFNetRequest.h"
 
 @implementation IseeHomeModel
-- (void)isee_homeMenuWith:(NSString *)managerId
+- (void)isee_homeMenuWith:(NSMutableDictionary *)param
                   Success:(void (^)(id result))success
                   failure:(void (^)(void))failed
 {
-    NSMutableDictionary *sendDict = [[NSMutableDictionary alloc]init];
-
-    [sendDict setObject:managerId forKey:@"managerId"];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@",DOMAINNAME,HOMEMENU];
+    NSArray *keys = param.allKeys;
+    NSArray *values = param.allValues;
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@?managerId=%@",DOMAINNAME,HOMEMENU,managerId];
-    [IseeAFNetRequest requestWithURLString:urlString parameters:sendDict type:RequestTypePost success:success failure:^(id error) {
+    for (int i = 0; i < keys.count; i++) {
+        if(i == 0)
+        {
+            urlString = [urlString stringByAppendingFormat:@"?%@=%@",keys[i],values[i]];
+        }
+        else
+        {
+            urlString = [urlString stringByAppendingFormat:@"&%@=%@",keys[i],values[i]];
+        }
+    }
+    
+    [IseeAFNetRequest requestWithURLString:urlString parameters:param type:RequestTypePost success:success failure:^(id error) {
         //请求失败
         
         NSLog(@"%@", error);

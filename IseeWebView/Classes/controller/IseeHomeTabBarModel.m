@@ -14,6 +14,8 @@
 
 - (void)isee_ssoLoginWith:(NSString *)loginName
             withCompanyId:(NSString *)companyId
+            withStaffCode:(NSString *)staffCode
+            withManagerId:(NSString *)managerId
                   Success:(void (^)(id result))success
                   failure:(void (^)(void))failed
 {
@@ -33,6 +35,8 @@
     NSString *currentTime = [formatter stringFromDate:dateNow];
     [sendDict setObject:loginName forKey:@"loginMe"];
     [sendDict setObject:companyId forKey:@"companyId"];
+    [sendDict setObject:managerId forKey:@"managerId"];
+    [sendDict setObject:staffCode forKey:@"staffCode"];
     [sendDict setObject:@"220" forKey:@"managerTypeId"];
     [sendDict setObject:@"isee" forKey:@"source"];
     
