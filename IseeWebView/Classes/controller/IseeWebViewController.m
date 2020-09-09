@@ -14,6 +14,8 @@
 #import "IseeBSJSON.h"
 #import "UIViewController+IseeCommon.h"
 #import "IseeNaviBarView.h"
+#import "IseeChoiceRegionViewController.h"
+#import "ViewController.h"
 
 @interface IseeWebViewController ()<WKNavigationDelegate, WKUIDelegate,UIImagePickerControllerDelegate,ScanViewDelegate,CLLocationManagerDelegate,SFSpeechRecognizerDelegate>
 {
@@ -385,7 +387,17 @@
     [self execJavaScript:js];
 }
 -(void)openIsee{
-    [self dismissViewControllerAnimated:YES completion:nil];
+    UIViewController *vc = self;
+    int i = 0;
+    while (vc.presentingViewController) {
+        i++;
+        vc = vc.presentingViewController;
+        if (i == 2) {
+            break;
+        }
+    }
+    [vc dismissViewControllerAnimated:YES completion:nil];
+
 }
 
 

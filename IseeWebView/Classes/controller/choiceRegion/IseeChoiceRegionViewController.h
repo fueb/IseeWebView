@@ -11,7 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IseeChoiceRegionViewController : UIViewController
-- (instancetype)initWithLoginName:(NSString *)loginName withCompanyId:(NSString *)comanyId withAreaId:(NSString *)areaId  withSession:(NSString *)session withUserId:(NSString *)userId withSaleNum:(NSString *)saleNum;
+- (instancetype)initWithLoginName:(NSString *)loginName withCompanyId:(NSString *)comanyId withSession:(NSString *)session withUserId:(NSString *)userId withSaleNum:(NSString *)saleNum;
+- (void)goBack;
 @end
 
 NS_ASSUME_NONNULL_END

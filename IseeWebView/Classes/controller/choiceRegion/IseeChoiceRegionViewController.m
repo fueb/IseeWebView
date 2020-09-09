@@ -28,10 +28,10 @@
     IseeHomeRequestModel *requestModel;
 }
 
-- (instancetype)initWithLoginName:(NSString *)loginName withCompanyId:(NSString *)comanyId withAreaId:(NSString *)areaId withSession:(NSString *)session withUserId:(NSString *)userId withSaleNum:(NSString *)saleNum
+- (instancetype)initWithLoginName:(NSString *)loginName withCompanyId:(NSString *)comanyId withSession:(NSString *)session withUserId:(NSString *)userId withSaleNum:(NSString *)saleNum
 {
     requestModel = [[IseeHomeRequestModel alloc] init];
-    requestModel.areaId = areaId;
+    requestModel.areaId = comanyId;
     requestModel.mLoginName = loginName;
     requestModel.mSession   = session;
     requestModel.mSaleNum   = saleNum;
@@ -40,7 +40,7 @@
     self = [super init];
     if (self != nil)
     {
-        requestModel.areaId = areaId;
+        requestModel.areaId = comanyId;
         requestModel.mLoginName = loginName;
         requestModel.mSession   = session;
         requestModel.mSaleNum   = saleNum;
@@ -107,6 +107,10 @@
         
 }
 
+#pragma mark - event
+- (void)goBack{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 #pragma mark - tableview
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -152,6 +156,8 @@
     requestModel.latnId = model.latnId;
     requestModel.mStaffCode = model.staffCode;
     requestModel.mManagerId = model.managerId;
+    requestModel.mCompanyId = model.areaId;
+    requestModel.areaId = model.areaId;
     IseeWebHomeTabBar *homeTabBar = [[IseeWebHomeTabBar alloc]initWithModel:requestModel];
     
     homeTabBar.modalPresentationStyle = UIModalPresentationFullScreen;

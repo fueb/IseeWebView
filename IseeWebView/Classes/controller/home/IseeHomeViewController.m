@@ -172,7 +172,7 @@
         else if ([moduleName isEqualToString:@"故障单"]) {
             methodName = MALFUCTIONQUERYWEBURL;
         }
-        else if ([moduleName isEqualToString:@"投诉单查询"]) {
+        else if ([moduleName isEqualToString:@"投诉单"]) {
             methodName = COMPLAINTQUERYWEBURL;
         }
         else if ([moduleName isEqualToString:@"订单查询"]) {
@@ -180,6 +180,38 @@
         }
         else if ([moduleName isEqualToString:@"资产查询"]) {
             methodName = ASSETSQUERYWEBURL;
+        }
+        
+        if ([moduleName isEqualToString:@"预受理"]||[moduleName isEqualToString:@"业务办理"]||[moduleName isEqualToString:@"受理助手"]||[moduleName isEqualToString:@"我的客户"]||[moduleName isEqualToString:@"销售助手"])
+        {
+            NSString *urlStr = [NSString stringWithFormat:@"zqhelper://account=%@&bundleid=%@",_requesetModel.mLoginName,[[NSBundle mainBundle] bundleIdentifier]];
+            NSLog(@"销售助手url:%@",urlStr);
+            
+            NSURL *url = [NSURL URLWithString:urlStr];
+
+            if ([[UIApplication sharedApplication] canOpenURL:url])
+            {
+                if(@available(iOS 10.0, *))
+                {
+                   [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success)
+                    {
+                     
+                   }];
+                }
+                else
+                {
+                                   
+                   [[UIApplication sharedApplication] openURL:url];
+                                   
+                                           
+                }
+           
+            
+            }else{
+                NSLog(@"设备没有安装销售助手");
+                IseeAlert(@"设备没有安装销售助手", nil);
+            }
+            return;
         }
          
         

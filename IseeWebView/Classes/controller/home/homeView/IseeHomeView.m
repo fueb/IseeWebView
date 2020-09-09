@@ -391,9 +391,10 @@
     [searchBgImg setImage:[IseeConfig imageNamed:@"top-bg"]];
     searchBgImg.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     [searchBgView addSubview:searchBgImg];
-    
+
     businessBtn = [[UIButton alloc] init];
     [businessBtn setTitle:@"查企业" forState:UIControlStateNormal];
+    businessBtn.titleLabel.font = [UIFont systemFontOfSize:16];
     [businessBtn setTitleColor:[IseeConfig stringTOColor:@"#D7ECFF"] forState:UIControlStateNormal];
     [businessBtn setTitleColor:[IseeConfig stringTOColor:@"#FFFFFF"] forState:UIControlStateSelected];
     businessBtn.selected = YES;
@@ -402,6 +403,7 @@
     
     numBtn = [[UIButton alloc] init];
     [numBtn setTitle:@"查号码" forState:UIControlStateNormal];
+    numBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [numBtn setTitleColor:[IseeConfig stringTOColor:@"#D7ECFF"] forState:UIControlStateNormal];
     [numBtn setTitleColor:[IseeConfig stringTOColor:@"#FFFFFF"] forState:UIControlStateSelected];
     numBtn.selected = NO;
@@ -410,6 +412,7 @@
     
     knowBtn = [[UIButton alloc] init];
     [knowBtn setTitle:@"查知识" forState:UIControlStateNormal];
+    knowBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [knowBtn setTitleColor:[IseeConfig stringTOColor:@"#D7ECFF"] forState:UIControlStateNormal];
     [knowBtn setTitleColor:[IseeConfig stringTOColor:@"#FFFFFF"] forState:UIControlStateSelected];
     knowBtn.selected = NO;
@@ -594,7 +597,7 @@
     [self taskViewItem:visitBgView withImg:@"visitIcon" withTitle:@"走访任务" withNum:@"0"];
     [self taskViewItem:callBgView withImg:@"callIcon" withTitle:@"欠费催缴" withNum:@"0"];
     [self taskViewItem:expirBgView withImg:@"expir" withTitle:@"电路到期" withNum:@"0"];
-    [self taskViewItem:bordbandBgView withImg:@"boardband" withTitle:@"宽带(专线)到期" withNum:@"0"];
+    [self taskViewItem:bordbandBgView withImg:@"boardband" withTitle:@"宽带(专线)\n到期" withNum:@"0"];
     
     
     UITapGestureRecognizer * tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(visitListTap:)];
@@ -620,7 +623,8 @@
     UILabel *titleLab = [[UILabel alloc] init];
     titleLab.text = title;
     titleLab.textColor = [UIColor grayColor];
-    titleLab.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:12];
+    titleLab.font = [UIFont fontWithName:@"PingFang-SC-Regular" size:13];
+    titleLab.numberOfLines = 0;
     UILabel *numLab = [[UILabel alloc] init];
     numLab.text = num;
     numLab.textColor = [UIColor blackColor];
@@ -696,7 +700,7 @@
         make.left.mas_equalTo(fllowLab);
         make.top.mas_equalTo(developeBgView.mas_bottom).offset(10);
         make.width.mas_equalTo(assetsFluBgView);
-        make.height.equalTo(@130);
+        make.height.equalTo(@104);
     }];
     
     [volumeFluBgView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -748,10 +752,9 @@
     visitedBg = [[UIView alloc] init];
     yearBg = [[UIView alloc] init];
     monthBg = [[UIView alloc] init];
-//    myBuleNumBg.backgroundColor = [UIColor redColor];
-//    visitedBg.backgroundColor = [UIColor redColor];
-//    yearBg.backgroundColor = [UIColor redColor];
-//    monthBg.backgroundColor = [UIColor redColor];
+    UIView *percentageBg = [[UIView alloc] init];
+
+    [downView addSubview:percentageBg];
     [downView addSubview:myBuleNumBg];
     [downView addSubview:visitedBg];
     [downView addSubview:yearBg];
@@ -780,12 +783,7 @@
     [self getMyBuleItem:visitedBg withTitle:@"已走访" withTitleColor:[IseeConfig stringTOColor:@"#4ED1F8"] withSum:@"1" withNum:@"0"];
     [self getMyBuleItem:yearBg withTitle:@"本年新增" withTitleColor:[IseeConfig stringTOColor:@"#F19834"] withSum:@"1" withNum:@"0"];
     [self getMyBuleItem:monthBg withTitle:@"本月新增" withTitleColor:[IseeConfig stringTOColor:@"#613CF4"] withSum:@"1" withNum:@"0"];
-    
-    UIView *percentageBg = [[UIView alloc] init];
-//    percentageBg.backgroundColor = [UIColor redColor];
-    
-    [downView addSubview:percentageBg];
-    
+
     [percentageBg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(myBule.mas_left).offset(150);
         make.top.mas_equalTo(monthBg.mas_bottom);
@@ -946,7 +944,7 @@
     }];
     [changeLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(bgView.mas_left);
-        make.right.mas_equalTo(bgView.mas_centerX);
+        make.right.mas_equalTo(bgView.mas_centerX).with.offset(4);
         make.height.mas_equalTo(14);
         make.top.mas_equalTo(sumLab.mas_bottom).offset(8);
     }];
@@ -969,9 +967,9 @@
     [bgView addSubview:titleLab];
     [bgView addSubview:sumLab];
     
-    [topRightImg setImage:[IseeConfig imageNamed:@"earlyWarn" size:CGSizeMake(40, 40)]];
+    [topRightImg setImage:[IseeConfig imageNamed:@"earlyWarn" size:CGSizeMake(32, 32)]];
     
-    [iconi setImage:[IseeConfig imageNamed:imgName size:CGSizeMake(38, 38)]];
+    [iconi setImage:[IseeConfig imageNamed:imgName size:CGSizeMake(32, 32)]];
     
     titleLab.textAlignment = 1;
     titleLab.textColor = [IseeConfig stringTOColor:@"#6A6B6E"];
@@ -992,27 +990,27 @@
     [topRightImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(bgView).with.offset(-1);
         make.right.mas_equalTo(bgView).with.offset(1);
-        make.width.height.mas_equalTo(40);
+        make.width.height.mas_equalTo(32);
     }];
     
     [iconi mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(bgView.mas_centerX);
-        make.width.height.mas_equalTo(38);
-        make.top.mas_equalTo(bgView.mas_top).offset(10);
+        make.width.height.mas_equalTo(32);
+        make.top.mas_equalTo(bgView.mas_top).offset(8);
     }];
     
     [sumLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(bgView.mas_centerX);
         make.width.mas_equalTo(bgView);
-        make.height.mas_equalTo(30);
-        make.top.mas_equalTo(iconi.mas_bottom).offset(10);
+        make.height.mas_equalTo(21);
+        make.top.mas_equalTo(iconi.mas_bottom).offset(6);
     }];
     
     [titleLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(bgView.mas_centerX);
         make.width.mas_equalTo(bgView);
-        make.height.mas_equalTo(30);
-        make.top.mas_equalTo(sumLab.mas_bottom).offset(5);
+        make.height.mas_equalTo(16);
+        make.top.mas_equalTo(sumLab.mas_bottom).offset(8);
     }];
     
     
@@ -1207,18 +1205,27 @@
         businessBtn.selected = NO;
         i = 2;
         searchField.placeholder = @"请输入关键字";
+        knowBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+        businessBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        numBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     }
     if ([btn isEqual:numBtn]) {
         knowBtn.selected = NO;
         businessBtn.selected = NO;
         i = 1;
         searchField.placeholder = @"请输入号码";
+        knowBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        businessBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        numBtn.titleLabel.font = [UIFont systemFontOfSize:16];
     }
     if ([btn isEqual:businessBtn]) {
         knowBtn.selected = NO;
         numBtn.selected = NO;
         i = 0;
         searchField.placeholder = @"请输入企业名称";
+        knowBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        businessBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+        numBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     }
     if (_searchItemClick)
     {

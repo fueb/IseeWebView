@@ -72,7 +72,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    UIButton * btn = [[UIButton alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+    btn.backgroundColor = [UIColor redColor];
+    [self.view addSubview:btn];
+    [btn addTarget:self action:@selector(btnClick) forControlEvents:UIControlEventTouchUpInside];
     //配置wkWebView
 //    [self configWKWebView];
 }
@@ -80,10 +83,10 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self goChoice];
+//    [self goChoice];
 }
--(void)goChoice{
-        IseeChoiceRegionViewController *vc = [[IseeChoiceRegionViewController alloc] initWithLoginName:@"18958039970" withCompanyId:@"66346" withAreaId:@"66346" withSession:@"sasdad" withUserId:@"1231" withSaleNum:@"1231"];
+-(void)btnClick{
+        IseeChoiceRegionViewController *vc = [[IseeChoiceRegionViewController alloc] initWithLoginName:@"15305796839" withCompanyId:@"9662" withSession:@"sasdad" withUserId:@"1231" withSaleNum:@"1231"];
         
     //    homeTabBar.mLoginName = @"13305834567";
     //    homeTabBar.mCompanyId = @"221166";
