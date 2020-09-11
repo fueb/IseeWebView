@@ -160,7 +160,7 @@
         else if ([moduleName isEqualToString:@"电子发票"]) {
             methodName = invoiceQueryWEBURL;
         }
-        else if ([moduleName isEqualToString:@"交费日志"]) {
+        else if ([moduleName isEqualToString:@"缴费日志"]) {
             methodName = paymentLogWEBURL;
         }
         else if ([moduleName isEqualToString:@"联系人管理"]) {
@@ -292,9 +292,9 @@
         NSDate *dateNow = [NSDate date];
         NSString *currentTime = [formatter stringFromDate:dateNow];
         
-        NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",methodName,_requesetModel.mLoginName,_requesetModel.mCompanyId,currentTime];
+        NSString *md5Str = [NSString stringWithFormat:@"%@%@ISEE%@",_requesetModel.mLoginName,_requesetModel.mCompanyId,currentTime];
         NSString *md5Key = [IseeConfig md5:md5Str];
-        NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,methodName,methodName,_requesetModel.mLoginName,_requesetModel.mCompanyId,md5Key];
+        NSString *urlStr = [NSString stringWithFormat:@"%@%@?loginName=%@&companyId=%@&md5key=%@&source=isee&form=app2",WEBHOST,methodName,_requesetModel.mLoginName,_requesetModel.mCompanyId,md5Key];
         if (type != 1) {
             
             urlStr = [urlStr stringByAppendingFormat:@"&managerId=%@&latnId=%@",_requesetModel.mManagerId,_requesetModel.latnId];
@@ -522,8 +522,8 @@
         {
             NSDictionary *data = result[@"data"];
             NSLog(@"getTask:%@",[data description]);
-            long tempValue6 = [data[@"value6"] longValue];
-            NSString *taskNum = [NSString stringWithFormat:@"%ld",tempValue6];
+//            NSString * tempValue6 = [IseeConfig getLongValue:data[@"value6"]];//[data[@"value6"] longValue];
+            NSString *taskNum = [IseeConfig getLongValue:data[@"value6"]];//[NSString stringWithFormat:@"%ld",tempValue6];
             if (taskNum != nil&&(![taskNum isKindOfClass:[NSNull class]])) {
                 [home setTaskNum:taskNum];
             }
@@ -551,14 +551,14 @@
         if ([result[@"code"] integerValue] == 200)
         {
             NSDictionary *data = result[@"data"];
-            long kdCount = [data[@"kdCount"] longValue];
-            long qfCount = [data[@"qfCount"] longValue];
-            long dlCount = [data[@"dlCount"] longValue];
+//            long kdCount = [IseeConfig getLongValue:data[@"kdCount"]];//[data[@"kdCount"] longValue];
+//            long qfCount = [IseeConfig getLongValue:data[@"qfCount"]];//[data[@"qfCount"] longValue];
+//            long dlCount = [IseeConfig getLongValue:data[@"dlCount"]];//[data[@"dlCount"] longValue];
 
             
-            [home setQuerySendOrder:[NSString stringWithFormat:@"%ld",(long)kdCount] withType:@"1"];
-            [home setQuerySendOrder:[NSString stringWithFormat:@"%ld",(long)qfCount] withType:@"4"];
-            [home setQuerySendOrder:[NSString stringWithFormat:@"%ld",(long)dlCount] withType:@"5"];
+            [home setQuerySendOrder:[IseeConfig getLongValue:data[@"kdCount"]] withType:@"1"];
+            [home setQuerySendOrder:[IseeConfig getLongValue:data[@"qfCount"]] withType:@"4"];
+            [home setQuerySendOrder:[IseeConfig getLongValue:data[@"dlCount"]] withType:@"5"];
             
         }
         else
@@ -584,24 +584,24 @@
         if ([result[@"code"] integerValue] == 200)
         {
             NSDictionary *data = result[@"data"];
-            long baordBandSum = [data[@"value1"] longValue];
-            long baordBandAdd = [data[@"value2"] longValue];
-            long moveSum = [data[@"value3"] longValue];
-            long moveAdd = [data[@"value4"] longValue];
-            long iptvSum = [data[@"value5"] longValue];
-            long iptvAdd = [data[@"value6"] longValue];
-            long shareSum = [data[@"value7"] longValue];
-            long shareAdd = [data[@"value8"] longValue];
+//            long baordBandSum = [IseeConfig getLongValue:data[@"value1"]];//[data[@"value1"] longValue];
+//            long baordBandAdd = [IseeConfig getLongValue:data[@"value2"]];//[data[@"value2"] longValue];
+//            long moveSum = [IseeConfig getLongValue:data[@"value3"]];//[data[@"value3"] longValue];
+//            long moveAdd = [IseeConfig getLongValue:data[@"value4"]];//[data[@"value4"] longValue];
+//            long iptvSum = [IseeConfig getLongValue:data[@"value5"]];//[data[@"value5"] longValue];
+//            long iptvAdd = [IseeConfig getLongValue:data[@"value6"]];//[data[@"value6"] longValue];
+//            long shareSum = [IseeConfig getLongValue:data[@"value7"]];//[data[@"value7"] longValue];
+//            long shareAdd = [IseeConfig getLongValue:data[@"value8"]];//[data[@"value8"] longValue];
 
             NSMutableDictionary *keyPointDict = [NSMutableDictionary dictionary];
-            [keyPointDict setObject:[NSString stringWithFormat:@"%ld",baordBandSum] forKey:@"boardBandNum"];
-            [keyPointDict setObject:[NSString stringWithFormat:@"%ld",baordBandAdd] forKey:@"boardBandChange"];
-            [keyPointDict setObject:[NSString stringWithFormat:@"%ld",moveSum] forKey:@"moveNum"];
-            [keyPointDict setObject:[NSString stringWithFormat:@"%ld",moveAdd] forKey:@"moveChange"];
-            [keyPointDict setObject:[NSString stringWithFormat:@"%ld",iptvSum] forKey:@"iptvNum"];
-            [keyPointDict setObject:[NSString stringWithFormat:@"%ld",iptvAdd] forKey:@"iptvChange"];
-            [keyPointDict setObject:[NSString stringWithFormat:@"%ld",shareSum] forKey:@"shareNum"];
-            [keyPointDict setObject:[NSString stringWithFormat:@"%ld",shareAdd] forKey:@"shareChange"];
+            [keyPointDict setObject:[IseeConfig getLongValue:data[@"value1"]] forKey:@"boardBandNum"];
+            [keyPointDict setObject:[IseeConfig getLongValue:data[@"value2"]] forKey:@"boardBandChange"];
+            [keyPointDict setObject:[IseeConfig getLongValue:data[@"value3"]] forKey:@"moveNum"];
+            [keyPointDict setObject:[IseeConfig getLongValue:data[@"value4"]] forKey:@"moveChange"];
+            [keyPointDict setObject:[IseeConfig getLongValue:data[@"value5"]] forKey:@"iptvNum"];
+            [keyPointDict setObject:[IseeConfig getLongValue:data[@"value6"]] forKey:@"iptvChange"];
+            [keyPointDict setObject:[IseeConfig getLongValue:data[@"value7"]] forKey:@"shareNum"];
+            [keyPointDict setObject:[IseeConfig getLongValue:data[@"value8"]] forKey:@"shareChange"];
             [home setKeyPointDict:keyPointDict];
             
         }
@@ -636,10 +636,10 @@
         if ([result[@"code"] integerValue] == 200)
         {
             NSDictionary *data = result[@"data"];
-            long chargeCount = [data[@"chargeCount"] longValue];
-            long assetsCount = [data[@"assetsCount"] longValue];
-            long teletrafficCount = [data[@"teletrafficCount"] longValue];
-            [home setFluWith:[NSString stringWithFormat:@"%ld",chargeCount] withVolume:[NSString stringWithFormat:@"%ld",teletrafficCount] withAssets:[NSString stringWithFormat:@"%ld",assetsCount]];
+//            long chargeCount = [IseeConfig getLongValue:data[@"chargeCount"]];//[data[@"chargeCount"] longValue];
+//            long assetsCount = [IseeConfig getLongValue:data[@"assetsCount"]];//[data[@"assetsCount"] longValue];
+//            long teletrafficCount = [IseeConfig getLongValue:data[@"teletrafficCount"]];//[data[@"teletrafficCount"] longValue];
+            [home setFluWith:[IseeConfig getLongValue:data[@"chargeCount"]] withVolume:[IseeConfig getLongValue:data[@"teletrafficCount"]] withAssets:[IseeConfig getLongValue:data[@"assetsCount"]]];
             
         }
         else
@@ -673,12 +673,12 @@
         if ([result[@"code"] integerValue] == 200)
         {
             NSDictionary *data = result[@"data"];
-            long blueOceanCnt = [data[@"blueOceanCnt"] longValue];
-            long interviewCnt = [data[@"interviewCnt"] longValue];
-            long newCntYear = [data[@"newCntYear"] longValue];
-            long newCntMonth = [data[@"newCntMonth"] longValue];
+//            long blueOceanCnt = [IseeConfig getLongValue:data[@"blueOceanCnt"]];//[data[@"blueOceanCnt"] longValue];
+//            long interviewCnt = [IseeConfig getLongValue:data[@"interviewCnt"]];//[data[@"interviewCnt"] longValue];
+//            long newCntYear = [IseeConfig getLongValue:data[@"newCntYear"]];//[data[@"newCntYear"] longValue];
+//            long newCntMonth = [IseeConfig getLongValue:data[@"newCntMonth"]];//[data[@"newCntMonth"] longValue];
             
-            [home setMyBuleWith:[NSString stringWithFormat:@"%ld",blueOceanCnt] withVisitedNum:[NSString stringWithFormat:@"%ld",interviewCnt] withYearNum:[NSString stringWithFormat:@"%ld",newCntYear] withMonthNum:[NSString stringWithFormat:@"%ld",newCntMonth]];
+            [home setMyBuleWith:[IseeConfig getLongValue:data[@"blueOceanCnt"]] withVisitedNum:[IseeConfig getLongValue:data[@"interviewCnt"]] withYearNum:[IseeConfig getLongValue:data[@"newCntYear"]] withMonthNum:[IseeConfig getLongValue:data[@"newCntMonth"]]];
         }
         else
         {
@@ -945,6 +945,8 @@
     [home removeTable];
     [self.view endEditing:YES];
 }
+
+
 /*
 #pragma mark - Navigation
 

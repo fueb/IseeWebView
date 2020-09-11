@@ -118,4 +118,13 @@
     return image ? image : [UIImage imageNamed:name inBundle:bundle compatibleWithTraitCollection:nil];
 }
 
++ (NSString *)getLongValue:(id)value
+{
+    if([value isKindOfClass:[NSNull class]])
+    {
+        return @"-";
+    }
+    return [NSString stringWithFormat:@"%ld",[value longValue]];
+}
+
 @end

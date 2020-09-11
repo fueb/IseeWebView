@@ -8,6 +8,7 @@
 
 #import "IseeWebViewController.h"
 #import <objc/message.h>
+#import <Masonry.h>
 #import "IseeScanView.h"
 #import "IseeConfig.h"
 #import "CLLocation+IseeSino.h"
@@ -15,13 +16,14 @@
 #import "UIViewController+IseeCommon.h"
 #import "IseeNaviBarView.h"
 #import "IseeChoiceRegionViewController.h"
-#import "ViewController.h"
+
 
 @interface IseeWebViewController ()<WKNavigationDelegate, WKUIDelegate,UIImagePickerControllerDelegate,ScanViewDelegate,CLLocationManagerDelegate,SFSpeechRecognizerDelegate>
 {
     IseeScanView    *scanView;                //二维码扫描对象
     NSString    *method;
     __block NSString    *soundStr;
+    UIImageView *gifImageView;
 }
 @property (nonatomic, strong) WKWebView *wkWebView;
 @property (strong,nonatomic) CLLocationManager * locationManager;
@@ -85,6 +87,12 @@
     //配置wkWebView
     [self configWKWebView];
     
+    if ([self.title isEqualToString:@"工具"]||[self.title isEqualToString:@"沙盘"]||[self.title isEqualToString:@"消息"]||[self.title isEqualToString:@"我的"]) {
+        
+        [_topNavBar backBtnHide];
+
+    }
+    [self getIseeLoading];
 }
 
 /// 在旋转界面时重新构造导航条
@@ -107,6 +115,47 @@
 
 }
 
+//loading
+- (void)getIseeLoading{
+    //将GIF图片分解成多张PNG图片
+    //得到GIF图片的url
+//    NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"refreshing01" withExtension:@"gif"];
+
+    
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"IseeWebResource.bundle" ofType:nil];
+    NSString *configPath = [bundlePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%@",@"img",@"iseeLoading.gif"]];
+    configPath = [NSString stringWithFormat:@"file:///%@",configPath];
+    NSURL *fileUrl = [NSURL URLWithString:configPath];
+    
+    //将GIF图片转换成对应的图片源
+    CGImageSourceRef gifSource = CGImageSourceCreateWithURL((CFURLRef)fileUrl, NULL);
+    //获取其中图片源个数，即由多少帧图片组成
+    size_t frameCount = CGImageSourceGetCount(gifSource);
+    //定义数组存储拆分出来的图片
+    NSMutableArray *frames = [[NSMutableArray alloc] init];
+    for (size_t i = 0; i < frameCount; i++) {
+        //从GIF图片中取出源图片
+        CGImageRef imageRef = CGImageSourceCreateImageAtIndex(gifSource, i, NULL);
+        //将图片源转换成UIimageView能使用的图片源
+        UIImage *imageName = [UIImage imageWithCGImage:imageRef];
+        //将图片加入数组中
+        [frames addObject:imageName];
+        CGImageRelease(imageRef);
+    }
+    gifImageView = [[UIImageView alloc] init];
+    //将图片数组加入UIImageView动画数组中
+    gifImageView.animationImages = frames;
+    //每次动画时长
+    gifImageView.animationDuration = 1.3;
+    //开启动画，此处没有调用播放次数接口，UIImageView默认播放次数为无限次，故这里不做处理
+    [gifImageView startAnimating];
+    [self.view addSubview:gifImageView];
+    __weak typeof(self) wkSelf = self;
+    [gifImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.centerY.mas_equalTo(wkSelf.view);
+        make.width.height.mas_equalTo(120);
+    }];
+}
 
 - (UIButton *)addBtnWithTitle:(NSString *)title action:(SEL)action {
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth - 100, 50)];
@@ -148,9 +197,14 @@
 //    if (_reallyGo) {
 //        [self dismissViewControllerAnimated:YES completion:nil];
 //        return;
-//    }
+//    }nowUrl    NSURL *    @"http://115.239.138.159:18009/customer-view-1.0/transparentQuery.html"    0x00006000031ea280
     if (self.wkWebView.canGoBack) {
-
+        NSString *nowUrlStr = [self.wkWebView.URL absoluteString];
+        if ([nowUrlStr rangeOfString:@"transparentQuery"].location != NSNotFound)
+        {
+            [self dismissViewControllerAnimated:YES completion:nil];
+            return;
+        }
         [self.wkWebView goBack];
 
     }else{
@@ -682,11 +736,12 @@
 /* 页面加载完成 */
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
     NSLog(@"页面加载完成");
+    gifImageView.hidden = YES;
 }
 /* 页面加载失败 */
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error{
     NSLog(@"页面加载失败:%@",error);
-    
+    gifImageView.hidden = YES;
 }
 
 
@@ -885,6 +940,9 @@
     {
         if (object == self.wkWebView)
         {
+            if ([self.wkWebView.title isEqualToString:@"dict-h5"]){
+                return;
+            }
             
             [_topNavBar setNavigationTitle:self.wkWebView.title];
             NSString *title = self.wkWebView.title;
