@@ -202,23 +202,25 @@
         NSString *nowUrlStr = [self.wkWebView.URL absoluteString];
         if ([nowUrlStr rangeOfString:@"transparentQuery"].location != NSNotFound)
         {
-            [self dismissViewControllerAnimated:YES completion:nil];
-            return;
+            if (_isHomeGo)
+            {
+                [self dismissViewControllerAnimated:YES completion:nil];
+                return;
+            }
         }
         if ([self.wkWebView.title isEqualToString:@"资产详情"]||[self.wkWebView.title isEqualToString:@"订单详情"]) {
             if (self.wkWebView.backForwardList.backList.count>0) {                                  //得到栈里面的list
                 WKBackForwardListItem * item = self.wkWebView.backForwardList.currentItem;
                 //得到现在加载的list
-                NSArray *backList = self.wkWebView.backForwardList.backList;
                 for (WKBackForwardListItem * backItem in self.wkWebView.backForwardList.backList) { //循环遍历，得到你想退出到
                      //添加判断条件
                     if ([backItem.title isEqualToString:@"资产列表"]|[backItem.title isEqualToString:@"订单列表"]) {
                         [self.wkWebView goToBackForwardListItem:backItem];
-                        break;
+                        return;
                     }
                 }
             }
-            return;
+            
         }
         [self.wkWebView goBack];
 

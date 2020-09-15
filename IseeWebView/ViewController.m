@@ -86,7 +86,7 @@
 //    [self goChoice];
 }
 -(void)btnClick{
-        IseeChoiceRegionViewController *vc = [[IseeChoiceRegionViewController alloc] initWithLoginName:@"15336567225" withCompanyId:@"9662" withSession:@"sasdad" withUserId:@"1231" withSaleNum:@"1231"];
+        IseeChoiceRegionViewController *vc = [[IseeChoiceRegionViewController alloc] initWithLoginName:@"15397171867" withCompanyId:@"9662" withSession:@"sasdad" withUserId:@"1231" withSaleNum:@"1231"];
         
     //    homeTabBar.mLoginName = @"13305834567";
     //    homeTabBar.mCompanyId = @"221166";
