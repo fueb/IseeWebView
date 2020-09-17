@@ -16,6 +16,7 @@
 #import "UIViewController+IseeCommon.h"
 #import "IseeNaviBarView.h"
 #import "IseeChoiceRegionViewController.h"
+#import "IseeAFNetRequest.h"
 
 
 @interface IseeWebViewController ()<WKNavigationDelegate, WKUIDelegate,UIImagePickerControllerDelegate,ScanViewDelegate,CLLocationManagerDelegate,SFSpeechRecognizerDelegate>
@@ -120,7 +121,6 @@
     //将GIF图片分解成多张PNG图片
     //得到GIF图片的url
 //    NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"refreshing01" withExtension:@"gif"];
-
     
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"IseeWebResource.bundle" ofType:nil];
     NSString *configPath = [bundlePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%@",@"img",@"iseeLoading.gif"]];
@@ -469,8 +469,8 @@
 //    }
 //    [vc dismissViewControllerAnimated:YES completion:nil];
     
-    UIViewController *vc        = [[NSClassFromString(@"PersonalCenterController") alloc]init];
-    SEL runAction = NSSelectorFromString(@"logOut");
+    UIViewController *vc        = [[NSClassFromString(@"iSeeRootViewController") alloc]init];
+    SEL runAction = NSSelectorFromString(@"goToTheNormalHomePage");
     
     if([vc respondsToSelector:runAction]){
 
@@ -763,11 +763,14 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
     NSLog(@"页面加载完成");
     gifImageView.hidden = YES;
+    
+//    [IseeAFNetRequest removeHUD];
 }
 /* 页面加载失败 */
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error{
     NSLog(@"页面加载失败:%@",error);
     gifImageView.hidden = YES;
+//    [IseeAFNetRequest removeHUD];
 }
 
 

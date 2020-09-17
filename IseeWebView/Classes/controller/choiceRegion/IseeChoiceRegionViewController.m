@@ -15,6 +15,7 @@
 #import "IseeRegionCell.h"
 #import "IseeWebHomeTabBar.h"
 #import "IseeHomeRequestModel.h"
+#import "IseeLoadingView.h"
 
 @interface IseeChoiceRegionViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -26,6 +27,7 @@
     NSMutableArray *regionAry;
     IseeChoiceRegionModel *regionModel;
     IseeHomeRequestModel *requestModel;
+    IseeLoadingView *loading;
 }
 
 - (instancetype)initWithLoginName:(NSString *)loginName withCompanyId:(NSString *)comanyId withSession:(NSString *)session withUserId:(NSString *)userId withSaleNum:(NSString *)saleNum
@@ -67,16 +69,37 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)showLoading{
+    [loading removeFromSuperview];
+    loading = nil;
+    loading = [[IseeLoadingView alloc] initWithView:self.view];
+    [self.view addSubview:loading];
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        sleep(50);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [loading setHidden:YES];
+        });
+    });
+}
+
+- (void)removeLoading{
+    [loading removeFromSuperview];
+    loading = nil;
+}
 
 - (void)getRegion{
     
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:requestModel.mLoginName forKey:@"mobile"];
     
-    [IseeAFNetRequest showHUD:self.view];
+//    [IseeAFNetRequest showHUD:self.view];
+    [self showLoading];
+    
+    __weak typeof(self) wkSelf = self;
     
     [self.regionModel isee_findRegionWithParam:param WithSuccess:^(id  _Nonnull result)
     {
+        [wkSelf removeLoading];
         NSLog(@"%@", result);
         NSInteger type = 1;
         NSString *errorStr = @"成功";
@@ -122,9 +145,11 @@
             _returnRegion(requestModel,type,errorStr);
         }
     } failure:^{
+        [wkSelf removeLoading];
         if (_returnRegion) {
             _returnRegion(nil,0,@"获取包区信息失败");
         }
+        
     }];
         
 }

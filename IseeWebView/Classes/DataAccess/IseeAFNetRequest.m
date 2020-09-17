@@ -13,7 +13,7 @@
 
 @implementation IseeAFNetRequest
 static MBProgressHUD *HUD;
-static IseeLoadingView *loading;
+//static IseeLoadingView *loading;
 + (void)showHUD:(UIView *)view withText:(NSString *)text{
     [HUD removeFromSuperview];
     HUD = nil;
@@ -38,19 +38,19 @@ static IseeLoadingView *loading;
 }
 + (void)showHUD:(UIView *)view
 {
-    [loading removeFromSuperview];
-    loading = nil;
-    loading = [[IseeLoadingView alloc] initWithView:view];
-    [view addSubview:loading];
-    return;
+//    [loading removeFromSuperview];
+//    loading = nil;
+//    loading = [[IseeLoadingView alloc] initWithView:view];
+//    [view addSubview:loading];
+//    return;
     
     [HUD removeFromSuperview];
     HUD = nil;
     HUD = [[MBProgressHUD alloc] initWithView:view];
     [view addSubview:HUD];
-    [HUD hideAnimated:YES afterDelay:20.0];
+    [HUD hideAnimated:YES afterDelay:50.0];
 //    HUD.activityIndicatorColor = [UIColor whiteColor];
-    HUD.label.text = @"请稍等...";
+//    HUD.label.text = @"请稍等...";
     
     [HUD showAnimated:YES];
     HUD.bezelView.color = [UIColor blackColor];
@@ -58,7 +58,7 @@ static IseeLoadingView *loading;
     HUD.bezelView.alpha = 0.7;
     
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        sleep(20);
+        sleep(50);
         dispatch_async(dispatch_get_main_queue(), ^{
             [HUD hideAnimated:YES];
         });
@@ -67,8 +67,8 @@ static IseeLoadingView *loading;
 
 + (void)removeHUD
 {
-    [loading removeFromSuperview];
-    loading = nil;
+//    [loading removeFromSuperview];
+//    loading = nil;
     [HUD removeFromSuperview];
     HUD = nil;
 }
@@ -85,7 +85,7 @@ static IseeLoadingView *loading;
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/plain", @"text/html;charset=utf-8",@"text/javascript", nil];
-    manager.requestSerializer.timeoutInterval = 20;
+    manager.requestSerializer.timeoutInterval = 40;
     URLString=[URLString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     switch (type)
     {
