@@ -63,21 +63,24 @@
     
     [self.view addSubview:choice];
     [choice setModel:nil];
-    [self getRegion];
+//    [self getRegion];
     // Do any additional setup after loading the view.
 }
+
 
 - (void)getRegion{
     
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:requestModel.mLoginName forKey:@"mobile"];
-//    [param setObject:_mAreaId forKey:@"areaId"];
     
     [IseeAFNetRequest showHUD:self.view];
     
     [self.regionModel isee_findRegionWithParam:param WithSuccess:^(id  _Nonnull result)
     {
         NSLog(@"%@", result);
+        NSInteger type = 1;
+        NSString *errorStr = @"成功";
+        
         if ([result[@"code"] integerValue] == 200)
         {
             NSMutableArray *data = result[@"data"];
@@ -91,18 +94,37 @@
             }
             [choice reloadTable];
             if (regionAry.count == 1) {
+                type = 2;
                 IseeRegionModel *model     = regionAry[0];
-                [self goHome:model];
-                return;
+                
+                requestModel.latnId = model.latnId;
+                requestModel.mStaffCode = model.staffCode;
+                requestModel.mManagerId = model.managerId;
+                requestModel.mCompanyId = model.areaId;
+                requestModel.areaId = model.areaId;
+//                [self goHome:model];
+//                return;
             }
+            if (regionAry.count == 0) {
+                type = 0;
+                errorStr = @"没有包区信息";
+            }
+            
            
         }
         else
         {
+            type = 0;
+            errorStr = result[@"errmsg"];
             NSLog(@"%@",result[@"errmsg"], nil);
         }
+        if (_returnRegion) {
+            _returnRegion(requestModel,type,errorStr);
+        }
     } failure:^{
-        
+        if (_returnRegion) {
+            _returnRegion(nil,0,@"获取包区信息失败");
+        }
     }];
         
 }

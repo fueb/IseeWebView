@@ -22,6 +22,7 @@ typedef NS_ENUM(NSUInteger,RequestType) {
 
 @interface IseeAFNetRequest : NSObject
 @property (nonatomic,strong)NSURLSessionDataTask *requestTask;
++ (void)showHUD:(UIView *)view withText:(NSString *)text;
 + (void)showHUD:(UIView *)view;
 + (void)removeHUD;
 + (void)requestWithURLString:(NSString *)URLString

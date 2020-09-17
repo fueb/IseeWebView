@@ -197,7 +197,7 @@
 //    if (_reallyGo) {
 //        [self dismissViewControllerAnimated:YES completion:nil];
 //        return;
-//    }nowUrl    NSURL *    @"http://115.239.138.159:18009/customer-view-1.0/transparentQuery.html"    0x00006000031ea280
+//    }
     if (self.wkWebView.canGoBack) {
         NSString *nowUrlStr = [self.wkWebView.URL absoluteString];
         if ([nowUrlStr rangeOfString:@"transparentQuery"].location != NSNotFound)
@@ -458,16 +458,25 @@
     [self execJavaScript:js];
 }
 -(void)openIsee{
-    UIViewController *vc = self;
-    int i = 0;
-    while (vc.presentingViewController) {
-        i++;
-        vc = vc.presentingViewController;
-        if (i == 2) {
-            break;
-        }
+//    UIViewController *vc = self;
+//    int i = 0;
+//    while (vc.presentingViewController) {
+//        i++;
+//        vc = vc.presentingViewController;
+//        if (i == 2) {
+//            break;
+//        }
+//    }
+//    [vc dismissViewControllerAnimated:YES completion:nil];
+    
+    UIViewController *vc        = [[NSClassFromString(@"PersonalCenterController") alloc]init];
+    SEL runAction = NSSelectorFromString(@"logOut");
+    
+    if([vc respondsToSelector:runAction]){
+
+        objc_msgSend(vc, runAction);
     }
-    [vc dismissViewControllerAnimated:YES completion:nil];
+    
 
 }
 

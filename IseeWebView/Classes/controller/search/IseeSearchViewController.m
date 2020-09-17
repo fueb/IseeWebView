@@ -25,6 +25,9 @@
     
     NSMutableArray *searchCustAry;
     NSMutableArray *searchProdAry;
+    NSInteger pageNum;
+    NSInteger pageSize;
+    BOOL isLoading;
 }
 @end
 
@@ -33,6 +36,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    isLoading = NO;
+    pageNum = 1;
+    pageSize = 15;
     modelAry = [[NSMutableArray alloc] init];
     CGFloat safeBottom = 0;
     if ([IseeConfig isNotchScreen]) {
@@ -41,10 +47,12 @@
     search = [[IseeSearchView alloc] initWithFrame:CGRectMake(0, 0, UIScreenWidth, UIScreenHeight)];
     
     search.mDelegate = self;
+    search.isPullUp_refresh = YES;
     
     [self.view addSubview:search];
     [search setModel:modelAry];
     [self setClick];
+    [self setLoadMore];
     if (_searchInt == 0) {
         [search setFieldPlace:@"请输入企业名称"];
     }
@@ -61,23 +69,44 @@
     }];
 }
 
+- (void)setLoadMore{
+    __weak typeof(self) wkSelf = self;
+    
+    [search setTableLoad:^{
+        pageNum++;
+        [wkSelf searchWIthText:[search getFieldText]];
+    }];
+}
+
 
 - (void)searchWIthText:(NSString *)text{
     if (text.length <= 0) {
+        [IseeAFNetRequest showHUD:self.view withText:@"请输入关键字"];
         return;
     }
+    if (isLoading) {
+        return;
+    }
+    isLoading = YES;
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:text forKey:@"text"];
     [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
     [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
+    [param setObject:[NSString stringWithFormat:@"%ld",(long)pageSize] forKey:@"pageSize"];
+    [param setObject:[NSString stringWithFormat:@"%ld",(long)pageNum] forKey:@"pageNum"];
     [IseeAFNetRequest showHUD:self.view];
     if (_searchInt == 0) {
         [param setObject:_requesetModel.latnId forKey:@"latnId"];
         [self.iseeHomeModel isee_findCustMsgWithParam:param WithSuccess:^(id  _Nonnull result) {
+            
+            [search endRefresh];
             if ([result[@"code"] integerValue] == 200)
             {
                 NSArray *data = result[@"data"];
-                searchCustAry = [NSMutableArray array];
+                if (data.count < 15) {
+                    search.isPullUp_refresh = NO;
+                }
+                
                 for (int i = 0;i < data.count;i++)
                 {
                     NSDictionary *dict = data[i];
@@ -92,17 +121,23 @@
             {
                  IseeAlert(result[@"msg"],NULL);
             }
+            isLoading = NO;
         } failure:^{
-            
+            isLoading = NO;
+            [search endRefresh];
         }];
     }
     else if (_searchInt == 1)
     {
         [self.iseeHomeModel isee_findProdWithParam:param WithSuccess:^(id  _Nonnull result) {
+            [search endRefresh];
             if ([result[@"code"] integerValue] == 200)
             {
                 NSArray *data = result[@"data"];
-                searchProdAry = [NSMutableArray array];
+                if (data.count < 15) {
+                    search.isPullUp_refresh = NO;
+                }
+                
                 for (int i = 0;i < data.count;i++)
                 {
                     NSDictionary *dict = data[i];
@@ -117,8 +152,10 @@
             {
                 IseeAlert(result[@"msg"],NULL);
             }
+            isLoading = NO;
         } failure:^{
-            
+            isLoading = NO;
+            [search endRefresh];
         }];
     }
     
@@ -384,6 +421,18 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
+    pageNum = 1;
+    if (searchCustAry) {
+        [searchCustAry removeAllObjects];
+        searchCustAry = nil;
+    }
+    if (searchProdAry) {
+        [searchProdAry removeAllObjects];
+        searchProdAry = nil;
+    }
+    search.isPullUp_refresh = YES;
+    searchCustAry = [NSMutableArray array];
+    searchProdAry = [NSMutableArray array];
     [self searchWIthText:textField.text];
     return YES;
 }
@@ -459,6 +508,8 @@
         [self findProdute:tempModel.servId withProductType:tempModel.productTypeId withText:tempModel.accNbr withModel:tempModel];
     }
 }
+
+
 
 #pragma mark - scroll
 // 开始
