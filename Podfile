@@ -8,4 +8,6 @@ target 'IseeWebView' do
   pod 'MBProgressHUD'
   pod 'Masonry'
   pod 'SVGKit'
+  pod 'MJRefresh'
 end
+

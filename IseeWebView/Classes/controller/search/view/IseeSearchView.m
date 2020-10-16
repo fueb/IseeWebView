@@ -9,7 +9,12 @@
 #import "IseeSearchView.h"
 #import "IseeConfig.h"
 #import <Masonry.h>
+#import "MJRefresh.h"
+#import "MBProgressHUD.h"
+#import "IseeSearchViewController.h"
+#import "IseeAFNetRequest.h"
 
+static MBProgressHUD *HUD;
 @interface IseeSearchView()
 @property(nonatomic,copy) UIView *searchBgView;
 @property(nonatomic,copy) UITextField *searchField;
@@ -95,6 +100,11 @@
    
 }
 
+- (NSString *)getFieldText
+{
+    return self.searchField.text;
+}
+
 - (void)getTable{
     __weak typeof(self) wkSelf = self;
     [self addSubview:self.tableBgView];
@@ -140,6 +150,9 @@
 - (void)reloadTable{
     [searchTable reloadData];
 }
+- (void)endRefresh{
+    [searchTable.mj_footer endRefreshing];
+}
 
 #pragma mark - event
 
@@ -162,6 +175,28 @@
         searchTable.delegate = _mDelegate;
         searchTable.dataSource = _mDelegate;
         searchTable.tableFooterView = [[UIView alloc]init];
+        
+        WS(weakSelf);
+        searchTable.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+            if (_searchField.text.length <= 0) {
+                [weakSelf.searchTable.mj_footer endRefreshing];
+                return;
+            }
+            if (_isPullUp_refresh)
+            {
+                
+                if (_tableLoad) {
+                    _tableLoad();
+                }
+            }
+            else
+            {
+                [weakSelf.searchTable.mj_footer endRefreshing];
+                NSLog(@"加载更多1");
+                [IseeAFNetRequest showHUD:weakSelf withText:@"已全部加载完毕"];
+            }
+        }];
+       
     }
     return searchTable;
 }
@@ -176,4 +211,7 @@
     }
     return tableBgView;
 }
+
+
+
 @end

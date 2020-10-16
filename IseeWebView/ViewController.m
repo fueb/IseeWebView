@@ -82,18 +82,34 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    
     [super viewDidAppear:animated];
 //    [self goChoice];
 }
 -(void)btnClick{
-        IseeChoiceRegionViewController *vc = [[IseeChoiceRegionViewController alloc] initWithLoginName:@"15336567225" withCompanyId:@"9662" withSession:@"sasdad" withUserId:@"1231" withSaleNum:@"1231"];
+    IseeChoiceRegionViewController *vc = [[IseeChoiceRegionViewController alloc] initWithLoginName:@"17706570978" withCompanyId:@"9662" withSession:@"sasdad" withUserId:@"1231" withSaleNum:@"1231"];
+    vc.modalPresentationStyle = UIModalPresentationFullScreen;
+    [vc getRegion];
+    __weak ViewController * weakSelf = self;
+    __weak IseeChoiceRegionViewController * weakvc = vc;
+    [vc setReturnRegion:^(IseeHomeRequestModel * _Nonnull regionJson, NSInteger conType, NSString * _Nonnull errorStr) {
+        if (conType == 0)
+        {
+            //获取信息失败提示信息
+            NSLog(@"%@",errorStr);
+        }
+        else if (conType == 1)
+        {
+            [weakSelf presentViewController:weakvc animated:YES completion:nil];
+        }
+        else if (conType == 2)
+        {
+            IseeWebHomeTabBar *homeTabBar = [[IseeWebHomeTabBar alloc]initWithModel:regionJson];
+            homeTabBar.modalPresentationStyle = UIModalPresentationFullScreen;
+            [weakSelf presentViewController:homeTabBar animated:YES completion:nil];
+        }
         
-    //    homeTabBar.mLoginName = @"13305834567";
-    //    homeTabBar.mCompanyId = @"221166";
-        
-    //    UINavigationController *navigate=[[UINavigationController alloc] initWithRootViewController:homeTabBar];
-        vc.modalPresentationStyle = UIModalPresentationFullScreen;
-        [self presentViewController:vc animated:YES completion:nil];
+    }];
     
 }
 -(void)goSearch{
@@ -104,10 +120,6 @@
 }
 -(void)gotoHome{
     IseeWebHomeTabBar *homeTabBar = [[IseeWebHomeTabBar alloc]initWithModel:nil];
-//    homeTabBar.mLoginName = @"15305796839";
-//    homeTabBar.mCompanyId = @"9662";
-    
-//    UINavigationController *navigate=[[UINavigationController alloc] initWithRootViewController:homeTabBar];
     homeTabBar.modalPresentationStyle = UIModalPresentationFullScreen;
     [self presentViewController:homeTabBar animated:YES completion:nil];
 }

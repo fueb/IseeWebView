@@ -19,6 +19,7 @@
 #import "IseeProdModel.h"
 #import "IseeProdCell.h"
 #import "IseeSearchViewController.h"
+#import "IseeLoadingView.h"
 
 @interface IseeHomeViewController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>{
     IseeHomeModel   *iseeHomeModel;
@@ -29,6 +30,7 @@
     NSMutableArray *searchCustAry;
     NSMutableArray *searchProdAry;
     BOOL isFirstOpen;
+    IseeLoadingView *loading;
     
 }
 @property (nonatomic, strong)NSDictionary *loginDict;
@@ -70,6 +72,24 @@
     }
     
     isFirstOpen = NO;
+}
+
+- (void)showLoading{
+    [loading removeFromSuperview];
+    loading = nil;
+    loading = [[IseeLoadingView alloc] initWithView:self.view];
+    [self.view addSubview:loading];
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        sleep(50);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [loading setHidden:YES];
+        });
+    });
+}
+
+- (void)removeLoading{
+    [loading removeFromSuperview];
+    loading = nil;
 }
 
 
@@ -389,9 +409,12 @@
 }
 
 - (void)ssoLogin{
-    [IseeAFNetRequest showHUD:self.view];
+    [self showLoading];
+    
+    __weak typeof(self) wkSelf = self;
     [self.iseeHomeTabBarModel isee_ssoLoginWith:_requesetModel.mLoginName withCompanyId:_requesetModel.mCompanyId withStaffCode:_requesetModel.mStaffCode withManagerId:_requesetModel.mManagerId Success:^(id  _Nonnull result) {
         NSLog(@"%@", result);
+        [wkSelf removeLoading];
         if ([result[@"code"] integerValue] == 200)
         {
             NSDictionary *data = result[@"data"];
@@ -424,16 +447,19 @@
              IseeAlert(result[@"msg"],NULL);
         }
     } failure:^{
-        
+        [wkSelf removeLoading];
     }];
     
 }
 
 - (void)login{
     
-    [IseeAFNetRequest showHUD:self.view];
+    [self showLoading];
+    
+    __weak typeof(self) wkSelf = self;
     [self.iseeHomeTabBarModel isee_loginWith:_requesetModel.mManagerId withStaffCode:_requesetModel.mStaffCode Success:^(id  _Nonnull result) {
         NSLog(@"%@", result);
+        [wkSelf removeLoading];
         if ([result[@"code"] integerValue] == 200)
         {
             NSDictionary *data = result[@"data"];
@@ -452,6 +478,7 @@
         }
     } failure:^{
     //        [home setModel:modelAry];
+        [wkSelf removeLoading];
     }];
 
     
@@ -463,12 +490,15 @@
 
 - (void)getMenu
 {
-    [IseeAFNetRequest showHUD:self.view];
+    [self showLoading];
+    
+    __weak typeof(self) wkSelf = self;
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
     [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
     [self.iseeHomeModel isee_homeMenuWith:param Success:^(id  _Nonnull result) {
         NSLog(@"%@", result);
+        [wkSelf removeLoading];
         if ([result[@"code"] integerValue] == 200)
         {
             NSDictionary *data = result[@"data"];
@@ -502,6 +532,7 @@
             NSLog(@"%@",result[@"errmsg"], nil);
         }
     } failure:^{
+        [wkSelf removeLoading];
 //        [home setModel:modelAry];
     }];
     
@@ -515,8 +546,11 @@
     [param setObject:_requesetModel.areaId forKey:@"areaId"];
     [param setObject:@7 forKey:@"statId"];
     
-     [IseeAFNetRequest showHUD:self.view];
+     [self showLoading];
+    
+    __weak typeof(self) wkSelf = self;
     [self.iseeHomeModel isee_myTaskWithParam:param WithSuccess:^(id  _Nonnull result) {
+        [wkSelf removeLoading];
         NSLog(@"%@", result);
         if ([result[@"code"] integerValue] == 200)
         {
@@ -534,6 +568,7 @@
             NSLog(@"%@",result[@"errmsg"], nil);
         }
     } failure:^{
+        [wkSelf removeLoading];
         
     }];
 }
@@ -545,9 +580,12 @@
     [param setObject:_requesetModel.latnId forKey:@"latnId"];
      
     
-    [IseeAFNetRequest showHUD:self.view];
+    [self showLoading];
+    
+    __weak typeof(self) wkSelf = self;
     [self.iseeHomeModel isee_querySendOrderWithParam:param WithSuccess:^(id  _Nonnull result) {
         NSLog(@"%@", result);
+        [wkSelf removeLoading];
         if ([result[@"code"] integerValue] == 200)
         {
             NSDictionary *data = result[@"data"];
@@ -566,7 +604,7 @@
             NSLog(@"%@",result[@"errmsg"], nil);
         }
     } failure:^{
-        
+        [wkSelf removeLoading];
     }];
 }
 
@@ -578,8 +616,11 @@
     [param setObject:_requesetModel.areaId forKey:@"areaId"];
     [param setObject:@6 forKey:@"statId"];
     
-     [IseeAFNetRequest showHUD:self.view];
+     [self showLoading];
+    
+    __weak typeof(self) wkSelf = self;
     [self.iseeHomeModel isee_custInfoWithParam:param WithSuccess:^(id  _Nonnull result) {
+        [wkSelf removeLoading];
         NSLog(@"getImporant:%@", result);
         if ([result[@"code"] integerValue] == 200)
         {
@@ -610,7 +651,7 @@
             NSLog(@"%@",result[@"errmsg"], nil);
         }
     } failure:^{
-        
+        [wkSelf removeLoading];
     }];
 }
 
@@ -630,8 +671,11 @@
     
     [param setObject:currentTime forKey:@"statCycleId"];
     
-     [IseeAFNetRequest showHUD:self.view];
+     [self showLoading];
+    
+    __weak typeof(self) wkSelf = self;
     [self.iseeHomeModel isee_managerCustomLostWithParam:param WithSuccess:^(id  _Nonnull result) {
+        [wkSelf removeLoading];
         NSLog(@"%@", result);
         if ([result[@"code"] integerValue] == 200)
         {
@@ -647,7 +691,7 @@
             NSLog(@"%@",result[@"errmsg"], nil);
         }
     } failure:^{
-        
+        [wkSelf removeLoading];
     }];
 }
 
@@ -667,8 +711,11 @@
     
 
     
-     [IseeAFNetRequest showHUD:self.view];
+     [self showLoading];
+    
+    __weak typeof(self) wkSelf = self;
     [self.iseeHomeModel isee_getBlueCustMsgWithParam:param WithSuccess:^(id  _Nonnull result) {
+        [wkSelf removeLoading];
         NSLog(@"%@", result);
         if ([result[@"code"] integerValue] == 200)
         {
@@ -685,7 +732,7 @@
             NSLog(@"%@",result[@"errmsg"], nil);
         }
     } failure:^{
-        
+        [wkSelf removeLoading];
     }];
 }
 
@@ -698,10 +745,13 @@
     [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
     [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
     
-    [IseeAFNetRequest showHUD:self.view];
+    [self showLoading];
+    
+    __weak typeof(self) wkSelf = self;
     if (searchInt == 0) {
         [param setObject:_requesetModel.latnId forKey:@"latnId"];
         [self.iseeHomeModel isee_findCustMsgWithParam:param WithSuccess:^(id  _Nonnull result) {
+            [wkSelf removeLoading];
             if ([result[@"code"] integerValue] == 200)
             {
                 NSArray *data = result[@"data"];
@@ -721,12 +771,13 @@
                  IseeAlert(result[@"msg"],NULL);
             }
         } failure:^{
-            
+            [wkSelf removeLoading];
         }];
     }
     else if (searchInt == 1)
     {
         [self.iseeHomeModel isee_findProdWithParam:param WithSuccess:^(id  _Nonnull result) {
+            [wkSelf removeLoading];
             if ([result[@"code"] integerValue] == 200)
             {
                 NSArray *data = result[@"data"];
@@ -746,7 +797,7 @@
                 IseeAlert(result[@"msg"],NULL);
             }
         } failure:^{
-            
+            [wkSelf removeLoading];
         }];
     }
     
@@ -760,8 +811,11 @@
     [param setObject:servId forKey:@"servId"];
     [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
     [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
-    [IseeAFNetRequest showHUD:self.view];
+    [self showLoading];
+    
+    __weak typeof(self) wkSelf = self;
     [self.iseeHomeModel isee_findProductWithParam:param WithSuccess:^(id  _Nonnull result) {
+        [wkSelf removeLoading];
         if ([result[@"code"] integerValue] == 200)
         {
             NSDictionary *data = result[@"data"];
@@ -810,7 +864,7 @@
             IseeAlert(result[@"msg"],NULL);
         }
     } failure:^{
-        
+        [wkSelf removeLoading];
     }];
 }
 

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -46,6 +46,7 @@
 		2DEC697624FF3BEC00695ED7 /* IseeSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DEC697524FF3BEC00695ED7 /* IseeSearchView.m */; };
 		2DF5513E24F69220009F743D /* IseeWebResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2DF5513D24F69220009F743D /* IseeWebResource.bundle */; };
 		2DF5514024F69316009F743D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DF5513F24F69316009F743D /* Assets.xcassets */; };
+		65663F6625131767002368DF /* IseeLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65663F6525131767002368DF /* IseeLoadingView.m */; };
 		73A9E6F49D854085D3A6E7F3 /* libPods-IseeWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C3FFFB8606F300C951FB90 /* libPods-IseeWebView.a */; };
 /* End PBXBuildFile section */
 
@@ -145,6 +146,8 @@
 		2DF5513D24F69220009F743D /* IseeWebResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IseeWebResource.bundle; sourceTree = "<group>"; };
 		2DF5513F24F69316009F743D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A7FF4EA19FF42ED579CF236 /* Pods-IseeWebView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IseeWebView.release.xcconfig"; path = "Target Support Files/Pods-IseeWebView/Pods-IseeWebView.release.xcconfig"; sourceTree = "<group>"; };
+		65663F6425131767002368DF /* IseeLoadingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeLoadingView.h; sourceTree = "<group>"; };
+		65663F6525131767002368DF /* IseeLoadingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeLoadingView.m; sourceTree = "<group>"; };
 		92C3FFFB8606F300C951FB90 /* libPods-IseeWebView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IseeWebView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -261,6 +264,8 @@
 		2D7B49EE24C8900D008DE649 /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				65663F6425131767002368DF /* IseeLoadingView.h */,
+				65663F6525131767002368DF /* IseeLoadingView.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -479,6 +484,7 @@
 				2DDDE55524C8490600015C76 /* Sources */,
 				2DDDE55624C8490600015C76 /* Frameworks */,
 				2DDDE55724C8490600015C76 /* Resources */,
+				6DFDBB5FDD56669FCCE03FD7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -597,6 +603,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6DFDBB5FDD56669FCCE03FD7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-IseeWebView/Pods-IseeWebView-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-IseeWebView/Pods-IseeWebView-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-IseeWebView/Pods-IseeWebView-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C831FE8B62715337E4A0824B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -647,6 +670,7 @@
 				2D877B8F24CFBDA900AA2983 /* IseeWebViewController.m in Sources */,
 				2D398C1825078EF600E516C5 /* IseeChoiceRegionModel.m in Sources */,
 				2D9CD07224F5408F002B9CE1 /* IseeCustModel.m in Sources */,
+				65663F6625131767002368DF /* IseeLoadingView.m in Sources */,
 				2D9FFDE724C9D2E000A41353 /* CLLocation+IseeSino.m in Sources */,
 				2D5D43A624E4305D005A3E2F /* IseeHomeTabBarModel.m in Sources */,
 				2D71659524E13B1500611439 /* IseeHomeModel.m in Sources */,

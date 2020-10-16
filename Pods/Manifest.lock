@@ -19,6 +19,7 @@ PODS:
   - CocoaLumberjack/Core (3.6.2)
   - Masonry (1.1.0)
   - MBProgressHUD (1.2.0)
+  - MJRefresh (3.5.0)
   - SVGKit (2.1.1):
     - CocoaLumberjack (~> 3.0)
 
@@ -26,6 +27,7 @@ DEPENDENCIES:
   - AFNetworking (~> 3.0)
   - Masonry
   - MBProgressHUD
+  - MJRefresh
   - SVGKit
 
 SPEC REPOS:
@@ -34,6 +36,7 @@ SPEC REPOS:
     - CocoaLumberjack
     - Masonry
     - MBProgressHUD
+    - MJRefresh
     - SVGKit
 
 SPEC CHECKSUMS:
@@ -41,8 +44,9 @@ SPEC CHECKSUMS:
   CocoaLumberjack: bd155f2dd06c0e0b03f876f7a3ee55693122ec94
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   SVGKit: 652cdf7bef8bec8564d04a8511d3ab50c7595fac
 
-PODFILE CHECKSUM: e7d204678cfe067fd6f89a4d1c2fe55cc50528e7
+PODFILE CHECKSUM: 7fe69bc99fe493cc6efe556d06860f831da3db4c
 
 COCOAPODS: 1.9.3

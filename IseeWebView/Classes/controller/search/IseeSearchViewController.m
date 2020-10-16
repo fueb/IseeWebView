@@ -16,6 +16,7 @@
 #import "IseeAFNetRequest.h"
 #import "IseeHomeModel.h"
 #import "IseeWebViewController.h"
+#import "IseeLoadingView.h"
 
 @interface IseeSearchViewController ()
 {
@@ -25,6 +26,11 @@
     
     NSMutableArray *searchCustAry;
     NSMutableArray *searchProdAry;
+    NSInteger pageNum;
+    NSInteger pageSize;
+    BOOL isLoading;
+    
+    IseeLoadingView *loading;
 }
 @end
 
@@ -33,6 +39,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    isLoading = NO;
+    pageNum = 0;
+    pageSize = 15;
     modelAry = [[NSMutableArray alloc] init];
     CGFloat safeBottom = 0;
     if ([IseeConfig isNotchScreen]) {
@@ -41,10 +50,12 @@
     search = [[IseeSearchView alloc] initWithFrame:CGRectMake(0, 0, UIScreenWidth, UIScreenHeight)];
     
     search.mDelegate = self;
+    search.isPullUp_refresh = YES;
     
     [self.view addSubview:search];
     [search setModel:modelAry];
     [self setClick];
+    [self setLoadMore];
     if (_searchInt == 0) {
         [search setFieldPlace:@"请输入企业名称"];
     }
@@ -61,23 +72,65 @@
     }];
 }
 
+- (void)showLoading{
+    [loading removeFromSuperview];
+    loading = nil;
+    loading = [[IseeLoadingView alloc] initWithView:self.view];
+    [self.view addSubview:loading];
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        sleep(50);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [loading setHidden:YES];
+        });
+    });
+}
+
+- (void)removeLoading{
+    [loading removeFromSuperview];
+    loading = nil;
+}
+
+- (void)setLoadMore{
+    __weak typeof(self) wkSelf = self;
+    
+    [search setTableLoad:^{
+        pageNum++;
+        [wkSelf searchWIthText:[search getFieldText]];
+    }];
+}
+
 
 - (void)searchWIthText:(NSString *)text{
     if (text.length <= 0) {
+//        [IseeAFNetRequest showHUD:self.view withText:@"请输入关键字"];
+        IseeAlert(@"请输入关键字",NULL);
         return;
     }
+    if (isLoading) {
+        return;
+    }
+    isLoading = YES;
+    __weak typeof(self) wkSelf = self;
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:text forKey:@"text"];
     [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
     [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
-    [IseeAFNetRequest showHUD:self.view];
+    [param setObject:[NSString stringWithFormat:@"%ld",(long)pageSize] forKey:@"pageSize"];
+    [param setObject:[NSString stringWithFormat:@"%ld",(long)pageNum] forKey:@"pageNum"];
+//    [IseeAFNetRequest showHUD:self.view];
+    [self showLoading];
     if (_searchInt == 0) {
         [param setObject:_requesetModel.latnId forKey:@"latnId"];
         [self.iseeHomeModel isee_findCustMsgWithParam:param WithSuccess:^(id  _Nonnull result) {
+            [wkSelf removeLoading];
+            [search endRefresh];
             if ([result[@"code"] integerValue] == 200)
             {
                 NSArray *data = result[@"data"];
-                searchCustAry = [NSMutableArray array];
+                if (data.count < 15) {
+                    search.isPullUp_refresh = NO;
+                }
+                
                 for (int i = 0;i < data.count;i++)
                 {
                     NSDictionary *dict = data[i];
@@ -92,17 +145,26 @@
             {
                  IseeAlert(result[@"msg"],NULL);
             }
+            isLoading = NO;
         } failure:^{
-            
+            isLoading = NO;
+            [search endRefresh];
+            IseeAlert(@"请求超时",NULL);
+            [wkSelf removeLoading];
         }];
     }
     else if (_searchInt == 1)
     {
         [self.iseeHomeModel isee_findProdWithParam:param WithSuccess:^(id  _Nonnull result) {
+            [wkSelf removeLoading];
+            [search endRefresh];
             if ([result[@"code"] integerValue] == 200)
             {
                 NSArray *data = result[@"data"];
-                searchProdAry = [NSMutableArray array];
+                if (data.count < 15) {
+                    search.isPullUp_refresh = NO;
+                }
+                
                 for (int i = 0;i < data.count;i++)
                 {
                     NSDictionary *dict = data[i];
@@ -117,8 +179,13 @@
             {
                 IseeAlert(result[@"msg"],NULL);
             }
+            isLoading = NO;
         } failure:^{
-            
+            isLoading = NO;
+            [search endRefresh];
+//            [IseeAFNetRequest showHUD:wkSelf.view withText:@"请求失败，请重试"];
+            IseeAlert(@"请求超时",NULL);
+            [wkSelf removeLoading];
         }];
     }
     
@@ -127,14 +194,22 @@
 
 - (void)findProdute:(NSString *)servId withProductType:(NSString *)productType withText:(NSString *)text withModel:(IseeProdModel *)tempModel
 {
+    if(text==nil||productType==nil||servId ==nil)
+    {
+        IseeAlert(@"参数不正确", nil);
+        return;
+    }
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:text forKey:@"text"];
     [param setObject:productType forKey:@"productType"];
     [param setObject:servId forKey:@"servId"];
     [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
     [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
-    [IseeAFNetRequest showHUD:self.view];
+//    [IseeAFNetRequest showHUD:self.view];
+    [self showLoading];
+    __weak typeof(self) wkSelf = self;
     [self.iseeHomeModel isee_findProductWithParam:param WithSuccess:^(id  _Nonnull result) {
+        [wkSelf removeLoading];
         if ([result[@"code"] integerValue] == 200)
         {
             NSDictionary *data = result[@"data"];
@@ -183,7 +258,7 @@
             IseeAlert(result[@"msg"],NULL);
         }
     } failure:^{
-        
+        [wkSelf removeLoading];
     }];
 }
 
@@ -195,8 +270,11 @@
     [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
     [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
     
-    [IseeAFNetRequest showHUD:self.view];
+//    [IseeAFNetRequest showHUD:self.view];
+    [self showLoading];
+    __weak typeof(self) wkSelf = self;
     [self.iseeHomeModel isee_findCrmWithParam:param WithSuccess:^(id  _Nonnull result) {
+        [wkSelf removeLoading];
         if ([result[@"code"] integerValue] == 200)
         {
             NSArray *data = result[@"data"];
@@ -283,18 +361,26 @@
         }
     }
     failure:^{
-        
+        [wkSelf removeLoading];
     }];
     
 }
 
 - (void)findVip:(NSString *)test withModel:(IseeCustModel *)tempModel{
+    if(test == nil)
+    {
+        IseeAlert(@"参数不正确", nil);
+        return;
+    }
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:test forKey:@"text"];
     [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
     [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
-    [IseeAFNetRequest showHUD:self.view];
+//    [IseeAFNetRequest showHUD:self.view];
+    [self showLoading];
+    __weak typeof(self) wkSelf = self;
     [self.iseeHomeModel isee_findVipWithParam:param WithSuccess:^(id  _Nonnull result) {
+        [wkSelf removeLoading];
         if ([result[@"code"] integerValue] == 200)
         {
             [self findCrm:tempModel.ser_id withLatnId:_requesetModel.latnId withModel:tempModel];
@@ -309,17 +395,25 @@
         }
     }
     failure:^{
-        
+        [wkSelf removeLoading];
     }];
 }
 
 - (void)findBlue:(NSString *)test withModel:(IseeCustModel *)tempModel{
+    if(test==nil)
+    {
+        IseeAlert(@"参数不正确", nil);
+        return;
+    }
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:test forKey:@"text"];
     [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
     [param setObject:_requesetModel.mStaffCode forKey:@"staffCode"];
-    [IseeAFNetRequest showHUD:self.view];
+//    [IseeAFNetRequest showHUD:self.view];
+    [self showLoading];
+    __weak typeof(self) wkSelf = self;
     [self.iseeHomeModel isee_findBlueWithParam:param WithSuccess:^(id  _Nonnull result) {
+        [wkSelf removeLoading];
         if ([result[@"code"] integerValue] == 200)
         {
             NSArray *data = result[@"data"];
@@ -376,7 +470,7 @@
         }
     }
     failure:^{
-        
+        [wkSelf removeLoading];
     }];
 }
 
@@ -384,6 +478,18 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
+    pageNum = 0;
+    if (searchCustAry) {
+        [searchCustAry removeAllObjects];
+        searchCustAry = nil;
+    }
+    if (searchProdAry) {
+        [searchProdAry removeAllObjects];
+        searchProdAry = nil;
+    }
+    search.isPullUp_refresh = YES;
+    searchCustAry = [NSMutableArray array];
+    searchProdAry = [NSMutableArray array];
     [self searchWIthText:textField.text];
     return YES;
 }
@@ -459,6 +565,8 @@
         [self findProdute:tempModel.servId withProductType:tempModel.productTypeId withText:tempModel.accNbr withModel:tempModel];
     }
 }
+
+
 
 #pragma mark - scroll
 // 开始

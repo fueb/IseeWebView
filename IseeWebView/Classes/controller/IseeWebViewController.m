@@ -16,6 +16,7 @@
 #import "UIViewController+IseeCommon.h"
 #import "IseeNaviBarView.h"
 #import "IseeChoiceRegionViewController.h"
+#import "IseeAFNetRequest.h"
 
 
 @interface IseeWebViewController ()<WKNavigationDelegate, WKUIDelegate,UIImagePickerControllerDelegate,ScanViewDelegate,CLLocationManagerDelegate,SFSpeechRecognizerDelegate>
@@ -120,7 +121,6 @@
     //将GIF图片分解成多张PNG图片
     //得到GIF图片的url
 //    NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"refreshing01" withExtension:@"gif"];
-
     
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"IseeWebResource.bundle" ofType:nil];
     NSString *configPath = [bundlePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%@",@"img",@"iseeLoading.gif"]];
@@ -197,13 +197,30 @@
 //    if (_reallyGo) {
 //        [self dismissViewControllerAnimated:YES completion:nil];
 //        return;
-//    }nowUrl    NSURL *    @"http://115.239.138.159:18009/customer-view-1.0/transparentQuery.html"    0x00006000031ea280
+//    }
     if (self.wkWebView.canGoBack) {
         NSString *nowUrlStr = [self.wkWebView.URL absoluteString];
         if ([nowUrlStr rangeOfString:@"transparentQuery"].location != NSNotFound)
         {
-            [self dismissViewControllerAnimated:YES completion:nil];
-            return;
+            if (_isHomeGo)
+            {
+                [self dismissViewControllerAnimated:YES completion:nil];
+                return;
+            }
+        }
+        if ([self.wkWebView.title isEqualToString:@"资产详情"]||[self.wkWebView.title isEqualToString:@"订单详情"]) {
+            if (self.wkWebView.backForwardList.backList.count>0) {                                  //得到栈里面的list
+                WKBackForwardListItem * item = self.wkWebView.backForwardList.currentItem;
+                //得到现在加载的list
+                for (WKBackForwardListItem * backItem in self.wkWebView.backForwardList.backList) { //循环遍历，得到你想退出到
+                     //添加判断条件
+                    if ([backItem.title isEqualToString:@"资产列表"]|[backItem.title isEqualToString:@"订单列表"]) {
+                        [self.wkWebView goToBackForwardListItem:backItem];
+                        return;
+                    }
+                }
+            }
+            
         }
         [self.wkWebView goBack];
 
@@ -441,16 +458,25 @@
     [self execJavaScript:js];
 }
 -(void)openIsee{
-    UIViewController *vc = self;
-    int i = 0;
-    while (vc.presentingViewController) {
-        i++;
-        vc = vc.presentingViewController;
-        if (i == 2) {
-            break;
-        }
+//    UIViewController *vc = self;
+//    int i = 0;
+//    while (vc.presentingViewController) {
+//        i++;
+//        vc = vc.presentingViewController;
+//        if (i == 2) {
+//            break;
+//        }
+//    }
+//    [vc dismissViewControllerAnimated:YES completion:nil];
+    
+    UIViewController *vc        = [[NSClassFromString(@"iSeeRootViewController") alloc]init];
+    SEL runAction = NSSelectorFromString(@"goToTheNormalHomePage");
+    
+    if([vc respondsToSelector:runAction]){
+
+        objc_msgSend(vc, runAction);
     }
-    [vc dismissViewControllerAnimated:YES completion:nil];
+    
 
 }
 
@@ -737,17 +763,19 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation{
     NSLog(@"页面加载完成");
     gifImageView.hidden = YES;
+    
+//    [IseeAFNetRequest removeHUD];
 }
 /* 页面加载失败 */
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error{
     NSLog(@"页面加载失败:%@",error);
     gifImageView.hidden = YES;
+//    [IseeAFNetRequest removeHUD];
 }
 
 
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler
 {// 类似 UIWebView 的 -webView: shouldStartLoadWithRequest: navigationType:
-
     
     NSURL *URL = navigationAction.request.URL;
     NSString * urlStr = [[URL absoluteString] stringByRemovingPercentEncoding];
@@ -847,8 +875,8 @@
         return;
     }
      
-        decisionHandler(WKNavigationActionPolicyAllow); // 必须实现 加载
-        return;
+    decisionHandler(WKNavigationActionPolicyAllow); // 必须实现 加载
+    return;
 }
 
 
@@ -950,12 +978,14 @@
                 if (!_isHomeGo) {
                     [_topNavBar backBtnHide];
                 }
-                
-                
+                _tabbarHave = YES;
+                self.tabBarController.tabBar.hidden=NO;
             }
             else
             {
                 [_topNavBar backBtnShow];
+                _tabbarHave = NO;
+                self.tabBarController.tabBar.hidden=YES;
             }
             
             CGFloat safeBottom = 0;
@@ -996,7 +1026,7 @@
                 }
             }
             [self.wkWebView setFrame:wkFrame];
-            [self.wkWebView setNeedsDisplay];
+            [self.view setNeedsDisplay];
             NSLog(@"%@",self.title);
         }
         else

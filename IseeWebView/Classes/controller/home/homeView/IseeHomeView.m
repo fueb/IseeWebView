@@ -97,8 +97,25 @@
 
 - (void)setModel:(NSMutableArray *)model
 {
-//    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    NSArray *subViews = menuView.subviews;
+    [self removeView];
+     _model = model;
+    
+    [self getScroll];
+    [self searchView];
+    [self taskView];
+    [self menu];
+    [self down];
+    [self developeView];
+    [self setNeedsDisplay];
+}
+
+-(void)removeView{
+    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    NSArray *subViews = _scroll.subviews;
+    for (UIView *viewItem in subViews) {
+        [viewItem removeFromSuperview];
+    }
+    subViews = menuView.subviews;
     for (UIView *viewItem in subViews) {
         [viewItem removeFromSuperview];
     }
@@ -106,16 +123,19 @@
     for (UIView *viewItem in subViews) {
         [viewItem removeFromSuperview];
     }
-    
-     _model = model;
-    [self getScroll];
-    [self searchView];
-    [self taskView];
-    [self menu];
-    [self down];
-    [self developeView];
+    [menuView removeFromSuperview];
+    [taskBgView removeFromSuperview];
+    [visitBgView removeFromSuperview];
+    [expirBgView removeFromSuperview];
+    [callBgView removeFromSuperview];
+    [bordbandBgView removeFromSuperview];
+    menuView = nil;
+    taskBgView = nil;
+    visitBgView = nil;
+    expirBgView = nil;
+    callBgView = nil;
+    bordbandBgView = nil;
 }
-
 
 
 - (void)setTaskNum:(NSString *)taskNum
@@ -285,16 +305,16 @@
     [self addSubview:_scroll];
     
     int menuLine = 2;
-//    if (_model.count > 0) {
-//        menuLine = (_model.count/5) + 1;
-//        int tempCount = _model.count%5;
-//        if (tempCount == 0) {
-//            menuLine--;
-//        }
-//    }
+    if (_model.count > 0) {
+        menuLine = (_model.count/5) + 1;
+        int tempCount = _model.count%5;
+        if (tempCount == 0) {
+            menuLine--;
+        }
+    }
     
     _contentView = [[UIView alloc] init];
-    _contentView.backgroundColor = [IseeConfig stringTOColor:@"#ECECEC"];
+    _contentView.backgroundColor = [IseeConfig stringTOColor:@"#F0F3F7"];
     [_scroll addSubview:_contentView];
      
     [_scroll addSubview:self.downView];
@@ -332,7 +352,7 @@
     
     [upBgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(searchBgView.mas_bottom);
-//        make.height.equalTo(@(215+(menuLine * 100)));
+//        make.height.equalTo(@(200+(menuLine * 91)));
         make.bottom.equalTo(taskBgView.mas_bottom).offset(15);
         make.left.right.equalTo(_scroll);
     }];
@@ -341,7 +361,7 @@
         make.top.mas_equalTo(searchBgView.mas_centerY).offset(35);
         make.left.mas_equalTo(_scroll.mas_left).offset(12);
         make.right.mas_equalTo(_scroll.mas_right).offset(-12);
-        make.height.mas_equalTo(182);
+        make.height.mas_equalTo(@(menuLine * 91));
     }];
     
     [taskBgView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -375,14 +395,14 @@
     
     [downView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(upBgView.mas_bottom).with.offset(10);
-        make.height.equalTo(@(630));
+        make.height.equalTo(@(600));
         make.left.right.equalTo(searchBgView);
         make.bottom.mas_equalTo(0);
     }];
     repairBgView.hidden = YES;
     complaintBgView.hidden = YES;
     faultBgView.hidden = YES;
-    
+    [_scroll setNeedsDisplay];
 }
 
 - (void)searchView{
@@ -669,7 +689,7 @@
     fllowLab.font = [UIFont fontWithName:@"Helvetica" size:16];
     
     UIView * downBgView = [[UIView alloc] init];
-    [downBgView setBackgroundColor:[IseeConfig stringTOColor:@"#EDF0F5"]];
+    [downBgView setBackgroundColor:[IseeConfig stringTOColor:@"#F0F3F7"]];
     
     UILabel * myBule = [[UILabel alloc] init];
     myBule.text = @"我的蓝海";

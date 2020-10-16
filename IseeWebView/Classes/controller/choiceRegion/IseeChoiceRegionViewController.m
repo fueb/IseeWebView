@@ -15,6 +15,7 @@
 #import "IseeRegionCell.h"
 #import "IseeWebHomeTabBar.h"
 #import "IseeHomeRequestModel.h"
+#import "IseeLoadingView.h"
 
 @interface IseeChoiceRegionViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -26,6 +27,7 @@
     NSMutableArray *regionAry;
     IseeChoiceRegionModel *regionModel;
     IseeHomeRequestModel *requestModel;
+    IseeLoadingView *loading;
 }
 
 - (instancetype)initWithLoginName:(NSString *)loginName withCompanyId:(NSString *)comanyId withSession:(NSString *)session withUserId:(NSString *)userId withSaleNum:(NSString *)saleNum
@@ -63,21 +65,45 @@
     
     [self.view addSubview:choice];
     [choice setModel:nil];
-    [self getRegion];
+//    [self getRegion];
     // Do any additional setup after loading the view.
+}
+
+- (void)showLoading{
+    [loading removeFromSuperview];
+    loading = nil;
+    loading = [[IseeLoadingView alloc] initWithView:self.view];
+    [self.view addSubview:loading];
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        sleep(50);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [loading setHidden:YES];
+        });
+    });
+}
+
+- (void)removeLoading{
+    [loading removeFromSuperview];
+    loading = nil;
 }
 
 - (void)getRegion{
     
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:requestModel.mLoginName forKey:@"mobile"];
-//    [param setObject:_mAreaId forKey:@"areaId"];
     
-    [IseeAFNetRequest showHUD:self.view];
+//    [IseeAFNetRequest showHUD:self.view];
+    [self showLoading];
+    
+    __weak typeof(self) wkSelf = self;
     
     [self.regionModel isee_findRegionWithParam:param WithSuccess:^(id  _Nonnull result)
     {
+        [wkSelf removeLoading];
         NSLog(@"%@", result);
+        NSInteger type = 1;
+        NSString *errorStr = @"成功";
+        
         if ([result[@"code"] integerValue] == 200)
         {
             NSMutableArray *data = result[@"data"];
@@ -91,17 +117,38 @@
             }
             [choice reloadTable];
             if (regionAry.count == 1) {
+                type = 2;
                 IseeRegionModel *model     = regionAry[0];
-                [self goHome:model];
-                return;
+                
+                requestModel.latnId = model.latnId;
+                requestModel.mStaffCode = model.staffCode;
+                requestModel.mManagerId = model.managerId;
+                requestModel.mCompanyId = model.areaId;
+                requestModel.areaId = model.areaId;
+//                [self goHome:model];
+//                return;
             }
+            if (regionAry.count == 0) {
+                type = 0;
+                errorStr = @"没有包区信息";
+            }
+            
            
         }
         else
         {
+            type = 0;
+            errorStr = result[@"errmsg"];
             NSLog(@"%@",result[@"errmsg"], nil);
         }
+        if (_returnRegion) {
+            _returnRegion(requestModel,type,errorStr);
+        }
     } failure:^{
+        [wkSelf removeLoading];
+        if (_returnRegion) {
+            _returnRegion(nil,0,@"获取包区信息失败");
+        }
         
     }];
         
