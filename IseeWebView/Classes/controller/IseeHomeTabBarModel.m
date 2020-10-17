@@ -16,6 +16,7 @@
             withCompanyId:(NSString *)companyId
             withStaffCode:(NSString *)staffCode
             withManagerId:(NSString *)managerId
+        withManagerTypeId:(NSString *)managerTypeId
                   Success:(void (^)(id result))success
                   failure:(void (^)(void))failed
 {
@@ -35,9 +36,12 @@
     NSString *currentTime = [formatter stringFromDate:dateNow];
     [sendDict setObject:loginName forKey:@"loginMe"];
     [sendDict setObject:companyId forKey:@"companyId"];
-    [sendDict setObject:managerId forKey:@"managerId"];
-    [sendDict setObject:staffCode forKey:@"staffCode"];
-    [sendDict setObject:@"220" forKey:@"managerTypeId"];
+    if ([managerTypeId isEqualToString:@"220"])
+    {
+        [sendDict setObject:managerId forKey:@"managerId"];
+        [sendDict setObject:staffCode forKey:@"staffCode"];
+    }
+    [sendDict setObject:managerTypeId forKey:@"managerTypeId"];
     [sendDict setObject:@"isee" forKey:@"source"];
     
     NSString *md5Str = [NSString stringWithFormat:@"%@%@isee%@",loginName,companyId,currentTime];

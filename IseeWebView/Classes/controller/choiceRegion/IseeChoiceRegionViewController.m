@@ -91,7 +91,8 @@
     
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:requestModel.mLoginName forKey:@"mobile"];
-    
+//    [param setObject:requestModel.mCompanyId forKey:@"areaId"];
+    [param setObject:@"210,220" forKey:@"managerTypeIds"];
 //    [IseeAFNetRequest showHUD:self.view];
     [self showLoading];
     
@@ -101,12 +102,13 @@
     {
         [wkSelf removeLoading];
         NSLog(@"%@", result);
-        NSInteger type = 1;
+        NSInteger type = 1;//0:错误没有包区，1：多个包区进入包区选择页面，2：1个包区直接进入首页，3：管理员进入人员选择页面
         NSString *errorStr = @"成功";
         
         if ([result[@"code"] integerValue] == 200)
         {
             NSMutableArray *data = result[@"data"];
+            
             for (int i = 0;i < data.count;i++)
             {
                 NSDictionary *dict = data[i];
@@ -127,6 +129,7 @@
                 requestModel.areaId = model.areaId;
 //                [self goHome:model];
 //                return;
+                requestModel.mManagerTypeId = [NSString stringWithFormat:@"%ld",[model.managerTypeId longLongValue]];
             }
             if (regionAry.count == 0) {
                 type = 0;

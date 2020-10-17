@@ -458,16 +458,18 @@
     [self execJavaScript:js];
 }
 -(void)openIsee{
-//    UIViewController *vc = self;
-//    int i = 0;
-//    while (vc.presentingViewController) {
-//        i++;
-//        vc = vc.presentingViewController;
-//        if (i == 2) {
-//            break;
-//        }
-//    }
-//    [vc dismissViewControllerAnimated:YES completion:nil];
+    
+    UIViewController *vc        = [[NSClassFromString(@"iSeeRootViewController") alloc]init];
+    SEL runAction = NSSelectorFromString(@"goToTheNormalHomePage");
+    
+    if([vc respondsToSelector:runAction]){
+
+        objc_msgSend(vc, runAction);
+    }
+    
+
+}
+-(void)openIseeAdminView{
     
     UIViewController *vc        = [[NSClassFromString(@"iSeeRootViewController") alloc]init];
     SEL runAction = NSSelectorFromString(@"goToTheNormalHomePage");
@@ -870,6 +872,9 @@
         }
         else if([method isEqualToString:@"goBackChoice"]){
             [self goBackChoice];
+        }
+        else if([method isEqualToString:@"openIseeAdminView"]){
+            [self openIseeAdminView];
         }
         decisionHandler(WKNavigationActionPolicyCancel);
         return;

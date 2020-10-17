@@ -11,16 +11,17 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IseeHomeRequestModel : NSObject
-@property (nonatomic,strong)NSString *mLoginName;
-@property (nonatomic,strong)NSString *mCompanyId;
-@property (nonatomic,strong)NSString *mManagerId;
-@property (nonatomic,strong)NSString *mStaffCode;
-@property (nonatomic,strong)NSString *areaId;
-@property (nonatomic,strong)NSString *latnId;
-@property (nonatomic,strong)NSString *statId;
-@property (nonatomic,strong)NSString *mSession;
-@property (nonatomic,strong)NSString *mUserId;
-@property (nonatomic,strong)NSString *mSaleNum;
+@property (nonatomic,copy)NSString *mLoginName;
+@property (nonatomic,copy)NSString *mCompanyId;
+@property (nonatomic,copy)NSString *mManagerId;
+@property (nonatomic,copy)NSString *mStaffCode;
+@property (nonatomic,copy)NSString *areaId;
+@property (nonatomic,copy)NSString *latnId;
+@property (nonatomic,copy)NSString *statId;
+@property (nonatomic,copy)NSString *mSession;
+@property (nonatomic,copy)NSString *mUserId;
+@property (nonatomic,copy)NSString *mSaleNum;
+@property (nonatomic,copy)NSString *mManagerTypeId;
 @end
 
 NS_ASSUME_NONNULL_END

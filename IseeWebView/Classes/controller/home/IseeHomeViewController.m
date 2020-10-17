@@ -412,7 +412,8 @@
     [self showLoading];
     
     __weak typeof(self) wkSelf = self;
-    [self.iseeHomeTabBarModel isee_ssoLoginWith:_requesetModel.mLoginName withCompanyId:_requesetModel.mCompanyId withStaffCode:_requesetModel.mStaffCode withManagerId:_requesetModel.mManagerId Success:^(id  _Nonnull result) {
+    [self.iseeHomeTabBarModel isee_ssoLoginWith:_requesetModel.mLoginName withCompanyId:_requesetModel.mCompanyId withStaffCode:_requesetModel.mStaffCode withManagerId:_requesetModel.mManagerId
+    withManagerTypeId:@"220"  Success:^(id  _Nonnull result) {
         NSLog(@"%@", result);
         [wkSelf removeLoading];
         if ([result[@"code"] integerValue] == 200)

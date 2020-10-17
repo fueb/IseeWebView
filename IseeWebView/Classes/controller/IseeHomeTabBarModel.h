@@ -19,6 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
             withCompanyId:(NSString *)companyId
             withStaffCode:(NSString *)staffCode
             withManagerId:(NSString *)managerId
+        withManagerTypeId:(NSString *)managerTypeId
                   Success:(void (^)(id result))success
                   failure:(void (^)(void))failed;
 @end

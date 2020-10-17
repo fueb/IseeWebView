@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) NSString *staff97;
 @property (nonatomic,copy) NSString *staffCode;
 @property (nonatomic,copy) NSString *staffName;
+@property (nonatomic,copy) NSString *managerTypeId;
 @end
 
 NS_ASSUME_NONNULL_END

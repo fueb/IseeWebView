@@ -136,6 +136,13 @@
                 {
                     urlStr = [urlStr stringByAppendingFormat:@"&session=%@&userId=%@&saleNum=%@",_model.mSession,_model.mUserId,_model.mSaleNum];
                 }
+                if ([dict[titleKey] isEqualToString:@"我的"])
+                {
+                    if ([_model.mManagerTypeId isEqualToString:@"210"]) {
+                        urlStr = [urlStr stringByAppendingFormat:@"&admin=1"];
+                    }
+                    
+                }
                 
                 NSURL *url = [NSURL URLWithString:urlStr];//urlTF.text];
 //                 NSString *filePath = [[NSBundle mainBundle]pathForResource:@"test" ofType:@"html" inDirectory:@"www"];

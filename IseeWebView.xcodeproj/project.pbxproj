@@ -47,6 +47,17 @@
 		2DF5513E24F69220009F743D /* IseeWebResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2DF5513D24F69220009F743D /* IseeWebResource.bundle */; };
 		2DF5514024F69316009F743D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DF5513F24F69316009F743D /* Assets.xcassets */; };
 		65663F6625131767002368DF /* IseeLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65663F6525131767002368DF /* IseeLoadingView.m */; };
+		659EF42725392B80009F1850 /* IseeChoicePeopleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 659EF42625392B80009F1850 /* IseeChoicePeopleViewController.m */; };
+		659EF4312539344E009F1850 /* IseeChoicePeopleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 659EF4302539344E009F1850 /* IseeChoicePeopleView.m */; };
+		659EF4342539346A009F1850 /* IseeChoicePeopleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 659EF4332539346A009F1850 /* IseeChoicePeopleModel.m */; };
+		659EF437253934C1009F1850 /* IseeChoicePeopleViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 659EF436253934C1009F1850 /* IseeChoicePeopleViewModel.m */; };
+		659EF43E25395BA5009F1850 /* IseePeopleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 659EF43D25395BA5009F1850 /* IseePeopleCell.m */; };
+		659EF44125395BC0009F1850 /* IseePeopleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 659EF44025395BC0009F1850 /* IseePeopleModel.m */; };
+		659EF44425397BB1009F1850 /* IseeAreaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 659EF44325397BB1009F1850 /* IseeAreaModel.m */; };
+		659EF4472539AEED009F1850 /* UIView+IseeHHLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 659EF4462539AEED009F1850 /* UIView+IseeHHLayout.m */; };
+		659EF4502539B024009F1850 /* UIView+IseeSDAutoLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 659EF44F2539B024009F1850 /* UIView+IseeSDAutoLayout.m */; };
+		659EF4532539B2FD009F1850 /* UITableView+IseeSDAutoTableViewCellHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = 659EF4522539B2FD009F1850 /* UITableView+IseeSDAutoTableViewCellHeight.m */; };
+		659EF4562539B3A0009F1850 /* IseeSegmentHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 659EF4552539B3A0009F1850 /* IseeSegmentHeaderView.m */; };
 		73A9E6F49D854085D3A6E7F3 /* libPods-IseeWebView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92C3FFFB8606F300C951FB90 /* libPods-IseeWebView.a */; };
 /* End PBXBuildFile section */
 
@@ -148,6 +159,28 @@
 		5A7FF4EA19FF42ED579CF236 /* Pods-IseeWebView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IseeWebView.release.xcconfig"; path = "Target Support Files/Pods-IseeWebView/Pods-IseeWebView.release.xcconfig"; sourceTree = "<group>"; };
 		65663F6425131767002368DF /* IseeLoadingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeLoadingView.h; sourceTree = "<group>"; };
 		65663F6525131767002368DF /* IseeLoadingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeLoadingView.m; sourceTree = "<group>"; };
+		659EF42525392B80009F1850 /* IseeChoicePeopleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeChoicePeopleViewController.h; sourceTree = "<group>"; };
+		659EF42625392B80009F1850 /* IseeChoicePeopleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeChoicePeopleViewController.m; sourceTree = "<group>"; };
+		659EF42F2539344E009F1850 /* IseeChoicePeopleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeChoicePeopleView.h; sourceTree = "<group>"; };
+		659EF4302539344E009F1850 /* IseeChoicePeopleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeChoicePeopleView.m; sourceTree = "<group>"; };
+		659EF4322539346A009F1850 /* IseeChoicePeopleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeChoicePeopleModel.h; sourceTree = "<group>"; };
+		659EF4332539346A009F1850 /* IseeChoicePeopleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeChoicePeopleModel.m; sourceTree = "<group>"; };
+		659EF435253934C1009F1850 /* IseeChoicePeopleViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeChoicePeopleViewModel.h; sourceTree = "<group>"; };
+		659EF436253934C1009F1850 /* IseeChoicePeopleViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeChoicePeopleViewModel.m; sourceTree = "<group>"; };
+		659EF43C25395BA5009F1850 /* IseePeopleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseePeopleCell.h; sourceTree = "<group>"; };
+		659EF43D25395BA5009F1850 /* IseePeopleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseePeopleCell.m; sourceTree = "<group>"; };
+		659EF43F25395BC0009F1850 /* IseePeopleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseePeopleModel.h; sourceTree = "<group>"; };
+		659EF44025395BC0009F1850 /* IseePeopleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseePeopleModel.m; sourceTree = "<group>"; };
+		659EF44225397BB1009F1850 /* IseeAreaModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeAreaModel.h; sourceTree = "<group>"; };
+		659EF44325397BB1009F1850 /* IseeAreaModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeAreaModel.m; sourceTree = "<group>"; };
+		659EF4452539AEED009F1850 /* UIView+IseeHHLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+IseeHHLayout.h"; sourceTree = "<group>"; };
+		659EF4462539AEED009F1850 /* UIView+IseeHHLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+IseeHHLayout.m"; sourceTree = "<group>"; };
+		659EF44E2539B024009F1850 /* UIView+IseeSDAutoLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+IseeSDAutoLayout.h"; sourceTree = "<group>"; };
+		659EF44F2539B024009F1850 /* UIView+IseeSDAutoLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+IseeSDAutoLayout.m"; sourceTree = "<group>"; };
+		659EF4512539B2FD009F1850 /* UITableView+IseeSDAutoTableViewCellHeight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableView+IseeSDAutoTableViewCellHeight.h"; sourceTree = "<group>"; };
+		659EF4522539B2FD009F1850 /* UITableView+IseeSDAutoTableViewCellHeight.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableView+IseeSDAutoTableViewCellHeight.m"; sourceTree = "<group>"; };
+		659EF4542539B3A0009F1850 /* IseeSegmentHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeSegmentHeaderView.h; sourceTree = "<group>"; };
+		659EF4552539B3A0009F1850 /* IseeSegmentHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeSegmentHeaderView.m; sourceTree = "<group>"; };
 		92C3FFFB8606F300C951FB90 /* libPods-IseeWebView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-IseeWebView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -266,6 +299,8 @@
 			children = (
 				65663F6425131767002368DF /* IseeLoadingView.h */,
 				65663F6525131767002368DF /* IseeLoadingView.m */,
+				659EF4542539B3A0009F1850 /* IseeSegmentHeaderView.h */,
+				659EF4552539B3A0009F1850 /* IseeSegmentHeaderView.m */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -288,6 +323,12 @@
 				2D877B9F24CFD23700AA2983 /* UIView+IseeExtension.m */,
 				2D877B9124CFC69200AA2983 /* UIViewController+IseeCommon.m */,
 				2D877B9224CFC69200AA2983 /* UIViewController+IseeCommon.h */,
+				659EF4452539AEED009F1850 /* UIView+IseeHHLayout.h */,
+				659EF4462539AEED009F1850 /* UIView+IseeHHLayout.m */,
+				659EF44E2539B024009F1850 /* UIView+IseeSDAutoLayout.h */,
+				659EF44F2539B024009F1850 /* UIView+IseeSDAutoLayout.m */,
+				659EF4512539B2FD009F1850 /* UITableView+IseeSDAutoTableViewCellHeight.h */,
+				659EF4522539B2FD009F1850 /* UITableView+IseeSDAutoTableViewCellHeight.m */,
 			);
 			path = Catelogy;
 			sourceTree = "<group>";
@@ -304,6 +345,7 @@
 		2D8B298C24DBA122004EAC27 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				659EF42425392B5F009F1850 /* choicePeople */,
 				2D398C0725077DD400E516C5 /* choiceRegion */,
 				2DEC696E24FF3AC700695ED7 /* search */,
 				2D8B299824DBD99C004EAC27 /* home */,
@@ -463,6 +505,51 @@
 				5A7FF4EA19FF42ED579CF236 /* Pods-IseeWebView.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		659EF42425392B5F009F1850 /* choicePeople */ = {
+			isa = PBXGroup;
+			children = (
+				659EF42E25393420009F1850 /* viewModel */,
+				659EF42D2539341A009F1850 /* model */,
+				659EF42C25393412009F1850 /* view */,
+				659EF42525392B80009F1850 /* IseeChoicePeopleViewController.h */,
+				659EF42625392B80009F1850 /* IseeChoicePeopleViewController.m */,
+			);
+			path = choicePeople;
+			sourceTree = "<group>";
+		};
+		659EF42C25393412009F1850 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				659EF42F2539344E009F1850 /* IseeChoicePeopleView.h */,
+				659EF4302539344E009F1850 /* IseeChoicePeopleView.m */,
+				659EF43C25395BA5009F1850 /* IseePeopleCell.h */,
+				659EF43D25395BA5009F1850 /* IseePeopleCell.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		659EF42D2539341A009F1850 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				659EF4322539346A009F1850 /* IseeChoicePeopleModel.h */,
+				659EF4332539346A009F1850 /* IseeChoicePeopleModel.m */,
+				659EF43F25395BC0009F1850 /* IseePeopleModel.h */,
+				659EF44025395BC0009F1850 /* IseePeopleModel.m */,
+				659EF44225397BB1009F1850 /* IseeAreaModel.h */,
+				659EF44325397BB1009F1850 /* IseeAreaModel.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		659EF42E25393420009F1850 /* viewModel */ = {
+			isa = PBXGroup;
+			children = (
+				659EF435253934C1009F1850 /* IseeChoicePeopleViewModel.h */,
+				659EF436253934C1009F1850 /* IseeChoicePeopleViewModel.m */,
+			);
+			path = viewModel;
 			sourceTree = "<group>";
 		};
 		F1BBFE2F36E34D43385C69ED /* Frameworks */ = {
@@ -655,9 +742,13 @@
 				2D877B9D24CFD21100AA2983 /* IseeNaviBarView.m in Sources */,
 				2DDDE56424C8490600015C76 /* ViewController.m in Sources */,
 				2D8B299E24DBDD80004EAC27 /* IseeHomeView.m in Sources */,
+				659EF4502539B024009F1850 /* UIView+IseeSDAutoLayout.m in Sources */,
 				2D877BA024CFD23700AA2983 /* UIView+IseeExtension.m in Sources */,
+				659EF437253934C1009F1850 /* IseeChoicePeopleViewModel.m in Sources */,
 				2D9FFDE324C9D01800A41353 /* IseeScanView.m in Sources */,
 				2D398C1E25078F7D00E516C5 /* IseeRegionModel.m in Sources */,
+				659EF44425397BB1009F1850 /* IseeAreaModel.m in Sources */,
+				659EF4312539344E009F1850 /* IseeChoicePeopleView.m in Sources */,
 				2DEC697624FF3BEC00695ED7 /* IseeSearchView.m in Sources */,
 				2D9CD06F24F54049002B9CE1 /* IseeCustCell.m in Sources */,
 				2DA6339F2501264700E46868 /* UIImage+IseeSVGTool.m in Sources */,
@@ -671,12 +762,19 @@
 				2D398C1825078EF600E516C5 /* IseeChoiceRegionModel.m in Sources */,
 				2D9CD07224F5408F002B9CE1 /* IseeCustModel.m in Sources */,
 				65663F6625131767002368DF /* IseeLoadingView.m in Sources */,
+				659EF43E25395BA5009F1850 /* IseePeopleCell.m in Sources */,
+				659EF4562539B3A0009F1850 /* IseeSegmentHeaderView.m in Sources */,
 				2D9FFDE724C9D2E000A41353 /* CLLocation+IseeSino.m in Sources */,
 				2D5D43A624E4305D005A3E2F /* IseeHomeTabBarModel.m in Sources */,
+				659EF4532539B2FD009F1850 /* UITableView+IseeSDAutoTableViewCellHeight.m in Sources */,
 				2D71659524E13B1500611439 /* IseeHomeModel.m in Sources */,
 				2D398C1225077F5B00E516C5 /* IseeChoiceRegionView.m in Sources */,
 				2DDDE55E24C8490600015C76 /* AppDelegate.m in Sources */,
+				659EF4472539AEED009F1850 /* UIView+IseeHHLayout.m in Sources */,
 				2D8E03422507BCB70006ED5C /* IseeHomeRequestModel.m in Sources */,
+				659EF4342539346A009F1850 /* IseeChoicePeopleModel.m in Sources */,
+				659EF42725392B80009F1850 /* IseeChoicePeopleViewController.m in Sources */,
+				659EF44125395BC0009F1850 /* IseePeopleModel.m in Sources */,
 				2DDDE56F24C8490B00015C76 /* main.m in Sources */,
 				2DE6470724CDB26D006D970E /* SiriViewController.m in Sources */,
 				2D8B299B24DBDBBC004EAC27 /* IseeHomeViewController.m in Sources */,

@@ -178,7 +178,7 @@ static MBProgressHUD *HUD;
         
         WS(weakSelf);
         searchTable.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-            if (_searchField.text.length <= 0) {
+            if (weakSelf.searchField.text.length <= 0) {
                 [weakSelf.searchTable.mj_footer endRefreshing];
                 return;
             }

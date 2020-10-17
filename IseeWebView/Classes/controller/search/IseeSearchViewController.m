@@ -497,7 +497,7 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
-    [search removeTable];
+//    [search removeTable];
     //实现该方法是需要注意view需要是继承UIControl而来的
 }
 

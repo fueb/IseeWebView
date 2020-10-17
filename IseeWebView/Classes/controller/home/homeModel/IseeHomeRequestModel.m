@@ -9,5 +9,7 @@
 #import "IseeHomeRequestModel.h"
 
 @implementation IseeHomeRequestModel
+-(void)setValue:(id)value forUndefinedKey:(NSString *)key{
 
+}
 @end

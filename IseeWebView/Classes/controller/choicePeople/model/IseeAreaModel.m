@@ -1,14 +1,14 @@
 //
-//  IseeRegionModel.m
+//  IseeAreaModel.m
 //  IseeWebView
 //
-//  Created by 点芯在线 on 2020/9/8.
+//  Created by 余友良 on 2020/10/16.
 //  Copyright © 2020 dxzx. All rights reserved.
 //
 
-#import "IseeRegionModel.h"
+#import "IseeAreaModel.h"
 
-@implementation IseeRegionModel
+@implementation IseeAreaModel
 -(void)setValue:(id)value forUndefinedKey:(NSString *)key{
 
 }

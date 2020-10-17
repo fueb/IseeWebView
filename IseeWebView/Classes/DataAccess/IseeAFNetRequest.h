@@ -65,6 +65,10 @@ typedef NS_ENUM(NSUInteger,RequestType) {
 #define FINDBLUEOCEAN       @"/indexManager/findBlueOcean"
 #define GETDEALCOUNT        @"/custInfoApp/api/jobDeal/getDealCount"
 #define GETREGION           @"/loginInfo/devLogin/getManagerList"
+#define GETPEOPLE           @"/custInfoApp/api/staffInfo/findPage"
+#define GETAREA             @"/custInfo/api/tree/manager/areaTree/init"
+
+
 //weburl
 //走访任务
 #define VISITLISTWEBURL     @"/visitList"
