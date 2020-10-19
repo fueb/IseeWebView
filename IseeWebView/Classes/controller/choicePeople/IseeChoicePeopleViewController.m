@@ -110,6 +110,7 @@
     requestModel.mManagerId = model.managerId;
     requestModel.mCompanyId = model.areaId;
     requestModel.areaId = model.areaId;
+    requestModel.mSaleNum = model.saleNum;
     IseeWebHomeTabBar *homeTabBar = [[IseeWebHomeTabBar alloc]initWithModel:requestModel];
     
     homeTabBar.modalPresentationStyle = UIModalPresentationFullScreen;

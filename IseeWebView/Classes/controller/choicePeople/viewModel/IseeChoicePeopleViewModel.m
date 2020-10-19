@@ -13,6 +13,7 @@
 #import "IseeAreaModel.h"
 #import "IseePeopleCell.h"
 #import "IseeConfig.h"
+#import "IseeAreaCell.h"
 
 @interface IseeChoicePeopleViewModel()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 {
@@ -175,6 +176,8 @@
                 model.managerId = [NSString stringWithFormat:@"%ld",[dict[@"managerId"] longValue]];
                 model.staffCode = dict[@"staffCode"];
                 model.staffName = dict[@"staffName"];
+                model.saleNum = dict[@"saleNum"];
+                model.areaName = dict[@"areaName"];
                 if (![dict[@"relaMobile"] isKindOfClass:[NSNull class]]) {
                     model.relaMobile = dict[@"relaMobile"];
                 }
@@ -224,18 +227,24 @@
     if (tableView.tag == 1) {
         IseePeopleModel *tempModel = _peopleModel.staffList[indexPath.row];
         method = tempModel.staffName;
+        IseePeopleCell *cell = [[IseePeopleCell alloc]init];
+        cell.selectedBackgroundView=[[UIView alloc]initWithFrame:cell.frame];
+        cell.selectedBackgroundView.backgroundColor=[IseeConfig stringTOColor:@"#F4F6FB"];
+        cell.model     = tempModel;
+        return cell;
     }
     else
     {
         IseeAreaModel *tempModel = _peopleModel.areaList[indexPath.row];
         method = tempModel.name;
+        IseeAreaCell *cell = [[IseeAreaCell alloc]init];
+        cell.selectedBackgroundView=[[UIView alloc]initWithFrame:cell.frame];
+        cell.selectedBackgroundView.backgroundColor=[IseeConfig stringTOColor:@"#F4F6FB"];
+        cell.model     = method;
+        return cell;
     }
     
-    IseePeopleCell *cell = [[IseePeopleCell alloc]init];
-    cell.selectedBackgroundView=[[UIView alloc]initWithFrame:cell.frame];
-    cell.selectedBackgroundView.backgroundColor=[IseeConfig stringTOColor:@"#F4F6FB"];
-    cell.model     = method;
-    return cell;
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -261,4 +270,15 @@
         }
     }
 }
+
+- (void)tableView:(UITableView*)tableView willDisplayCell:(UITableViewCell*)cell forRowAtIndexPath:(NSIndexPath*)indexPath {
+
+    [cell setSeparatorInset:UIEdgeInsetsZero];
+
+    [cell setLayoutMargins:UIEdgeInsetsZero];
+
+    cell.preservesSuperviewLayoutMargins = NO;
+
+}
+
 @end

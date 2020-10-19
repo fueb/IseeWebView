@@ -459,7 +459,7 @@
 }
 -(void)openIsee{
     
-    UIViewController *vc        = [[NSClassFromString(@"iSeeRootViewController") alloc]init];
+    UIViewController *vc        = [[NSClassFromString(@"ChangeRoleController") alloc]init];
     SEL runAction = NSSelectorFromString(@"goToTheNormalHomePage");
     
     if([vc respondsToSelector:runAction]){
@@ -471,7 +471,7 @@
 }
 -(void)openIseeAdminView{
     
-    UIViewController *vc        = [[NSClassFromString(@"iSeeRootViewController") alloc]init];
+    UIViewController *vc        = [[NSClassFromString(@"ChangeRoleController") alloc]init];
     SEL runAction = NSSelectorFromString(@"goToTheNormalHomePage");
     
     if([vc respondsToSelector:runAction]){

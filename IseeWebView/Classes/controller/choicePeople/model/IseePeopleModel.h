@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy)NSString * areaId;
 @property (nonatomic, copy)NSString * relaMobile;
 @property (nonatomic, copy)NSString * latnId;
+@property (nonatomic, copy)NSString * saleNum;
+@property (nonatomic, copy)NSString * areaName;
 @end
 
 NS_ASSUME_NONNULL_END

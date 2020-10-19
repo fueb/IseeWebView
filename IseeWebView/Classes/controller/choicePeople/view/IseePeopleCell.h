@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IseePeopleCell : UITableViewCell
-@property(nonatomic,copy)NSString *model;
+@property(nonatomic,copy)IseePeopleModel *model;
 @end
 
 NS_ASSUME_NONNULL_END

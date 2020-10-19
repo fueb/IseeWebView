@@ -15,6 +15,9 @@
 #import "IseeAFNetRequest.h"
 
 @interface IseeChoicePeopleView()<UITextFieldDelegate>
+{
+    UIImageView *downImg;
+}
 
 /** 导航条 */
 @property(nonatomic, strong)IseeNaviBarView *topNavBar;
@@ -46,6 +49,7 @@
     [self addSubview:self.tableView];
     [_searchBgView addSubview:self.searchField];
     [_searchBgView addSubview:self.searchBtn];
+    [_searchBgView addSubview:self.downImg];
     __weak IseeChoicePeopleView *wkSelf = self;
     
     [_searchBgView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -62,9 +66,15 @@
     }];
     
     [_searchBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(wkSelf);
+        make.right.mas_equalTo(downImg.mas_left).with.offset(4);
         make.height.top.mas_equalTo(_searchField);
         make.width.mas_equalTo(100);
+    }];
+    
+    [downImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(wkSelf).with.offset(-4);
+        make.top.mas_equalTo(_searchField).with.offset(12);
+        make.width.height.mas_equalTo(16);
     }];
     
     
@@ -133,7 +143,7 @@
     [self addSubview:naviBar];
     self.topNavBar = naviBar;
 
-    [_topNavBar addBackBtn];
+//    [_topNavBar addBackBtn];
 
     [_topNavBar setNavigationTitle:titleName];
     [_topNavBar setNavigationBarClolor:barBg];
@@ -168,10 +178,20 @@
 }
 
 #pragma mark - control
+
+- (UIImageView *)downImg
+{
+    if (!downImg) {
+        downImg = [[UIImageView alloc] init];
+        downImg.image = [IseeConfig imageNamed:@"arrowDown.svg" size:CGSizeMake(16, 16)];
+    }
+    return downImg;;
+}
+
 - (IseeSegmentHeaderView *)areaSeg{
     if (!_areaSeg){
         _areaSeg = [[IseeSegmentHeaderView alloc] initWithFrame:CGRectMake(0, 200, self.frame.size.width, 44) titles:@[]];
-        _areaSeg.underLineColor = [IseeConfig stringTOColor:@"#3570D8"];
+        _areaSeg.underLineColor = [IseeConfig stringTOColor:@"#39A0FF"];
         _areaSeg.selectIndex = 1;
         _areaSeg.isShowUnderLine = YES;
         _areaSeg.backgroundColor = [UIColor whiteColor];
@@ -194,6 +214,7 @@
         _areaTableView = [[UITableView alloc] init];
         _areaTableView.rowHeight = 40;
         _areaTableView.tag = 2;
+        _areaTableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
     }
     return _areaTableView;
 }
@@ -204,7 +225,8 @@
         _cancelBtn = [[UIButton alloc] init];
         [_cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
          
-        [_cancelBtn setTitleColor:[IseeConfig stringTOColor:@"#636363"] forState:UIControlStateNormal];
+        [_cancelBtn setTitleColor:[IseeConfig stringTOColor:@"#888A9D"] forState:UIControlStateNormal];
+        _cancelBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC" size:14];
         _cancelBtn.selected = YES;
         
     }
@@ -218,6 +240,7 @@
         [_sureBtn setTitle:@"确定" forState:UIControlStateNormal];
          
         [_sureBtn setTitleColor:[IseeConfig stringTOColor:@"#63A4FF"] forState:UIControlStateNormal];
+        _sureBtn.titleLabel.font = [UIFont fontWithName:@"PingFangSC" size:14];
         _sureBtn.selected = YES;
         
     }
@@ -274,8 +297,8 @@
     if (!_searchBtn) {
         _searchBtn = [[UIButton alloc] init];
         [_searchBtn setTitle:@"浙江" forState:UIControlStateNormal];
-        [_searchBtn.titleLabel setFont:[UIFont fontWithName:@"PingFangSC-Regular" size:15]];
-        [_searchBtn setTitleColor:[IseeConfig stringTOColor:@"#63A4FF"] forState:UIControlStateNormal];
+        [_searchBtn.titleLabel setFont:[UIFont fontWithName:@"PingFangSC" size:14]];
+        [_searchBtn setTitleColor:[IseeConfig stringTOColor:@"#0085FF"] forState:UIControlStateNormal];
         _searchBtn.selected = YES;
         
     }
@@ -288,7 +311,7 @@
         _tableView = [[UITableView alloc] init];
         _tableView.rowHeight = 50;
         _tableView.tag = 1;
-        
+        _tableView.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
         WS(weakSelf);
         _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
             

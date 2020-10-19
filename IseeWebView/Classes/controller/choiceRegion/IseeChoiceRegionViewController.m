@@ -122,14 +122,14 @@
                 type = 2;
                 IseeRegionModel *model     = regionAry[0];
                 
-                requestModel.latnId = model.latnId;
+                requestModel.latnId = [NSString stringWithFormat:@"%lld",[model.latnId longLongValue]];
                 requestModel.mStaffCode = model.staffCode;
-                requestModel.mManagerId = model.managerId;
-                requestModel.mCompanyId = model.areaId;
-                requestModel.areaId = model.areaId;
+                requestModel.mManagerId = [NSString stringWithFormat:@"%lld",[model.managerId longLongValue]];
+                requestModel.mCompanyId = [NSString stringWithFormat:@"%lld",[model.areaId longLongValue]];
+                requestModel.areaId = [NSString stringWithFormat:@"%lld",[model.areaId longLongValue]];
 //                [self goHome:model];
 //                return;
-                requestModel.mManagerTypeId = [NSString stringWithFormat:@"%ld",[model.managerTypeId longLongValue]];
+                requestModel.mManagerTypeId = [NSString stringWithFormat:@"%lld",[model.managerTypeId longLongValue]];
             }
             if (regionAry.count == 0) {
                 type = 0;
