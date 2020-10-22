@@ -38,4 +38,5 @@
 + (UIImage *)imageNamed:(NSString *)imageName;
 + (UIImage *)imageNamed:(NSString *)imageName size:(CGSize)size;
 + (NSString *)getLongValue:(id)value;
++ (UIWindow *)mainWindow;
 @end

@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface IseeLoadingView : UIView
 + (instancetype)showHUDAddedTo:(UIView *)view animated:(BOOL)animated;
-- (id)initWithView:(UIView *)view;
+- (id)initWithView:(UIView *)view withImgName:(NSString *)imgName titleHave:(BOOL)isHave;
 @end
 
 NS_ASSUME_NONNULL_END

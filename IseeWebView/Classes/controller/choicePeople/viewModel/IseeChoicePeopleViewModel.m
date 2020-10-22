@@ -165,6 +165,10 @@
             if (records.count < 15) {
                 wkSelf.peopleView.isPullUp_refresh = NO;
             }
+            if (records.count == 0)
+            {
+                [IseeAFNetRequest showHUD:wkSelf.peopleView withText:@"无数据"];
+            }
             
             for (int i = 0;i < records.count;i++)
             {

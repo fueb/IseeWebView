@@ -7,6 +7,7 @@
 //
 
 #import "IseeChoiceRegionViewController.h"
+#import <objc/message.h>
 #import "IseeChoiceRegionView.h"
 #import "IseeConfig.h"
 #import "IseeChoiceRegionModel.h"
@@ -72,7 +73,7 @@
 - (void)showLoading{
     [loading removeFromSuperview];
     loading = nil;
-    loading = [[IseeLoadingView alloc] initWithView:self.view];
+    loading = [[IseeLoadingView alloc] initWithView:self.view withImgName:@"iseeLoading.gif" titleHave:NO];
     [self.view addSubview:loading];
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         sleep(50);
@@ -141,8 +142,10 @@
         else
         {
             type = 0;
-            errorStr = result[@"errmsg"];
-            NSLog(@"%@",result[@"errmsg"], nil);
+            errorStr = result[@"msg"];
+//            IseeAlert(errorStr, nil);
+            [IseeAFNetRequest showHUD:[IseeConfig mainWindow] withText:errorStr];
+            [wkSelf openIsee];
         }
         if (_returnRegion) {
             _returnRegion(requestModel,type,errorStr);
@@ -155,6 +158,19 @@
         
     }];
         
+}
+
+-(void)openIsee{
+    
+    UIViewController *vc        = [[NSClassFromString(@"ChangeRoleController") alloc]init];
+    SEL runAction = NSSelectorFromString(@"goToTheNormalHomePage");
+    
+    if([vc respondsToSelector:runAction]){
+
+        objc_msgSend(vc, runAction);
+    }
+    
+
 }
 
 #pragma mark - event

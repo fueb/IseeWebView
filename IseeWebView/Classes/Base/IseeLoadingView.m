@@ -8,6 +8,7 @@
 
 #import "IseeLoadingView.h"
 #import <Masonry.h>
+#import "IseeConfig.h"
 
 @interface IseeLoadingView ()
 {
@@ -32,16 +33,16 @@
     [view addSubview:hud];
     return hud;
 }
-- (id)initWithView:(UIView *)view {
+- (id)initWithView:(UIView *)view withImgName:(NSString *)imgName titleHave:(BOOL)isHave {
     NSAssert(view, @"View must not be nil.");
     self = [self initWithFrame:view.bounds];
-    [self getIseeLoading];
+    [self getIseeLoadingWithImgName:imgName titleHave:isHave];
     return self;
 }
 //loading
-- (void)getIseeLoading{
+- (void)getIseeLoadingWithImgName:(NSString *)imgName titleHave:(BOOL)isHave{
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"IseeWebResource.bundle" ofType:nil];
-    NSString *configPath = [bundlePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%@",@"img",@"iseeLoading.gif"]];
+    NSString *configPath = [bundlePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%@",@"img",imgName]];
     configPath = [NSString stringWithFormat:@"file:///%@",configPath];
     NSURL *fileUrl = [NSURL URLWithString:configPath];
     
@@ -69,9 +70,30 @@
     [gifImageView startAnimating];
     [self addSubview:gifImageView];
     __weak typeof(self) wkSelf = self;
+    float imgHeight = 120;
+    if ([imgName isEqualToString:@"peopleLoading.gif"]) {
+        imgHeight = 60;
+    }
     [gifImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.centerY.mas_equalTo(wkSelf);
-        make.width.height.mas_equalTo(120);
+        make.width.mas_equalTo(120);
+        make.height.mas_equalTo(imgHeight);
     }];
+    UILabel *title = [[UILabel alloc] init];
+    title.text = @"加载中...";
+    title.textColor = [IseeConfig stringTOColor:@"#6f767c"];
+    title.font = [UIFont systemFontOfSize:16];
+    title.textAlignment = 1;
+    title.backgroundColor = [UIColor clearColor];
+    [self addSubview:title];
+    [title mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(gifImageView.mas_bottom);
+        make.centerX.mas_equalTo(gifImageView);
+        make.width.mas_equalTo(@100);
+        make.height.mas_equalTo(@30);
+    }];
+    if (!isHave) {
+        title.hidden = YES;
+    }
 }
 @end
