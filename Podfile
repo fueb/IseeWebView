@@ -9,5 +9,6 @@ target 'IseeWebView' do
   pod 'Masonry'
   pod 'SVGKit'
   pod 'MJRefresh'
+  pod 'IseeWeb' , :git => "https://gitee.com/fueb/IseeWeb.git”, :tag => '1.0.55'
 end
 

@@ -93,7 +93,7 @@
 //    [self goSearch];
 }
 -(void)btnClick{
-    //18968198127,1   17706570978,9662
+    //18968198127,1   17706570978,9662,15305735993
     IseeChoiceRegionViewController *vc = [[IseeChoiceRegionViewController alloc] initWithLoginName:@"15355422254" withCompanyId:@"9662" withSession:@"sasdad" withUserId:@"1231" withSaleNum:@"1231"];
     vc.modalPresentationStyle = UIModalPresentationFullScreen;
     [vc getRegion];

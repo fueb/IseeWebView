@@ -464,7 +464,7 @@
     
     if([vc respondsToSelector:runAction]){
 
-        objc_msgSend(vc, runAction);
+        ((void (*)(id ,SEL))(void *)objc_msgSend)(vc, runAction);
     }
     
 
@@ -476,7 +476,7 @@
     
     if([vc respondsToSelector:runAction]){
 
-        objc_msgSend(vc, runAction);
+        ((void (*)(id ,SEL))(void *)objc_msgSend)(vc, runAction);
     }
     
 
@@ -492,7 +492,7 @@
     
     if([vc respondsToSelector:runAction]){
 
-        objc_msgSend(vc, runAction);
+        ((void (*)(id ,SEL))(void *)objc_msgSend)(vc, runAction);
     }
     
     

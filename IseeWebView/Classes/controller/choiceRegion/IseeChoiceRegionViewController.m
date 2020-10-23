@@ -132,6 +132,10 @@
 //                return;
                 requestModel.mManagerTypeId = [NSString stringWithFormat:@"%lld",[model.managerTypeId longLongValue]];
             }
+            if (regionAry.count >= 1) {
+                IseeRegionModel *model     = regionAry[0];
+                requestModel.mManagerTypeId = [NSString stringWithFormat:@"%lld",[model.managerTypeId longLongValue]];
+            }
             if (regionAry.count == 0) {
                 type = 0;
                 errorStr = @"没有包区信息";
@@ -167,7 +171,7 @@
     
     if([vc respondsToSelector:runAction]){
 
-        objc_msgSend(vc, runAction);
+        ((void (*)(id ,SEL))(void *)objc_msgSend)(vc, runAction);
     }
     
 
