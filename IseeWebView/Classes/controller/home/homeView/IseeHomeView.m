@@ -291,9 +291,14 @@
     
     _scroll = [[UIScrollView alloc] init];
     if ([IseeConfig isNotchScreen]) {
-        _scroll.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        if (@available(iOS 11.0, *)) {
+            _scroll.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+        }
+        
     }else {
-        _scroll.automaticallyAdjustsScrollIndicatorInsets = NO;
+        if (@available(iOS 13.0, *)) {
+            _scroll.automaticallyAdjustsScrollIndicatorInsets = NO;
+        }
     }
 //    _scroll.automaticallyAdjustsScrollIndicatorInsets = NO;
     _scroll.bounces = NO;

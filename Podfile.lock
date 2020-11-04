@@ -17,12 +17,6 @@ PODS:
   - CocoaLumberjack (3.7.0):
     - CocoaLumberjack/Core (= 3.7.0)
   - CocoaLumberjack/Core (3.7.0)
-  - IseeWeb (1.0.55):
-    - AFNetworking (~> 3.0)
-    - Masonry
-    - MBProgressHUD (~> 1.2.0)
-    - MJRefresh
-    - SVGKit
   - Masonry (1.1.0)
   - MBProgressHUD (1.2.0)
   - MJRefresh (3.5.0)
@@ -31,7 +25,6 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
-  - IseeWeb (from `https://gitee.com/fueb/IseeWeb.git`, tag `1.0.55`)
   - Masonry
   - MBProgressHUD
   - MJRefresh
@@ -46,25 +39,14 @@ SPEC REPOS:
     - MJRefresh
     - SVGKit
 
-EXTERNAL SOURCES:
-  IseeWeb:
-    :git: https://gitee.com/fueb/IseeWeb.git
-    :tag: 1.0.55
-
-CHECKOUT OPTIONS:
-  IseeWeb:
-    :git: https://gitee.com/fueb/IseeWeb.git
-    :tag: 1.0.55
-
 SPEC CHECKSUMS:
   AFNetworking: b6f891fdfaed196b46c7a83cf209e09697b94057
   CocoaLumberjack: e8955b9d337ac307103b0a34fd141c32f27e53c5
-  IseeWeb: 3607a4f9ad569cb553533787b0b817ac3a90cc53
   Masonry: 678fab65091a9290e40e2832a55e7ab731aad201
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
   SVGKit: 652cdf7bef8bec8564d04a8511d3ab50c7595fac
 
-PODFILE CHECKSUM: 1b555ba46fc21b666b1ca47ed1e44dea7bf42bf4
+PODFILE CHECKSUM: b6ef8471208b624c345470ccb470f4771061caf0
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.9.3

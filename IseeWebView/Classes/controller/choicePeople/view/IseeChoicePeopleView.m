@@ -329,6 +329,8 @@
                 [IseeAFNetRequest showHUD:weakSelf withText:@"已全部加载完毕"];
             }
         }];
+        
+        [_tableView.mj_footer setMj_h:20.0];
     }
     return _tableView;
 }

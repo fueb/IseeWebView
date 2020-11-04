@@ -94,7 +94,7 @@
 }
 -(void)btnClick{
     //18968198127,1   17706570978,9662,15305735993
-    IseeChoiceRegionViewController *vc = [[IseeChoiceRegionViewController alloc] initWithLoginName:@"15355422254" withCompanyId:@"9662" withSession:@"sasdad" withUserId:@"1231" withSaleNum:@"1231"];
+    IseeChoiceRegionViewController *vc = [[IseeChoiceRegionViewController alloc] initWithLoginName:@"18968198127" withCompanyId:@"1" withSession:@"sasdad" withUserId:@"1231" withSaleNum:@"1231"];
     vc.modalPresentationStyle = UIModalPresentationFullScreen;
     [vc getRegion];
     __weak ViewController * weakSelf = self;
@@ -104,14 +104,7 @@
         {
             //获取信息失败提示信息
             NSLog(@"%@",errorStr);
-//            IseeAlert(errorStr, nil);
-//            UIViewController *vc        = [[NSClassFromString(@"ChangeRoleController") alloc]init];
-//            SEL runAction = NSSelectorFromString(@"goToTheNormalHomePage");
-//            
-//            if([vc respondsToSelector:runAction]){
-//
-//                objc_msgSend(vc, runAction);
-//            }
+
         }
         else if ([regionJson.mManagerTypeId isEqualToString:@"220"])
         {

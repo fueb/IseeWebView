@@ -1,6 +1,0 @@
-framework module IseeWeb {
-  umbrella header "IseeWeb.h"
-
-  export *
-  module * { export * }
-}
