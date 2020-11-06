@@ -46,6 +46,7 @@
 		2DEC697624FF3BEC00695ED7 /* IseeSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DEC697524FF3BEC00695ED7 /* IseeSearchView.m */; };
 		2DF5513E24F69220009F743D /* IseeWebResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2DF5513D24F69220009F743D /* IseeWebResource.bundle */; };
 		2DF5514024F69316009F743D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DF5513F24F69316009F743D /* Assets.xcassets */; };
+		655CE82E2554C802003322F6 /* NSArray+YYLArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 655CE82D2554C802003322F6 /* NSArray+YYLArray.m */; };
 		65663F6625131767002368DF /* IseeLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65663F6525131767002368DF /* IseeLoadingView.m */; };
 		659EF42725392B80009F1850 /* IseeChoicePeopleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 659EF42625392B80009F1850 /* IseeChoicePeopleViewController.m */; };
 		659EF4312539344E009F1850 /* IseeChoicePeopleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 659EF4302539344E009F1850 /* IseeChoicePeopleView.m */; };
@@ -158,6 +159,8 @@
 		2DF5513D24F69220009F743D /* IseeWebResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IseeWebResource.bundle; sourceTree = "<group>"; };
 		2DF5513F24F69316009F743D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A7FF4EA19FF42ED579CF236 /* Pods-IseeWebView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IseeWebView.release.xcconfig"; path = "Target Support Files/Pods-IseeWebView/Pods-IseeWebView.release.xcconfig"; sourceTree = "<group>"; };
+		655CE82C2554C802003322F6 /* NSArray+YYLArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+YYLArray.h"; sourceTree = "<group>"; };
+		655CE82D2554C802003322F6 /* NSArray+YYLArray.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+YYLArray.m"; sourceTree = "<group>"; };
 		65663F6425131767002368DF /* IseeLoadingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeLoadingView.h; sourceTree = "<group>"; };
 		65663F6525131767002368DF /* IseeLoadingView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeLoadingView.m; sourceTree = "<group>"; };
 		659EF42525392B80009F1850 /* IseeChoicePeopleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeChoicePeopleViewController.h; sourceTree = "<group>"; };
@@ -332,6 +335,8 @@
 				659EF44F2539B024009F1850 /* UIView+IseeSDAutoLayout.m */,
 				659EF4512539B2FD009F1850 /* UITableView+IseeSDAutoTableViewCellHeight.h */,
 				659EF4522539B2FD009F1850 /* UITableView+IseeSDAutoTableViewCellHeight.m */,
+				655CE82C2554C802003322F6 /* NSArray+YYLArray.h */,
+				655CE82D2554C802003322F6 /* NSArray+YYLArray.m */,
 			);
 			path = Catelogy;
 			sourceTree = "<group>";
@@ -772,6 +777,7 @@
 				659EF4562539B3A0009F1850 /* IseeSegmentHeaderView.m in Sources */,
 				2D9FFDE724C9D2E000A41353 /* CLLocation+IseeSino.m in Sources */,
 				2D5D43A624E4305D005A3E2F /* IseeHomeTabBarModel.m in Sources */,
+				655CE82E2554C802003322F6 /* NSArray+YYLArray.m in Sources */,
 				659EF4532539B2FD009F1850 /* UITableView+IseeSDAutoTableViewCellHeight.m in Sources */,
 				2D71659524E13B1500611439 /* IseeHomeModel.m in Sources */,
 				2D398C1225077F5B00E516C5 /* IseeChoiceRegionView.m in Sources */,

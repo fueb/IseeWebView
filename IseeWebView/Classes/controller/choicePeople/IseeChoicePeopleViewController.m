@@ -71,6 +71,7 @@
     [self setAction];
     _iseeChoicePeopleV.isPullUp_refresh = YES;
     wkSelf.iseeChoicePeopleVM.peopleModel.selectAreaId = requestModel.mCompanyId;
+    [self getPeople:@""];
     // Do any additional setup after loading the view.
 }
 

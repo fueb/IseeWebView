@@ -17,6 +17,7 @@
 #import "IseeSearchViewController.h"
 #import "IseeChoiceRegionViewController.h"
 #import "IseeChoicePeopleViewController.h"
+#import "NSArray+YYLArray.h"
 
 @interface ViewController () <WKNavigationDelegate, WKUIDelegate,UIImagePickerControllerDelegate,ScanViewDelegate,CLLocationManagerDelegate,SFSpeechRecognizerDelegate>
 {
@@ -80,6 +81,8 @@
     [btn addTarget:self action:@selector(btnClick) forControlEvents:UIControlEventTouchUpInside];
     //配置wkWebView
 //    [self configWKWebView];
+//    NSArray *ary = @[@1,@2,@3];
+//    NSLog(@"%d",ary[3]);
     
 }
 
@@ -94,7 +97,7 @@
 }
 -(void)btnClick{
     //18968198127,1   17706570978,9662,15305735993
-    IseeChoiceRegionViewController *vc = [[IseeChoiceRegionViewController alloc] initWithLoginName:@"18968198127" withCompanyId:@"1" withSession:@"sasdad" withUserId:@"1231" withSaleNum:@"1231"];
+    IseeChoiceRegionViewController *vc = [[IseeChoiceRegionViewController alloc] initWithLoginName:@"17757386606" withCompanyId:@"1" withSession:@"sasdad" withUserId:@"1231" withSaleNum:@"1231"];
     vc.modalPresentationStyle = UIModalPresentationFullScreen;
     [vc getRegion];
     __weak ViewController * weakSelf = self;
