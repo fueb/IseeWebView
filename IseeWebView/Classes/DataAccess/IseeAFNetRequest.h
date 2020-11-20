@@ -67,7 +67,7 @@ typedef NS_ENUM(NSUInteger,RequestType) {
 #define GETREGION           @"/loginInfo/devLogin/getManagerList"
 #define GETPEOPLE           @"/custInfoApp/api/staffInfo/findPage"
 #define GETAREA             @"/custInfo/api/tree/manager/areaTree/init"
-
+#define ADDRECORD           @"/custInfo/api/sysViewRecord/addRecord"
 
 //weburl
 //走访任务

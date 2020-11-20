@@ -17,6 +17,8 @@
 #import "IseeNaviBarView.h"
 #import "IseeChoiceRegionViewController.h"
 #import "IseeAFNetRequest.h"
+#import "IseeChoiceRoleViewController.h"
+#import "IseeWebModel.h"
 
 
 @interface IseeWebViewController ()<WKNavigationDelegate, WKUIDelegate,UIImagePickerControllerDelegate,ScanViewDelegate,CLLocationManagerDelegate,SFSpeechRecognizerDelegate>
@@ -25,6 +27,7 @@
     NSString    *method;
     __block NSString    *soundStr;
     UIImageView *gifImageView;
+    IseeWebModel *iseeWebModel;
 }
 @property (nonatomic, strong) WKWebView *wkWebView;
 @property (strong,nonatomic) CLLocationManager * locationManager;
@@ -75,6 +78,14 @@
         _locationManager.delegate = self;
     }
     return _locationManager;
+}
+- (IseeWebModel *)iseeWebModel
+{
+    if (!iseeWebModel)
+    {
+        iseeWebModel = [[IseeWebModel alloc]init];
+    }
+    return iseeWebModel;
 }
 
 #pragma mark - life cycle
@@ -467,7 +478,16 @@
         ((void (*)(id ,SEL))(void *)objc_msgSend)(vc, runAction);
     }
     
-
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:_requesetModel.areaId forKey:@"areaId"];
+    [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
+    [param setObject:_requesetModel.mStaffCode forKey:@"staffId"];
+    
+    [self.iseeWebModel isee_addRecordWithParam:param WithSuccess:^(id  _Nonnull result) {
+        NSLog(@"埋点");
+    } failure:^{
+        NSLog(@"失败");
+    }];
 }
 -(void)openIseeAdminView{
     
@@ -479,6 +499,16 @@
         ((void (*)(id ,SEL))(void *)objc_msgSend)(vc, runAction);
     }
     
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:_requesetModel.areaId forKey:@"areaId"];
+    [param setObject:_requesetModel.mManagerId forKey:@"managerId"];
+    [param setObject:_requesetModel.mStaffCode forKey:@"staffId"];
+    
+    [self.iseeWebModel isee_addRecordWithParam:param WithSuccess:^(id  _Nonnull result) {
+        NSLog(@"埋点");
+    } failure:^{
+        NSLog(@"失败");
+    }];
 
 }
 
@@ -495,6 +525,19 @@
         ((void (*)(id ,SEL))(void *)objc_msgSend)(vc, runAction);
     }
     
+    
+}
+- (void)convertIdentity{
+
+    UIViewController *rootVC = self.presentingViewController;
+    int i = 0;
+
+    while ([rootVC.presentingViewController isMemberOfClass:[IseeChoiceRoleViewController class]]||i ==5) {
+        rootVC = rootVC.presentingViewController;
+        i++;
+    }
+
+    [rootVC dismissViewControllerAnimated:YES completion:nil];
     
 }
 
@@ -809,24 +852,14 @@
             [jsonCode setObject:@"ok" forKey:@"msg"];
             [jsonCode setObject:_seq forKey:@"seq"];
             IseeBSJSON * nextJson = [[IseeBSJSON alloc] init];
-            //设备id
-            [nextJson setObject:@"" forKey:@"deviceid"];
-            //wifi mac
-            [nextJson setObject:@"" forKey:@"wifimac"];
-            //blue mac
-            [nextJson setObject:@"" forKey:@"bluemac"];
             //os type
             [nextJson setObject:@"ios" forKey:@"ostype"];
-            //date
-            [nextJson setObject:@"" forKey:@"date"];
             //appversion
             NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
             NSString *version = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
              [nextJson setObject:version forKey:@"appversion"];
-            //versiondesc
-            [nextJson setObject:@"" forKey:@"versiondesc"];
             [jsonCode setObject:nextJson forKey:@"data"];
-             NSString *js1 = [NSString stringWithFormat:@"\"%@\",%@", method,[jsonCode serialization]];
+             NSString *js1 = [NSString stringWithFormat:@"\"%@\",%@", method,version];
             NSString *js = [NSString stringWithFormat:@"eval(%@(%@))", _callBack,js1];
             [self execJavaScript:js];
         }
@@ -875,6 +908,10 @@
         }
         else if([method isEqualToString:@"openIseeAdminView"]){
             [self openIseeAdminView];
+        }
+        else if ([method isEqualToString:@"convertIdentity"])
+        {
+            [self convertIdentity];
         }
         decisionHandler(WKNavigationActionPolicyCancel);
         return;

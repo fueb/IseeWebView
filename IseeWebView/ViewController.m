@@ -18,6 +18,7 @@
 #import "IseeChoiceRegionViewController.h"
 #import "IseeChoicePeopleViewController.h"
 #import "NSArray+YYLArray.h"
+#import "IseeChoiceRoleViewController.h"
 
 @interface ViewController () <WKNavigationDelegate, WKUIDelegate,UIImagePickerControllerDelegate,ScanViewDelegate,CLLocationManagerDelegate,SFSpeechRecognizerDelegate>
 {
@@ -96,45 +97,51 @@
 //    [self goSearch];
 }
 -(void)btnClick{
-    //18968198127,1   17706570978,9662,15305735993
-    IseeChoiceRegionViewController *vc = [[IseeChoiceRegionViewController alloc] initWithLoginName:@"17757386606" withCompanyId:@"1" withSession:@"sasdad" withUserId:@"1231" withSaleNum:@"1231"];
+    //18968198127,1   17706570978,9662,15305735993，17757386606
+    IseeChoiceRoleViewController *vc = [[IseeChoiceRoleViewController alloc] initWithLoginName:@"19906725057" withCompanyId:@"1" withSession:@"sasdad" withUserId:@"1231" withSaleNum:@"1231"];
     vc.modalPresentationStyle = UIModalPresentationFullScreen;
-    [vc getRegion];
-    __weak ViewController * weakSelf = self;
-    __weak IseeChoiceRegionViewController * weakvc = vc;
-    [vc setReturnRegion:^(IseeHomeRequestModel * _Nonnull regionJson, NSInteger conType, NSString * _Nonnull errorStr) {
-        if (conType == 0)
-        {
-            //获取信息失败提示信息
-            NSLog(@"%@",errorStr);
-
-        }
-        else if ([regionJson.mManagerTypeId isEqualToString:@"220"])
-        {
-            //客户经理
-            if (conType == 1)
-            {
-                [weakSelf presentViewController:weakvc animated:YES completion:nil];
-            }
-            else if (conType == 2)
-            {
-                IseeWebHomeTabBar *homeTabBar = [[IseeWebHomeTabBar alloc]initWithModel:regionJson];
-                homeTabBar.modalPresentationStyle = UIModalPresentationFullScreen;
-                [weakSelf presentViewController:homeTabBar animated:YES completion:nil];
-            }
-        }
-        else if ([regionJson.mManagerTypeId isEqualToString:@"210"])
-        {
-            //管理层
-            IseeChoicePeopleViewController *vc = [[IseeChoicePeopleViewController alloc] initWithModel:regionJson];
-            
-            vc.modalPresentationStyle = UIModalPresentationFullScreen;
-            [self presentViewController:vc animated:YES completion:nil];
-        }
-        
-    }];
-    
+    [self presentViewController:vc animated:YES completion:nil];
 }
+//-(void)btnClick{
+//    //18968198127,1   17706570978,9662,15305735993，17757386606
+//    IseeChoiceRegionViewController *vc = [[IseeChoiceRegionViewController alloc] initWithLoginName:@"19906725057" withCompanyId:@"1" withSession:@"sasdad" withUserId:@"1231" withSaleNum:@"1231"];
+//    vc.modalPresentationStyle = UIModalPresentationFullScreen;
+//    [vc getRegion];
+//    __weak ViewController * weakSelf = self;
+//    __weak IseeChoiceRegionViewController * weakvc = vc;
+//    [vc setReturnRegion:^(IseeHomeRequestModel * _Nonnull regionJson, NSInteger conType, NSString * _Nonnull errorStr) {
+//        if (conType == 0)
+//        {
+//            //获取信息失败提示信息
+//            NSLog(@"%@",errorStr);
+//
+//        }
+//        else if ([regionJson.mManagerTypeId isEqualToString:@"220"])
+//        {
+//            //客户经理
+//            if (conType == 1)
+//            {
+//                [weakSelf presentViewController:weakvc animated:YES completion:nil];
+//            }
+//            else if (conType == 2)
+//            {
+//                IseeWebHomeTabBar *homeTabBar = [[IseeWebHomeTabBar alloc]initWithModel:regionJson];
+//                homeTabBar.modalPresentationStyle = UIModalPresentationFullScreen;
+//                [weakSelf presentViewController:homeTabBar animated:YES completion:nil];
+//            }
+//        }
+//        else if ([regionJson.mManagerTypeId isEqualToString:@"210"])
+//        {
+//            //管理层
+//            IseeChoicePeopleViewController *vc = [[IseeChoicePeopleViewController alloc] initWithModel:regionJson];
+//
+//            vc.modalPresentationStyle = UIModalPresentationFullScreen;
+//            [self presentViewController:vc animated:YES completion:nil];
+//        }
+//
+//    }];
+//
+//}
 
 -(void)goSearch{
     IseeHomeRequestModel *requestModel = [[IseeHomeRequestModel alloc] init];

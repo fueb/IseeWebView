@@ -46,6 +46,14 @@
 		2DEC697624FF3BEC00695ED7 /* IseeSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DEC697524FF3BEC00695ED7 /* IseeSearchView.m */; };
 		2DF5513E24F69220009F743D /* IseeWebResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2DF5513D24F69220009F743D /* IseeWebResource.bundle */; };
 		2DF5514024F69316009F743D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DF5513F24F69316009F743D /* Assets.xcassets */; };
+		652FD0452567580E003E95B2 /* ChoiceRoleViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD0442567580E003E95B2 /* ChoiceRoleViewModel.m */; };
+		652FD0482567699E003E95B2 /* IseeChoiceRoleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD0472567699E003E95B2 /* IseeChoiceRoleViewController.m */; };
+		652FD04B256769B4003E95B2 /* IseeChoiceRoleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD04A256769B4003E95B2 /* IseeChoiceRoleModel.m */; };
+		652FD04E256769CC003E95B2 /* IseeChoiceRoleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD04D256769CC003E95B2 /* IseeChoiceRoleView.m */; };
+		652FD05125676FB5003E95B2 /* ChangeRoleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD05025676FB5003E95B2 /* ChangeRoleController.m */; };
+		652FD0542567EAEE003E95B2 /* IseeRoleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD0532567EAEE003E95B2 /* IseeRoleModel.m */; };
+		652FD0572567EB84003E95B2 /* IseeRoleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD0562567EB84003E95B2 /* IseeRoleCell.m */; };
+		652FD05C256803DC003E95B2 /* IseeWebModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 652FD05B256803DC003E95B2 /* IseeWebModel.m */; };
 		655CE82E2554C802003322F6 /* NSArray+YYLArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 655CE82D2554C802003322F6 /* NSArray+YYLArray.m */; };
 		65663F6625131767002368DF /* IseeLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 65663F6525131767002368DF /* IseeLoadingView.m */; };
 		659EF42725392B80009F1850 /* IseeChoicePeopleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 659EF42625392B80009F1850 /* IseeChoicePeopleViewController.m */; };
@@ -159,6 +167,22 @@
 		2DF5513D24F69220009F743D /* IseeWebResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = IseeWebResource.bundle; sourceTree = "<group>"; };
 		2DF5513F24F69316009F743D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A7FF4EA19FF42ED579CF236 /* Pods-IseeWebView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IseeWebView.release.xcconfig"; path = "Target Support Files/Pods-IseeWebView/Pods-IseeWebView.release.xcconfig"; sourceTree = "<group>"; };
+		652FD0432567580E003E95B2 /* ChoiceRoleViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChoiceRoleViewModel.h; sourceTree = "<group>"; };
+		652FD0442567580E003E95B2 /* ChoiceRoleViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChoiceRoleViewModel.m; sourceTree = "<group>"; };
+		652FD0462567699E003E95B2 /* IseeChoiceRoleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeChoiceRoleViewController.h; sourceTree = "<group>"; };
+		652FD0472567699E003E95B2 /* IseeChoiceRoleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeChoiceRoleViewController.m; sourceTree = "<group>"; };
+		652FD049256769B4003E95B2 /* IseeChoiceRoleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeChoiceRoleModel.h; sourceTree = "<group>"; };
+		652FD04A256769B4003E95B2 /* IseeChoiceRoleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeChoiceRoleModel.m; sourceTree = "<group>"; };
+		652FD04C256769CC003E95B2 /* IseeChoiceRoleView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeChoiceRoleView.h; sourceTree = "<group>"; };
+		652FD04D256769CC003E95B2 /* IseeChoiceRoleView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeChoiceRoleView.m; sourceTree = "<group>"; };
+		652FD04F25676FB5003E95B2 /* ChangeRoleController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeRoleController.h; sourceTree = "<group>"; };
+		652FD05025676FB5003E95B2 /* ChangeRoleController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeRoleController.m; sourceTree = "<group>"; };
+		652FD0522567EAEE003E95B2 /* IseeRoleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeRoleModel.h; sourceTree = "<group>"; };
+		652FD0532567EAEE003E95B2 /* IseeRoleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeRoleModel.m; sourceTree = "<group>"; };
+		652FD0552567EB84003E95B2 /* IseeRoleCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeRoleCell.h; sourceTree = "<group>"; };
+		652FD0562567EB84003E95B2 /* IseeRoleCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeRoleCell.m; sourceTree = "<group>"; };
+		652FD05A256803DC003E95B2 /* IseeWebModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeWebModel.h; sourceTree = "<group>"; };
+		652FD05B256803DC003E95B2 /* IseeWebModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IseeWebModel.m; sourceTree = "<group>"; };
 		655CE82C2554C802003322F6 /* NSArray+YYLArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+YYLArray.h"; sourceTree = "<group>"; };
 		655CE82D2554C802003322F6 /* NSArray+YYLArray.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+YYLArray.m"; sourceTree = "<group>"; };
 		65663F6425131767002368DF /* IseeLoadingView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IseeLoadingView.h; sourceTree = "<group>"; };
@@ -353,12 +377,12 @@
 		2D8B298C24DBA122004EAC27 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				652FD058256803A8003E95B2 /* web */,
+				652FD0362567562B003E95B2 /* choiceRole */,
 				659EF42425392B5F009F1850 /* choicePeople */,
 				2D398C0725077DD400E516C5 /* choiceRegion */,
 				2DEC696E24FF3AC700695ED7 /* search */,
 				2D8B299824DBD99C004EAC27 /* home */,
-				2D877B8D24CFBDA900AA2983 /* IseeWebViewController.h */,
-				2D877B8E24CFBDA900AA2983 /* IseeWebViewController.m */,
 				2D8B298D24DBA148004EAC27 /* IseeWebHomeTabBar.h */,
 				2D8B298E24DBA148004EAC27 /* IseeWebHomeTabBar.m */,
 				2D5D43A424E4305D005A3E2F /* IseeHomeTabBarModel.h */,
@@ -457,6 +481,8 @@
 				2DDDE56E24C8490B00015C76 /* main.m */,
 				2DE6470524CDB26D006D970E /* SiriViewController.h */,
 				2DE6470624CDB26D006D970E /* SiriViewController.m */,
+				652FD04F25676FB5003E95B2 /* ChangeRoleController.h */,
+				652FD05025676FB5003E95B2 /* ChangeRoleController.m */,
 			);
 			path = IseeWebView;
 			sourceTree = "<group>";
@@ -513,6 +539,68 @@
 				5A7FF4EA19FF42ED579CF236 /* Pods-IseeWebView.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		652FD0362567562B003E95B2 /* choiceRole */ = {
+			isa = PBXGroup;
+			children = (
+				652FD03925675792003E95B2 /* vm */,
+				652FD0382567578C003E95B2 /* v */,
+				652FD03725675783003E95B2 /* m */,
+				652FD0462567699E003E95B2 /* IseeChoiceRoleViewController.h */,
+				652FD0472567699E003E95B2 /* IseeChoiceRoleViewController.m */,
+			);
+			path = choiceRole;
+			sourceTree = "<group>";
+		};
+		652FD03725675783003E95B2 /* m */ = {
+			isa = PBXGroup;
+			children = (
+				652FD049256769B4003E95B2 /* IseeChoiceRoleModel.h */,
+				652FD04A256769B4003E95B2 /* IseeChoiceRoleModel.m */,
+				652FD0522567EAEE003E95B2 /* IseeRoleModel.h */,
+				652FD0532567EAEE003E95B2 /* IseeRoleModel.m */,
+			);
+			path = m;
+			sourceTree = "<group>";
+		};
+		652FD0382567578C003E95B2 /* v */ = {
+			isa = PBXGroup;
+			children = (
+				652FD04C256769CC003E95B2 /* IseeChoiceRoleView.h */,
+				652FD04D256769CC003E95B2 /* IseeChoiceRoleView.m */,
+				652FD0552567EB84003E95B2 /* IseeRoleCell.h */,
+				652FD0562567EB84003E95B2 /* IseeRoleCell.m */,
+			);
+			path = v;
+			sourceTree = "<group>";
+		};
+		652FD03925675792003E95B2 /* vm */ = {
+			isa = PBXGroup;
+			children = (
+				652FD0432567580E003E95B2 /* ChoiceRoleViewModel.h */,
+				652FD0442567580E003E95B2 /* ChoiceRoleViewModel.m */,
+			);
+			path = vm;
+			sourceTree = "<group>";
+		};
+		652FD058256803A8003E95B2 /* web */ = {
+			isa = PBXGroup;
+			children = (
+				652FD059256803BD003E95B2 /* model */,
+				2D877B8D24CFBDA900AA2983 /* IseeWebViewController.h */,
+				2D877B8E24CFBDA900AA2983 /* IseeWebViewController.m */,
+			);
+			path = web;
+			sourceTree = "<group>";
+		};
+		652FD059256803BD003E95B2 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				652FD05A256803DC003E95B2 /* IseeWebModel.h */,
+				652FD05B256803DC003E95B2 /* IseeWebModel.m */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		659EF42425392B5F009F1850 /* choicePeople */ = {
@@ -747,6 +835,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DEC697224FF3B9700695ED7 /* IseeSearchViewController.m in Sources */,
+				652FD0572567EB84003E95B2 /* IseeRoleCell.m in Sources */,
+				652FD04E256769CC003E95B2 /* IseeChoiceRoleView.m in Sources */,
 				2D24A08524CE84E900D68F82 /* IseeBSJSON.m in Sources */,
 				2D9CD07824F55921002B9CE1 /* IseeProdCell.m in Sources */,
 				2D877B9D24CFD21100AA2983 /* IseeNaviBarView.m in Sources */,
@@ -757,6 +847,7 @@
 				659EF437253934C1009F1850 /* IseeChoicePeopleViewModel.m in Sources */,
 				2D9FFDE324C9D01800A41353 /* IseeScanView.m in Sources */,
 				2D398C1E25078F7D00E516C5 /* IseeRegionModel.m in Sources */,
+				652FD05125676FB5003E95B2 /* ChangeRoleController.m in Sources */,
 				659EF44425397BB1009F1850 /* IseeAreaModel.m in Sources */,
 				659EF4312539344E009F1850 /* IseeChoicePeopleView.m in Sources */,
 				2DEC697624FF3BEC00695ED7 /* IseeSearchView.m in Sources */,
@@ -767,11 +858,13 @@
 				2D9CD07524F55813002B9CE1 /* IseeProdModel.m in Sources */,
 				2D398C1B25078F6C00E516C5 /* IseeRegionCell.m in Sources */,
 				2D7B4A1F24C891CE008DE649 /* IseeConfig.m in Sources */,
+				652FD0542567EAEE003E95B2 /* IseeRoleModel.m in Sources */,
 				2D8B298F24DBA148004EAC27 /* IseeWebHomeTabBar.m in Sources */,
 				2D877B9324CFC69200AA2983 /* UIViewController+IseeCommon.m in Sources */,
 				2D877B8F24CFBDA900AA2983 /* IseeWebViewController.m in Sources */,
 				2D398C1825078EF600E516C5 /* IseeChoiceRegionModel.m in Sources */,
 				2D9CD07224F5408F002B9CE1 /* IseeCustModel.m in Sources */,
+				652FD0452567580E003E95B2 /* ChoiceRoleViewModel.m in Sources */,
 				65663F6625131767002368DF /* IseeLoadingView.m in Sources */,
 				659EF43E25395BA5009F1850 /* IseePeopleCell.m in Sources */,
 				659EF4562539B3A0009F1850 /* IseeSegmentHeaderView.m in Sources */,
@@ -782,13 +875,16 @@
 				2D71659524E13B1500611439 /* IseeHomeModel.m in Sources */,
 				2D398C1225077F5B00E516C5 /* IseeChoiceRegionView.m in Sources */,
 				2DDDE55E24C8490600015C76 /* AppDelegate.m in Sources */,
+				652FD04B256769B4003E95B2 /* IseeChoiceRoleModel.m in Sources */,
 				659EF4472539AEED009F1850 /* UIView+IseeHHLayout.m in Sources */,
 				2D8E03422507BCB70006ED5C /* IseeHomeRequestModel.m in Sources */,
 				659EF4342539346A009F1850 /* IseeChoicePeopleModel.m in Sources */,
 				659EF42725392B80009F1850 /* IseeChoicePeopleViewController.m in Sources */,
+				652FD0482567699E003E95B2 /* IseeChoiceRoleViewController.m in Sources */,
 				659EF44125395BC0009F1850 /* IseePeopleModel.m in Sources */,
 				2DDDE56F24C8490B00015C76 /* main.m in Sources */,
 				2DE6470724CDB26D006D970E /* SiriViewController.m in Sources */,
+				652FD05C256803DC003E95B2 /* IseeWebModel.m in Sources */,
 				2D8B299B24DBDBBC004EAC27 /* IseeHomeViewController.m in Sources */,
 				2D398C1525077F8C00E516C5 /* IseeChoiceRegionViewController.m in Sources */,
 				2D71659124E12F9000611439 /* AFAppDotNetAPIClient.m in Sources */,

@@ -148,6 +148,7 @@
 //                 NSString *filePath = [[NSBundle mainBundle]pathForResource:@"test" ofType:@"html" inDirectory:@"www"];
 //                url = [NSURL fileURLWithPath:filePath];
                 iseeVc.mWebViewUrl = url;
+                iseeVc.requesetModel = _model;
             }
             else if([vc isKindOfClass:[IseeHomeViewController class]])
             {

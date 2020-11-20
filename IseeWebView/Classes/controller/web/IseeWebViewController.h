@@ -13,13 +13,13 @@
 #import <AddressBook/AddressBook.h>
 #import <Speech/Speech.h>
 #import <AVFoundation/AVFoundation.h>
-
+#import "IseeHomeRequestModel.h"
 
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IseeWebViewController : UIViewController
-
+@property (nonatomic,strong)IseeHomeRequestModel *requesetModel;//请求model
 @property(nonatomic, strong) NSURL *mWebViewUrl;
 
 @property(nonatomic,copy) NSString *titleName;     //标题
