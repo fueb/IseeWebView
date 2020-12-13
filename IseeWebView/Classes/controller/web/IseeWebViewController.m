@@ -243,7 +243,16 @@
     }
 }
 - (void)goBackChoice {
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+    UIViewController *rootVC = self.presentingViewController;
+    int i = 0;
+
+    while ([rootVC.presentingViewController isMemberOfClass:[IseeChoiceRoleViewController class]]||i ==5) {
+        rootVC = rootVC.presentingViewController;
+        i++;
+    }
+
+    [rootVC dismissViewControllerAnimated:YES completion:nil];
 
 }
 
@@ -538,6 +547,27 @@
     }
 
     [rootVC dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+
+/// 爱营销
+- (void)openLoveMarket{
+    UIViewController *vc        = [[NSClassFromString(@"iseeRouterTool") alloc]init];
+    SEL runAction = NSSelectorFromString(@"selectAppItemFromDictionary");
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setObject:@"7" forKey:@"iosEnterType"];
+    [param setObject:@"ZPaiyingxiao" forKey:@"iosMethod"];
+    [param setObject:@"NewLoveMarketingHomewController" forKey:@"iosClass"];
+    [param setObject:@"176141716" forKey:@"logId"];
+    [param setObject:@"ture" forKey:@"powerType"];
+    [param setObject:_requesetModel.mSaleNum forKey:@"saleNum"];
+    
+    if([vc respondsToSelector:runAction]){
+
+        ((void (*)(id ,SEL, NSMutableDictionary *))(void *)objc_msgSend)(vc, runAction, param);
+    }
     
 }
 
@@ -912,6 +942,10 @@
         else if ([method isEqualToString:@"convertIdentity"])
         {
             [self convertIdentity];
+        }
+        else if ([method isEqualToString:@"openLoveMarket"])
+        {
+            [self openLoveMarket];
         }
         decisionHandler(WKNavigationActionPolicyCancel);
         return;

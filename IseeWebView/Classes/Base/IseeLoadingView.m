@@ -43,8 +43,7 @@
 - (void)getIseeLoadingWithImgName:(NSString *)imgName titleHave:(BOOL)isHave{
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"IseeWebResource.bundle" ofType:nil];
     NSString *configPath = [bundlePath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@/%@",@"img",imgName]];
-    configPath = [NSString stringWithFormat:@"file:///%@",configPath];
-    NSURL *fileUrl = [NSURL URLWithString:configPath];
+    NSURL *fileUrl = [NSURL fileURLWithPath:configPath];
     
     //将GIF图片转换成对应的图片源
     CGImageSourceRef gifSource = CGImageSourceCreateWithURL((CFURLRef)fileUrl, NULL);
@@ -52,6 +51,8 @@
     size_t frameCount = CGImageSourceGetCount(gifSource);
     //定义数组存储拆分出来的图片
     NSMutableArray *frames = [[NSMutableArray alloc] init];
+    //总时长
+    NSTimeInterval totalDuration = 0;
     for (size_t i = 0; i < frameCount; i++) {
         //从GIF图片中取出源图片
         CGImageRef imageRef = CGImageSourceCreateImageAtIndex(gifSource, i, NULL);
@@ -59,13 +60,15 @@
         UIImage *imageName = [UIImage imageWithCGImage:imageRef];
         //将图片加入数组中
         [frames addObject:imageName];
+        NSTimeInterval duration = [self gifImageDeleyTime:gifSource index:i];
+        totalDuration += duration;
         CGImageRelease(imageRef);
     }
     gifImageView = [[UIImageView alloc] init];
     //将图片数组加入UIImageView动画数组中
     gifImageView.animationImages = frames;
     //每次动画时长
-    gifImageView.animationDuration = 1.3;
+    gifImageView.animationDuration = totalDuration;
     //开启动画，此处没有调用播放次数接口，UIImageView默认播放次数为无限次，故这里不做处理
     [gifImageView startAnimating];
     [self addSubview:gifImageView];
@@ -95,5 +98,28 @@
     if (!isHave) {
         title.hidden = YES;
     }
+}
+
+ //获取GIF图片每帧的时长
+- (NSTimeInterval)gifImageDeleyTime:(CGImageSourceRef)imageSource index:(NSInteger)index {
+    NSTimeInterval duration = 0;
+    CFDictionaryRef imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource, index, NULL);
+    if (imageProperties) {
+        CFDictionaryRef gifProperties;
+        BOOL result = CFDictionaryGetValueIfPresent(imageProperties, kCGImagePropertyGIFDictionary, (const void **)&gifProperties);
+        if (result) {
+            const void *durationValue;
+            if (CFDictionaryGetValueIfPresent(gifProperties, kCGImagePropertyGIFUnclampedDelayTime, &durationValue)) {
+                duration = [(__bridge NSNumber *)durationValue doubleValue];
+                if (duration < 0) {
+                    if (CFDictionaryGetValueIfPresent(gifProperties, kCGImagePropertyGIFDelayTime, &durationValue)) {
+                        duration = [(__bridge NSNumber *)durationValue doubleValue];
+                    }
+                }
+            }
+        }
+    }
+    
+    return duration;
 }
 @end

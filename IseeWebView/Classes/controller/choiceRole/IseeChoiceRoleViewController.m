@@ -7,6 +7,7 @@
 //
 
 #import "IseeChoiceRoleViewController.h"
+#import <objc/message.h>
 #import "IseeChoiceRoleModel.h"
 #import "IseeChoiceRoleView.h"
 #import "IseeConfig.h"
@@ -101,6 +102,8 @@
         {
             NSMutableArray *data = result[@"data"];
             
+            
+            
             for (int i = 0;i < data.count;i++)
             {
                 NSDictionary *dict = data[i];
@@ -111,6 +114,11 @@
             }
             [stSelf->roleView reloadTable];
             
+            if (data.count <= 0) {
+                dispatch_after(DISPATCH_TIME_NOW+1, dispatch_get_main_queue(), ^{
+                    [stSelf openIsee];
+                });
+            }
            
         }
         else
@@ -118,6 +126,9 @@
             type = 0;
             errorStr = result[@"msg"];
             [IseeAFNetRequest showHUD:[IseeConfig mainWindow] withText:errorStr];
+            dispatch_after(DISPATCH_TIME_NOW+1, dispatch_get_main_queue(), ^{
+                [stSelf openIsee];
+            });
         }
         
     } failure:^{
@@ -204,4 +215,19 @@
      }
      return regionModel;
  }
+
+
+#pragma mark - isee
+-(void)openIsee{
+    
+    UIViewController *vc        = [[NSClassFromString(@"ChangeRoleController") alloc]init];
+    SEL runAction = NSSelectorFromString(@"goToTheNormalHomePage");
+    
+    if([vc respondsToSelector:runAction]){
+
+        ((void (*)(id ,SEL))(void *)objc_msgSend)(vc, runAction);
+    }
+    
+
+}
 @end

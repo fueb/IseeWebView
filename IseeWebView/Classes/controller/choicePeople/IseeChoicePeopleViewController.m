@@ -17,6 +17,7 @@
 #import "IseeHomeTabBarModel.h"
 #import "IseeAreaModel.h"
 
+
 @interface IseeChoicePeopleViewController ()
 {
     
@@ -27,6 +28,8 @@
     BOOL isLoading;
     
     IseeLoadingView *loading;
+    
+    NSInteger * loadingCount;
 }
 @property(nonatomic, strong) IseeChoicePeopleView *iseeChoicePeopleV;
 @property(nonatomic, strong) IseeChoicePeopleViewModel *iseeChoicePeopleVM;
@@ -54,6 +57,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     
+    loadingCount = 0;
     pageSize = 15;
     pageNum = 1;
     __weak typeof(self) wkSelf = self;
@@ -136,21 +140,13 @@
 #pragma mark - requeset
 - (void)ssoLogin{
     [self showLoading];
-    
     __weak typeof(self) wkSelf = self;
     [self.iseeHomeTabBarModel isee_ssoLoginWith:requestModel.mLoginName withCompanyId:requestModel.mCompanyId withStaffCode:requestModel.mStaffCode withManagerId:requestModel.mManagerId
     withManagerTypeId:@"210"  Success:^(id  _Nonnull result) {
         NSLog(@"%@", result);
-        [wkSelf removeLoading];
+        
         if ([result[@"code"] integerValue] == 200)
         {
-//            NSDictionary *data = result[@"data"];
-//            NSDictionary *currentManagerTm = data[@"currentManagerTm"];
-//            long tempLatnId = [currentManagerTm[@"latnId"] longValue];
-//
-//            NSString *latnId = [NSString stringWithFormat:@"%ld",tempLatnId];
-//            self->requestModel.latnId = latnId;
-
             [wkSelf getArea:@"initId"];
         }
         else
@@ -158,7 +154,7 @@
              IseeAlert(result[@"msg"],NULL);
         }
     } failure:^{
-        [wkSelf removeLoading];
+        
     }];
     
 }
@@ -176,10 +172,10 @@
     [self showLoading];
     [self.iseeChoicePeopleVM isee_findAreaWithParam:dict WithSuccess:^(id  _Nonnull result) {
 
-        [wkSelf removeLoading];
+        
         NSLog(@"%@",result);
     } failure:^{
-        [wkSelf removeLoading];
+        
     }];
 }
 - (void)getPeople:(NSString *)staffName
@@ -232,6 +228,9 @@
 }
 
 - (void)removeLoading{
+    if (loadingCount > 0) {
+        return;
+    }
     [loading removeFromSuperview];
     loading = nil;
 }

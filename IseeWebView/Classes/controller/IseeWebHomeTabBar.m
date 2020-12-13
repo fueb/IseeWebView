@@ -143,6 +143,11 @@
                     }
                     
                 }
+                if ([dict[titleKey] isEqualToString:@"工具"])
+                {
+                    urlStr = [urlStr stringByAppendingFormat:@"&saleNum=%@",_model.mSaleNum];
+                    
+                }
                 
                 NSURL *url = [NSURL URLWithString:urlStr];//urlTF.text];
 //                 NSString *filePath = [[NSBundle mainBundle]pathForResource:@"test" ofType:@"html" inDirectory:@"www"];
