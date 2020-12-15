@@ -16,6 +16,7 @@
 #import "IseeLoadingView.h"
 #import "IseeHomeTabBarModel.h"
 #import "IseeAreaModel.h"
+#import "IseeAFNetRequest.h"
 
 
 @interface IseeChoicePeopleViewController ()
@@ -76,6 +77,7 @@
     _iseeChoicePeopleV.isPullUp_refresh = YES;
     wkSelf.iseeChoicePeopleVM.peopleModel.selectAreaId = requestModel.mCompanyId;
     [self getPeople:@""];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -139,12 +141,12 @@
 
 #pragma mark - requeset
 - (void)ssoLogin{
-    [self showLoading];
+    [IseeAFNetRequest showLoading:self.view];
     __weak typeof(self) wkSelf = self;
     [self.iseeHomeTabBarModel isee_ssoLoginWith:requestModel.mLoginName withCompanyId:requestModel.mCompanyId withStaffCode:requestModel.mStaffCode withManagerId:requestModel.mManagerId
     withManagerTypeId:@"210"  Success:^(id  _Nonnull result) {
         NSLog(@"%@", result);
-        
+        [IseeAFNetRequest removeLoading];
         if ([result[@"code"] integerValue] == 200)
         {
             [wkSelf getArea:@"initId"];
@@ -154,7 +156,7 @@
              IseeAlert(result[@"msg"],NULL);
         }
     } failure:^{
-        
+        [IseeAFNetRequest removeLoading];
     }];
     
 }
@@ -169,13 +171,15 @@
     }
     [dict setObject:value forKey:key];
 
-    [self showLoading];
+    [IseeAFNetRequest showLoading:self.view];
     [self.iseeChoicePeopleVM isee_findAreaWithParam:dict WithSuccess:^(id  _Nonnull result) {
 
-        
+        if (!isLoading) {
+            [IseeAFNetRequest removeLoading];
+        }
         NSLog(@"%@",result);
     } failure:^{
-        
+        [IseeAFNetRequest removeLoading];
     }];
 }
 - (void)getPeople:(NSString *)staffName
@@ -193,9 +197,11 @@
         [dict setObject:staffName forKey:@"staffName"];
     }
     
-    [wkSelf showLoading];
+    [IseeAFNetRequest showLoading:self.view];
+    isLoading = YES;
     [wkSelf.iseeChoicePeopleVM isee_findPeopleWithParam:dict WithSuccess:^(id  _Nonnull result) {
-        [wkSelf removeLoading];
+        [IseeAFNetRequest removeLoading];
+        isLoading = NO;
         [wkSelf.iseeChoicePeopleV endRefresh];
         if ([result[@"code"] integerValue] == 200)
         {
@@ -206,8 +212,9 @@
              IseeAlert(result[@"msg"],NULL);
         }
     } failure:^{
-        [wkSelf removeLoading];
+        [IseeAFNetRequest removeLoading];
         [wkSelf.iseeChoicePeopleV endRefresh];
+        isLoading = NO;
     }];
     
     
@@ -219,6 +226,7 @@
     loading = nil;
     loading = [[IseeLoadingView alloc] initWithView:self.view withImgName:@"peopleLoading.gif" titleHave:YES];
     [self.view addSubview:loading];
+    loadingCount++;
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         sleep(50);
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -228,6 +236,7 @@
 }
 
 - (void)removeLoading{
+    loadingCount--;
     if (loadingCount > 0) {
         return;
     }

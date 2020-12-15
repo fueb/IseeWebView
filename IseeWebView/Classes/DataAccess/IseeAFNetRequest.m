@@ -13,7 +13,7 @@
 
 @implementation IseeAFNetRequest
 static MBProgressHUD *HUD;
-//static IseeLoadingView *loading;
+static IseeLoadingView *loading;
 + (void)showHUD:(UIView *)view withText:(NSString *)text{
     [HUD removeFromSuperview];
     HUD = nil;
@@ -38,25 +38,19 @@ static MBProgressHUD *HUD;
 }
 + (void)showHUD:(UIView *)view
 {
-//    [loading removeFromSuperview];
-//    loading = nil;
-//    loading = [[IseeLoadingView alloc] initWithView:view];
-//    [view addSubview:loading];
-//    return;
+
     
     [HUD removeFromSuperview];
     HUD = nil;
     HUD = [[MBProgressHUD alloc] initWithView:view];
     [view addSubview:HUD];
     [HUD hideAnimated:YES afterDelay:50.0];
-//    HUD.activityIndicatorColor = [UIColor whiteColor];
-//    HUD.label.text = @"请稍等...";
-    
+
     [HUD showAnimated:YES];
     HUD.bezelView.color = [UIColor blackColor];
     HUD.label.textColor = [UIColor whiteColor];
     HUD.bezelView.alpha = 0.7;
-    
+
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         sleep(50);
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -65,10 +59,28 @@ static MBProgressHUD *HUD;
     });
 }
 
++ (void)showLoading:(UIView *)view
+{
+    [loading removeFromSuperview];
+    loading = nil;
+    loading = [[IseeLoadingView alloc] initWithView:view withImgName:@"peopleLoading.gif" titleHave:YES];
+    [view addSubview:loading];
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        sleep(50);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [loading setHidden:YES];
+        });
+    });
+    
+}
++ (void)removeLoading
+{
+    [loading removeFromSuperview];
+    loading = nil;
+
+}
 + (void)removeHUD
 {
-//    [loading removeFromSuperview];
-//    loading = nil;
     [HUD removeFromSuperview];
     HUD = nil;
 }

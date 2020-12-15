@@ -60,7 +60,7 @@
     
     [self.view addSubview:roleView];
     [roleView setModel:nil];
-    [self getRegion];
+//    [self getRole];
 }
 
 - (void)showLoading{
@@ -81,7 +81,7 @@
     loading = nil;
 }
 
-- (void)getRegion{
+- (void)getRole{
     
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setObject:requestModel.mLoginName forKey:@"mobile"];
@@ -95,15 +95,13 @@
         __strong typeof(self) stSelf = wkSelf;
         [stSelf removeLoading];
         NSLog(@"%@", result);
-        NSInteger type = 1;//0:错误没有包区，1：多个包区进入包区选择页面，2：1个包区直接进入首页，3：管理员进入人员选择页面
+        NSInteger type = 1;//0:错误没有包区，1：多个角色进入角色选择页面，2：1个客户经理直接进入首页，3：1个管理员进入人员选择页面
         NSString *errorStr = @"成功";
         
         if ([result[@"code"] integerValue] == 200)
         {
             NSMutableArray *data = result[@"data"];
-            
-            
-            
+
             for (int i = 0;i < data.count;i++)
             {
                 NSDictionary *dict = data[i];
@@ -114,6 +112,28 @@
             }
             [stSelf->roleView reloadTable];
             
+            if (stSelf->roleAry.count == 1)
+            {
+                IseeRoleModel *model = stSelf->roleAry[0];
+                stSelf->requestModel.latnId = [NSString stringWithFormat:@"%lld",[model.latnId longLongValue]];
+                stSelf->requestModel.mStaffCode = model.staffCode;
+                stSelf->requestModel.mManagerId = [NSString stringWithFormat:@"%lld",[model.managerId longLongValue]];
+                stSelf->requestModel.mCompanyId = [NSString stringWithFormat:@"%lld",[model.areaId longLongValue]];
+                stSelf->requestModel.areaId = [NSString stringWithFormat:@"%lld",[model.areaId longLongValue]];
+                stSelf->requestModel.mManagerTypeId = [NSString stringWithFormat:@"%lld",[model.managerTypeId longLongValue]];
+                if ([stSelf->requestModel.mManagerTypeId isEqualToString:@"210"]) {
+                     //管理层
+                    type = 3;
+                }
+                else if ([stSelf->requestModel.mManagerTypeId isEqualToString:@"220"])
+                {
+                    //客户经理
+                    type = 2;
+                }
+            }
+            if (stSelf->_returnRole) {
+                stSelf->_returnRole(stSelf->requestModel,type,errorStr);
+            }
             if (data.count <= 0) {
                 dispatch_after(DISPATCH_TIME_NOW+1, dispatch_get_main_queue(), ^{
                     [stSelf openIsee];

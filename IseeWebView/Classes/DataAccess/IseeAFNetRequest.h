@@ -24,6 +24,8 @@ typedef NS_ENUM(NSUInteger,RequestType) {
 @property (nonatomic,strong)NSURLSessionDataTask *requestTask;
 + (void)showHUD:(UIView *)view withText:(NSString *)text;
 + (void)showHUD:(UIView *)view;
++ (void)showLoading:(UIView *)view;
++ (void)removeLoading;
 + (void)removeHUD;
 + (void)requestWithURLString:(NSString *)URLString
                   parameters:(id)parameters

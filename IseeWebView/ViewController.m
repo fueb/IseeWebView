@@ -20,6 +20,7 @@
 #import "NSArray+YYLArray.h"
 #import "IseeChoiceRoleViewController.h"
 
+
 @interface ViewController () <WKNavigationDelegate, WKUIDelegate,UIImagePickerControllerDelegate,ScanViewDelegate,CLLocationManagerDelegate,SFSpeechRecognizerDelegate>
 {
     IseeScanView    *scanView;                //二维码扫描对象
@@ -98,9 +99,43 @@
 }
 -(void)btnClick{
     //18968198127,1   17706570978,9662,15305735993，17757386606
-    IseeChoiceRoleViewController *vc = [[IseeChoiceRoleViewController alloc] initWithLoginName:@"19906725057" withCompanyId:@"1" withSession:@"sasdad" withUserId:@"1231" withSaleNum:@"1231"];
+    IseeChoiceRoleViewController *vc = [[IseeChoiceRoleViewController alloc] initWithLoginName:@"17757386606" withCompanyId:@"1" withSession:@"sasdad" withUserId:@"1231" withSaleNum:@"1231"];
+    [vc getRole];
     vc.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self presentViewController:vc animated:YES completion:nil];
+    __weak __typeof(IseeChoiceRoleViewController *)  weakvc = vc;
+    __weak __typeof(self)weakSelf = self;
+    [vc setReturnRole:^(IseeHomeRequestModel * _Nonnull regionJson, NSInteger conType, NSString * _Nonnull errorStr)
+    {
+        __strong typeof(IseeChoiceRoleViewController *) stVc = weakvc;
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        if (conType == 0)
+        {
+            //获取信息失败提示信息
+            NSLog(@"%@",errorStr);
+
+        }
+        else if (conType == 1)
+        {
+            //多个角色进角色选择页面
+            [strongSelf presentViewController:stVc animated:YES completion:nil];
+        }
+        else if (conType == 2)
+        {
+            //单个角色且是客户经理，直接进首页
+            IseeWebHomeTabBar *homeTabBar = [[IseeWebHomeTabBar alloc]initWithModel:regionJson];
+            homeTabBar.modalPresentationStyle = UIModalPresentationFullScreen;
+            [weakSelf presentViewController:homeTabBar animated:YES completion:nil];
+        }
+        else if (conType == 3)
+        {
+            //单个角色且是管理层，直接进人员选择页面
+            IseeChoicePeopleViewController *vc = [[IseeChoicePeopleViewController alloc] initWithModel:regionJson];
+
+            vc.modalPresentationStyle = UIModalPresentationFullScreen;
+            [self presentViewController:vc animated:YES completion:nil];
+        }
+        
+    }];
 }
 //-(void)btnClick{
 //    //18968198127,1   17706570978,9662,15305735993，17757386606
